@@ -1,0 +1,33 @@
+---
+config:
+  theme: default
+  layout: dagre
+---
+flowchart TB
+    S(("Inicio")) -- Anotación --> D["Anotación"]
+    D --> D2["Transformación a features"]
+    B["FASTA"] --> D
+    C["Ensamblaje del genoma"] --> B2["FASTA"] & S1{"¿Ejecutar anotación?"}
+    S -- Ensamblaje --> C
+    S -- Predicción --> G["Predicción de resistencia"]
+    C -.-> DL3["Descarga de resultados"]
+    DL3 --> S1
+    S1 -- Automático --> D
+    S1 -- Manual --> D
+    S1 -- No --> END2(("Fin"))
+    A["FASTQ"] --> C
+    D2 -.-> DL1["Descarga de resultados"]
+    DL1 --> F{"¿Ejecutar predicción?"}
+    D2 --> F
+    F -- No --> END(("Fin"))
+    F -- Sí --> G
+    G --> H["Predicción"] & V["Visualización de resultados"]
+    V -.-> DL2["Descarga de predicciones"]
+    G -.-> DL2
+    V --> END
+    DL2 --> END
+
+    B@{ shape: lean-r}
+    B2@{ shape: lean-r}
+    A@{ shape: lean-r}
+    H@{ shape: lean-r}

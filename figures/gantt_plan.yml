@@ -1,0 +1,143 @@
+show-today: false
+headers:
+  - month
+
+start: 2025-11-25
+end: 2026-05-12
+
+tasks:
+  # Sprint 1
+  - name: "S1 - Estudio previo"
+    subtasks:
+      - name: "Contexto biológico"
+        start: 2025-11-25
+        end: 2025-11-29
+      - name: "Estado del arte"
+        start: 2025-11-29
+        end: 2025-12-02
+
+  # Sprint 2
+  - name: "S2 - Diseño"
+    subtasks:
+      - name: "Diseño de arquitectura"
+        start: 2025-12-02
+        end: 2025-12-10
+        color: backend
+      - name: "Modelo de datos"
+        start: 2025-12-10
+        end: 2025-12-16
+        color: backend
+
+  # Sprint 3
+  - name: "S3 - Infraestructura"
+    subtasks:
+      - name: "Docker y despliegue"
+        start: 2025-12-16
+        end: 2026-01-05
+        color: backend
+      - name: "Autenticación"
+        start: 2026-01-05
+        end: 2026-01-13
+        color: backend
+
+  # Sprint 4
+  - name: "S4 - Conversión"
+    subtasks:
+      - name: "Integración ensablaje"
+        start: 2026-01-13
+        end: 2026-01-20
+        color: bio
+      - name: "Integración de anotación"
+        start: 2026-01-20
+        end: 2026-01-27
+        color: backend
+
+  # Sprint 5
+  - name: "S5 - Parseo y persistencia"
+    subtasks:
+      - name: "Parseo de resultados"
+        start: 2026-01-27
+        end: 2026-02-03
+        color: bio
+      - name: "Persistencia en BD"
+        start: 2026-02-03
+        end: 2026-02-10
+        color: backend
+
+  # Sprint 6
+  - name: "S6 - Predicción"
+    subtasks:
+      - name: "Pipeline de predicción"
+        start: 2026-02-10
+        end: 2026-02-24
+        color: ml
+      - name: "Integración modelo"
+        start: 2026-02-24
+        end: 2026-03-03
+        color: ml
+
+  # Sprint 7
+  - name: "S7 - Modelos y framework"
+    subtasks:
+      - name: "Arquitectura de modelos"
+        start: 2026-03-03
+        end: 2026-03-10
+        color: ml
+      - name: "Registro automático de modelos"
+        start: 2026-03-10
+        end: 2026-03-17
+        color: ml
+
+  # Sprint 8
+  - name: "S8 - Interfaz"
+    subtasks:
+      - name: "Pantallas de conversión"
+        start: 2026-03-17
+        end: 2026-03-31
+        color: ui
+      - name: "Notificaciones y seguimiento"
+        start: 2026-03-31
+        end: 2026-04-07
+        color: ui
+      - name: "Pantalla de predicción"
+        start: 2026-04-07
+        end: 2026-04-14
+        color: ui
+
+  # Sprint 9
+  - name: "S9 - Integración"
+    subtasks:
+      - name: "Integración del sistema"
+        start: 2026-04-14
+        end: 2026-04-17
+        color: general
+      - name: "Testing y validación"
+        start: 2026-04-17
+        end: 2026-04-21
+        color: general
+
+  # Sprint 10
+  - name: "S10 - Cierre"
+    color: general
+    subtasks:
+      - name: "Redacción memoria"
+        start: 2026-04-21
+        end: 2026-05-08
+        color: general
+
+      - name: "Despliegue final"
+        start: 2026-05-08
+        end: 2026-05-12
+        color: backend
+
+milestones:
+  - name: "Sistema base"
+    date: 2026-01-13
+  - name: "Conversión"
+    date: 2026-02-10
+  - name: "Predicción"
+    date: 2026-03-17
+  - name: "UI"
+    date: 2026-04-14
+  - name: "Fin"
+    date: 2026-05-12
