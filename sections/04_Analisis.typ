@@ -28,8 +28,6 @@ Aunque estas herramientas son ampliamente utilizadas en la comunidad científica
 
 // TODO: Maybe incluir un ejemplo de comando para cada etapa, o una captura de pantalla de la terminal con el proceso
 
-// TODO: incluir una pipeline de ejemplo con las herramientas más comunes, aunque sea a modo de ejemplo o algo así
-
 Con el objetivo de reducir esta barrera de entrada, han surgido plataformas que  ofrecen interfaces gráficas más accesibles para la ejecución de estos flujos de trabajo. Entre ellas destacan _Galaxy_ y _Geneious_.
 
 _Galaxy_ es una plataforma de código abierto basada en un entorno webque permite ejecutar herramientas de análisis bioinformático, gestionar datos y construir flujos de trabajo reproducibles. Su principal ventaja es la centralización de herramientas heterogéneas bajo una única interfaz, ofreciendo gran variedad de herramientas con usos distintos para cada fase. Sin embargo, el usuarios debe seleccionar manualmente cada herramienta, su orden de ejecución y configurar sus parámetros, lo que puede resultar complejo para usuarios sin experiencia técnica. Además, la amplia variedad de herramientas disponibles dificulta la selección de las más adecuadas para cada uso y la búsqueda de herramientas específicas puede resultar complicada.
@@ -43,7 +41,9 @@ En conclusión, las soluciones actuales proporcionan distintos niveles de abstra
 === Predicción de resistencia a antibióticos
 Existen diversos enfoques computacionales para la predicción de resistencia a antibióticos a partir de datos genómicos, que incluyen tanto modelos basados en aprendizaje automático o métodos basados en alineamiento contra bases de datos de genes de resistencia, como muchos otros enfoques. Entre los primeros se encuentran herramientas como _DeepARG_, basadas en redes neuronales, mientras que otras herramientas como _ResFinder_ se apoyan en estrategias de búqueda por homología frente a bases de datos curadas de datos de resistencia.
 
-// TODO: modelo de bicho concreto
+// TODO: también existen los modelos de bichos concretos
+
+// TODO: Citas a algunos papers con ejemplos de modelos de ML para la predicción de resistencia a antibióticos, y breve descripción de los mismos???? -. mejorar en estado actual
 
 Estos enfoques han demostrado ser efectivos para inferir la resistencia a antibióticos a partir de representaciones derivadas del análisis genómico, como la presencia o ausencia de genes específicos o funciones biológicas obtenidas tras la anotación de la secuencia. En este sentido, podemos considerarlas como parte del análisis final dentro del flujo de análisis genómico, que utiliza los resultados generados en las etapas anteriores para producir predicciones.
 
@@ -231,25 +231,20 @@ En conjunto, el sistema se orienta a reducir la barrera técnica existente en el
 Se presenta a continuación un catálogo de requisitos que se deriva del análisis realizado en las secciones anteriores, estructurado en casos de uso, requisitos de información, requisitos funcionales y requisitos no funcionales, que servirán como base para el diseño detallado e implementación del sistema.
 
 === Casos de uso
-En esta sección se presentan los casos de uso derivados de las historias de usuario. Cada caso de uso incluye una descripción detallada del flujo principal, los resultados esperados y las posibles excepciones o errores que pueden ocurrir durante su ejecución.
+En esta sección se presentan los casos de uso derivados de las historias de usuario. Cada caso de uso describe el comportamiento del sistema, incluyendo el flujo principal, los resultados esperados y las posibles excepciones o errores que pueden ocurrir durante su ejecución.
 
 ==== Actores
 Los actores principales que interactúan en los casos de uso son:
 
-/ *ACT-001 - Usuario investigador o profesional de la salud*: realiza análisis genómicos y utiliza modelos de predicción de resistencia a antibióticos para obtener información biológica a partir de datos de secuenciación.
+/ *ACT-001 - Usuario investigador o profesional de la salud*: utilia el sistema para realizar análisis genómicos y ejecutar modelos de predicción de resistencia a antibióticos, con el objetivo de obtener información biológica a partir de datos de secuenciación y apoyar la interpretación de muestras genómicas.
 
-/ *ACT-002* - *Sistema de análisis genómico y predicción de resistencia a antibióticos*: Sistema propuesto que integra el flujo de análisis genómico y la predicción de resistencia a antibióticos, proporcionando una interfaz gráfica accesible para usuarios sin experiencia técnica.
+/ *ACT-002* - *Sistema de análisis genómico y predicción de resistencia a antibióticos*: Sistema propuesto que integra el flujo completo de análisis genómico y modelos predictivos, proporcionando una interfaz accesible para el procesamiento de datos biológicos.
 
 === Diagramas y definición de casos de uso
 
-Se asumen las siguientes precondiciones para todos los casos de uso del sistema:
-- El usuario (ACT-001), investigador o profesional de la salud, deberá estar autenticado en el sistema mediante una cuenta de usuario válida.
+Todos los casos de uso del ssitema requieren que el usuario(ACT-001), investigador o profesional de la salud, esté autenticado en el sistema mediante una cuenta de usuario válida.
 
-Se asumen las siguientes excepciones comunes para todos los casos de uso del sistema:
-- El sistema debe tener un sistema de control de propiedad, donde solo se podrán visualizar o realizar transformaciones sobre entidades pertenecientes al usuario autenticado (como procesos, sus resultados o notificaciones).
-
-
-// TODO: añdir más cosas generales
+Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los datos del usuario, implementando mecanismos de control de propiedad, garantizando que únicamente se puedan consultar o modificar entidades pertenecientes al usuario autenticado, como procesos de análisis genómico, resultados o notificaciones asociadas a su cuenta.
 
 // TODO: añadir el nombre final del sistema?
 
@@ -265,22 +260,22 @@ Se asumen las siguientes excepciones comunes para todos los casos de uso del sis
 #caso_de_uso(
   "001",
   "Ejecutar flujo de ensamblaje y anotación",
-  "El usuario (ACT-001) dispone de datos lecturas en formato FASTQ",
-  "Permite ejecutar el flujo de análisis genómico desde el ensamblaje al anotado, incluyendo la transformación automática de resultados a características compatibles con modelos de predicción (features)",
+  "El usuario (ACT-001) dispone de datos de secuenciación en formato FASTQ",
+  "Permite ejecutar el flujo completo de análisis genómico, desde el ensamblaje hasta la anotación, incluyendo la transformación automática de resultados a características (features) compatibles con modelos de predicción",
 
   (
-    "El usuario (ACT-001) entra en la sección Ensamblaje del sistema",
+    "El usuario (ACT-001) accede a la sección Ensamblaje del sistema",
     "El usuario (ACT-001) selecciona el tipo de datos de entrada",
     "El actor (ACT-001) proporciona los datos de secuenciación en formato FASTQ",
-    "El actor (ACT-001) selecciona la opción de ejecutar el flujo completo de análisis genómico",
-    "El sistema (ACT-002) inicia el proceso de ensamblaje utilizando los datos proporcionados",
-    "El sistema (ACT-002) genera contigs en formato FASTA como resultado del ensamblaje",
-    "El sistema (ACT-002) inicia el proceso de anotación utilizando los contigs generados en la etapa anterior",
+    "El actor (ACT-001) selecciona la opción de ejecutar el flujo completo de análisis genómico e inicia el proceso",
+    "El sistema (ACT-002) inicia el ensamblaje utilizando los datos proporcionados",
+    "El sistema (ACT-002) genera contigs en formato FASTA",
+    "El sistema (ACT-002) ejecuta la anotación utilizando los contigs generados en la etapa anterior",
     "El sistema (ACT-002) genera una representación funcional del genoma como resultado de la anotación",
-    "El sistema (ACT-002) transforma automáticamente la representación funcional en un conjunto de características compatibles con modelos de predicción",
+    "El sistema (ACT-002) transforma automáticamente la representación funcional en features",
   ),
 
-  "Se generan resultados del ensamblaje, anotación y transformación de datos, que pueden ser descargados o utilizados para predicciones. Las features se encuentran calculadas y almacenadas en el sistema, listas para su uso en modelos de predicción",
+  "Se generan resultados de ensamblaje y anotación en el sistema, que pueden ser descargados o utilizados para predicciones. Las features se encuentran calculadas y almacenadas en el sistema, listas para su uso en modelos de predicción",
 
   (
     "Datos inválidos: se muestra un mensaje explicativo al usuario",
@@ -291,11 +286,11 @@ Se asumen las siguientes excepciones comunes para todos los casos de uso del sis
 #caso_de_uso(
   "002",
   "Ejecutar flujo de ensamblaje",
-  "El usuario (ACT-001) dispone de datos lecturas en formato FASTQ",
-  "Permite ejecutar la etapa de ensamblaje",
+  "El usuario (ACT-001) dispone de datos de secuenciación en formato FASTQ",
+  "Permite ejecutar la etapa de ensamblaje a partir de datos de secuenciación",
 
   (
-    "El usuario (ACT-001) entra en la sección Ensamblaje del sistema",
+    "El usuario (ACT-001) accede a la sección Ensamblaje del sistema",
     "El usuario (ACT-001) selecciona el tipo de datos de entrada",
     "El actor (ACT-001) proporciona los datos de secuenciación en formato FASTQ",
     "El sistema (ACT-002) inicia el proceso de ensamblaje utilizando los datos proporcionados",
@@ -313,11 +308,11 @@ Se asumen las siguientes excepciones comunes para todos los casos de uso del sis
 #caso_de_uso(
   "003",
   "Ejecutar flujo de anotación",
-  "El usuario (ACT-001) dispone de datos lecturas en formato FASTA o un proceso de ensamblaje anterior sin anotación asociada",
+  "El usuario (ACT-001) dispone de datos lecturas en formato FASTA o un proceso de ensamblaje anterior que no ha sido anotado todavía",
   "Permite ejecutar la etapa de anotación",
 
   (
-    "El usuario (ACT-001) entra en la sección Anotación del sistema",
+    "El usuario (ACT-001) accede a la sección Anotación del sistema",
     "El usuario (ACT-001) selecciona el archivo de entrada para la anotación, que puede ser un archivo FASTA con contigs ensamblados o un proceso de ensamblaje previo sin anotación asociada",
     "El sistema (ACT-002) inicia el proceso de anotación utilizando los datos proporcionados",
     "El sistema (ACT-002) genera una representación funcional del genoma como resultado de la anotación",
@@ -336,7 +331,7 @@ Se asumen las siguientes excepciones comunes para todos los casos de uso del sis
   "004",
   "Generar features para predicción",
   "El usuario (ACT-001) dispone de resultados de anotación válidos",
-  "Permite cargar resultados de anotación externos y generar características para predicción",
+  "Permite cargar resultados de anotación externos y generar feaures compatibles con los modelos de predicción",
 
   (
     "El usuario (ACT-001) entra en la sección Anotación del sistema",
@@ -529,7 +524,6 @@ Se asumen las siguientes excepciones comunes para todos los casos de uso del sis
 )
 
 === Requisitos de información
-// TODO: había una plantilla de requisitos?
 
 Los requisitos de información son...
 

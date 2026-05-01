@@ -40,7 +40,7 @@ Los datos generados se almacenan habitualmente en formato FASTQ, el cual incluye
 
 === Ensamblaje
 
-El ensamblaje genómico es el proceso mediante el cual se reconstruye la secuencia completa del genoma a partir de las lecturas obtenidas en la secuenciación. Este proceso es especialmente complejo debido a la naturaleza fragmentada de los datos y la presencia de errores en las lecturas.
+El ensamblaje genómico, assembly en inglés, es el proceso mediante el cual se reconstruye la secuencia completa del genoma a partir de las lecturas obtenidas en la secuenciación. Este proceso es especialmente complejo debido a la naturaleza fragmentada de los datos y la presencia de errores en las lecturas.
 
 Para llevar a cabo el ensamblaje, se utilizan algoritmos que buscan solapamientos entre las lecturas para construir secuencias más largas llamadas _contigs_. Los contigs representan fragmentos continuos del genoma y, en condiciones ideales, permiten reconstruirlo de forma completa.
 
@@ -56,7 +56,7 @@ Los resultados de este proceso se almacenan en formato FASTA, que contiene los s
 )<fig:assembly>
 
 === Anotación
-Una vez obtenido el genoma ensamblado, se inicia el proceso de anotación, cuyo objetivo es identificar elementos biológicos relevantes como genes, regiones codificantes y proteínas asociadas.
+Una vez obtenido el genoma ensamblado, se inicia el proceso de anotación, o annotation en inglés, cuyo objetivo es identificar elementos biológicos relevantes como genes, regiones codificantes y proteínas asociadas.
 
 En este trabajo se utiliza la herramienta _Bakta_, ampliamente empleada en el ámbito de la genómica bacteriana. Bakta realiza la predicción de genes a partir de secuencias genómicas y asigna funciones biológicas mediante la comparación con bases de datos de referencia y modelos de anotación.
 
@@ -75,8 +75,6 @@ El segundo pilar del proyecto es la aplicación de modelos de predicción en el 
 bioinformática, donde se busca inferir el fenotipo de resistencia a partir de características derivadas del genoma.
 
 Estos modelos operan sobre representaciones obtenidas del análisis genómico, como la presencia de genes de resistencia, anotaciones funcionales u otras características derivadas del ensamblaje.
-
-// TODO: Citas a algunos papers con ejemplos de modelos de ML para la predicción de resistencia a antibióticos, y breve descripción de los mismos???? -. mejorar en estado actual
 
 Sin embargo, el flujo completo de análisis genómico es largo y complejo. y los datos generados requieren un preprocesamiento y estructuración adecuados para ser utilizados como entrada en modelos predictivos. Esto dificulta su uso por parte de usuarios sin experiencia en bioinformática o programación, lo que limita su aplicabilidad en entornos clínicos o de investigación.
 
