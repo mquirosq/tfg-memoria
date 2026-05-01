@@ -1,4 +1,6 @@
-#import "../utils/requirements.typ": caso_de_uso, historia_usuario, requisito_funcional, requisito_no_funcional
+#import "../utils/requirements.typ": (
+  caso_de_uso, historia_usuario, requisito_funcional, requisito_informacion, requisito_no_funcional,
+)
 
 = Análisis del problema
 <sec:análisis>
@@ -99,77 +101,66 @@ A partir de las limitaciones del enfoque actual y las necesidades de los distint
 A continuación, se exponen las historias de usuario derivadas de los requisitos generales, que describen las necesidades y objetivos de los distintos perfiles de usuario:
 
 #historia_usuario(
-  "001",
   "investigador o profesional de la salud",
   "ejecutar el ensamblaje y anotación de datos genómicos en un único proceso a partir de archivos de secuenciación (FASTQ)",
   "analizar muestras genómicas de forma eficiente",
 )
 
 #historia_usuario(
-  "002",
   "investigador o profesional de la salud",
   "ejecutar etapas individuales del análisis genómico",
   "adaptar el flujo a mis necesidades específicas",
 )
 
 #historia_usuario(
-  "003",
   "investigador o profesional de la salud",
   "utilizar los resultados de una etapa previa del análisis como entrada de etapas posteriores",
   "evitar repetir procesamientos innecesarios",
 )
 
 #historia_usuario(
-  "004",
   "investigador o profesional de la salud",
   "ejecutar modelos de predicción de resistencia a antibióticos a partir de los resultados generados en la anotación de datos genómicos",
   "obtener predicciones de resistencia que apoyen la interpretación de la muestra",
 )
 
 #historia_usuario(
-  "005",
   "investigador o profesional de la salud",
   "visualizar las predicciones de resistencia de forma clara e interpretable",
   "utilizarlas como apoyo en la toma de decisiones clínicas o en investigación",
 )
 
 #historia_usuario(
-  "006",
   "investigador o profesional de la salud",
   "conocer el estado de los procesos de análisis genómico ejecutados",
   "monitorizar su progreso y acceder a los resultados",
 )
 
 #historia_usuario(
-  "007",
   "investigador o profesional de la salud",
   "revisar y descargar los resultados de los procesos de análisis genómico",
   "almacenarlos, compartirlos o analizarlos posteriormente",
 )
 
 #historia_usuario(
-  "008",
   "investigador o profesional de la salud",
   "descargar los resultados de las predicciones de resistencia a antibióticos",
   "almacenarlos, compartirlos o analizarlos posteriormente",
 )
 
 #historia_usuario(
-  "009",
   "investigador o profesional de la salud",
   "recibir una notificación cuando se completen los procesos de análisis genómico que he ejecutado",
   "evitar comprobaciones manuales y acceder a los resultados en cuanto estén disponibles",
 )
 
 #historia_usuario(
-  "010",
   "desarrollador o investigador de modelos predictivos",
   "integrar modelos de predicción en el sistema de forma sencilla",
   "facilitar su aplicación en análisis genómicos reales",
 )
 
 #historia_usuario(
-  "011",
   "desarrollador o investigador de modelos predictivos",
   "usar los resultados generados durante etapas previas del análisis genómico como entrada para modelos de predicción",
   "evitar transformaciones manuales de los datos",
@@ -258,7 +249,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 
 
 #caso_de_uso(
-  "001",
   "Ejecutar flujo de ensamblaje y anotación",
   "El usuario (ACT-001) dispone de datos de secuenciación en formato FASTQ",
   "Permite ejecutar el flujo completo de análisis genómico, desde el ensamblaje hasta la anotación, incluyendo la transformación automática de resultados a características (features) compatibles con modelos de predicción",
@@ -284,7 +274,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "002",
   "Ejecutar flujo de ensamblaje",
   "El usuario (ACT-001) dispone de datos de secuenciación en formato FASTQ",
   "Permite ejecutar la etapa de ensamblaje a partir de datos de secuenciación",
@@ -306,7 +295,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "003",
   "Ejecutar flujo de anotación",
   "El usuario (ACT-001) dispone de datos lecturas en formato FASTA o un proceso de ensamblaje anterior que no ha sido anotado todavía",
   "Permite ejecutar la etapa de anotación",
@@ -328,7 +316,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "004",
   "Generar features para predicción",
   "El usuario (ACT-001) dispone de resultados de anotación válidos",
   "Permite cargar resultados de anotación externos y generar feaures compatibles con los modelos de predicción",
@@ -350,7 +337,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 
 
 #caso_de_uso(
-  "005",
   "Ejecutar predicción de resistencia a antibióticos",
   "El usuario (ACT-001) cuenta con características generadas",
   "Permite ejecutar la predicción de resistencia a antibióticos",
@@ -372,7 +358,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "006",
   "Descargar resultados de predicción de resistencia a antibióticos",
   "El usuario (ACT-001) cuenta con procesos de anotación o generación de features finalizados con éxito",
   "Permite descargar los resultados de predicción de resistencia a antibióticos",
@@ -401,7 +386,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )<fig:uso_notificaciones>
 
 #caso_de_uso(
-  "007",
   "Recibir notificaciones",
   "El usuario (ACT-001) ha iniciado procesos de análisis genómico",
   "Permite recibir notificaciones sobre el estado de los procesos (inicio, finalización correcta y error en la ejecución)",
@@ -419,7 +403,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "008",
   "Ver notificaciones",
   "El usuario (ACT-001) ha recibido alguna notificación",
   "Permite visualizar el histórico de notificaciones generadas por el sistema para el usuario (ACT-001)",
@@ -437,7 +420,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "009",
   "Marcar notificaciones como leídas",
   "El usuario (ACT-001) cuenta con notificaciones no leídas",
   "Permite marcar una o todas las notificaciones como leídas para gestionar el histórico de notificaciones",
@@ -463,7 +445,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )<fig:uso_procesos>
 
 #caso_de_uso(
-  "010",
   "Listar procesos",
   "El usuario (ACT-001) ha ejecutado algún proceso de ensamblaje o anotación",
   "Permite visualizar la lista de procesos ejecutados por el usuario (ACT-001) con su estado (en ejecución, finalizado correctamente o error)",
@@ -481,7 +462,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "011",
   "Renombrar un proceso",
   "El usuario (ACT-001) ha ejecutado algún proceso de ensamblaje o anotación",
   "Permite cambiar el nombre de un proceso ejecutado por el usuario (ACT-001) para facilitar su identificación",
@@ -504,7 +484,6 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 )
 
 #caso_de_uso(
-  "012",
   "Descargar resultados de ensamblaje o anotación",
   "El usuario (ACT-001) cuenta con procesos de ensamblaje o anotación finalizados con éxito",
   "Permite descargar los resultados de ensamblaje o anotación",
@@ -525,11 +504,105 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 
 === Requisitos de información
 
-Los requisitos de información son...
+En esta sección se describen los requisitos de información del sistema, derivados de los casos de uso con el objetivo de soportar el flujo completo de análisis genómico, desde la carga de datos hasta la generación de predicciones y notificaciones.
+
+#requisito_informacion(
+  "Usuario",
+  "El sistema deberá gestionar los usuarios autenticados, que actuarán como propietarios de los datos generados en el sistema",
+  (),
+)
+
+#requisito_informacion(
+  "Archivos subidos",
+  "El sistema deberá almacenar los archivos subidos por los usuarios, incluyendo:",
+  ("Ruta del archivo", "Fecha de subida", "Tipo de archivo (FASTA, JSON...)", "Usuario propietario"),
+)
+
+#requisito_informacion(
+  "Genes",
+  "El sistema deberá almacenar información de genes para su uso como features de predicción, incluyendo:",
+  ("Identificadores del gen", "Relación con los archivos subidos"),
+)
+
+#requisito_informacion(
+  "Información sobre la presencia de un gen en un archivo",
+  "El sistema deberá almacenar información sobre la presencia de un gen en un archivo, incluyendo:",
+  (
+    "Gen asociado",
+    "Archivo de origen",
+    "Información del experto (expert)",
+    "Posición del gen en la secuencia (start, stop)",
+    "Secuencias asociadas al gen (nucleotídica, nt; y proteica, aa)",
+  ),
+)
+
+#requisito_informacion(
+  "Proceso de análisis",
+  "El sistema deberá almacenar procesos de análisis genómico y transformación ejecutados, incluyendo:",
+  (
+    "Tipo de proceso (ensamblaje, anotación, generación de features)",
+    "Estado (pendiente, en ejecución, completado, fallido)",
+    "Nombre asignado por el usuario",
+    "Ruta del archivo de entrada",
+    "Usuario propietario",
+    "Relación con procesos previos (por ejemplo, un proceso de anotación puede estar relacionado con un proceso de ensamblaje previo)",
+  ),
+)
+
+#requisito_informacion(
+  "Tipos de procesos",
+  "El sistema deberá soportar distintos tipos de tareas:",
+  (
+    "Ensamblaje ONT",
+    "Ensamblaje Illumina",
+    "Ensamblaje con anotación",
+    "Anotación",
+    "Generación de features desde JSON de anotación",
+  ),
+)
+
+#requisito_informacion(
+  "Notificaciones de procesos",
+  "El sistema deberá almacenar notificaciones asociadas a procesos, incluyendo:",
+  (
+    "Usuario propietario",
+    "Proceso asociado",
+    "Tipo de evento (inicio, completado, alerta, fallo)",
+    "Mensaje",
+    "Estado de lectura (leída/no leída)",
+    "Canales de notificación (email o notificación en la aplicación)",
+  ),
+)
+
+#requisito_informacion(
+  "Preferencias de notificación",
+  "El sistema deberá almacenar las configuraciones de notificación por usuario, incluyendo:",
+  (
+    "Usuario",
+    "Si desea recibir notificaciones por email",
+  ),
+)
+
+A partir de los requisitos de información definidos, se deriva el Diagrama de Entidad-Relación (E-R), @fig:diagrama_er, recogiendo las principales entidades del sistema y sus relaciones.
+
+#figure(
+  image("/memoria/figures/er_analisis.svg", width: 90%),
+  caption: "Diagrama Entidad-Relación (Modelo Conceptual)",
+)<fig:diagrama_er>
+
+El modelo se estructura alrededor del usuario como elemento central, que actúa como propietario de los datos generados y como ejecutor de los procesos de análisis genómico. Los archivos subidos constituyen el punto de entrada de los datos genómicos, que son transformados a través de los distintos procesos de análisis genómico. A partir de los resultados de los procesos de anotación se generan las features, los genes y la información asociada a su presencia en cada muestra.
+
+Los procesos de análisis pueden encadenarse, permitiendo modelar las dependencias entre las distintas etapas del análisis. Por ejemplo, un proceso de anotación puede depender de un proceso de ensamblaje previo, indicando el origen de los datos utilizados.
+
+Las notificaciones actúan como mecanismo de comunicación, informando al usuario sobre el estado de sus procesos, ya que estos pueden requerir tiempos de ejecución prolongados. Finalmente, las preferencias de usuario permiten personalizar la recepción de estas notificaciones.
 
 === Requisitos funcionales
 
 Los requisitos funcionales son...
+
+// RF-XXX – Control de acceso
+
+// El sistema deberá garantizar que los usuarios solo puedan acceder a los datos de su propiedad.
 
 === Requisitos no funcionales
 

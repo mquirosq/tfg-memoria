@@ -1,0 +1,56 @@
+---
+config:
+  theme: default
+  look: neo
+  layout: elk
+---
+erDiagram
+	direction LR
+	USUARIO {
+
+	}
+
+	ARCHIVO_SUBIDO {
+		texto ruta_archivo  ""  
+		fecha fecha_subida  ""  
+		texto tipo_archivo  ""  
+	}
+
+	PROCESO_ANALISIS {
+		texto nombre  ""  
+		texto tipo_proceso  ""  
+		texto estado  ""  
+		texto ruta_entrada  ""  
+	}
+
+	NOTIFICACION {
+		texto tipo_evento  ""  
+		texto mensaje  ""  
+		lógico leída  ""  
+		lista canales  ""  
+	}
+
+	PREFERENCIAS_NOTIFICACION {
+		lógico recibir_email  "" 
+	}
+
+	PRESENCIA_GEN {
+		texto expert_info  ""  
+		número start  ""  
+		número stop  ""  
+		texto secuencia_nt  ""  
+		texto secuencia_aa  ""  
+	}
+
+	GEN {
+		texto identificadores  ""  
+	}
+
+	USUARIO||--o{ARCHIVO_SUBIDO:"es propietario de"
+	USUARIO||--o{PROCESO_ANALISIS:"lanza"
+	USUARIO||--o{NOTIFICACION:"recibe"
+	USUARIO||--||PREFERENCIAS_NOTIFICACION:"configura"
+	ARCHIVO_SUBIDO||--o{PRESENCIA_GEN:"contiene"
+	GEN||--o{PRESENCIA_GEN:"aparece en"
+    PROCESO_ANALISIS ||--o{ PROCESO_ANALISIS : "es previo"
+	PROCESO_ANALISIS||--o{NOTIFICACION:"genera"

@@ -1,18 +1,24 @@
 // TODO: No está super bonito pero me vale por ahora
+#let zero-pad(n, width) = {
+  let s = str(n)
+  while s.len() < width { s = "0" + s }
+  s
+}
 
-#let historia_usuario(id, rol, objetivo, beneficio) = context {
-  let id = counter("historia").get().at(0) + 1
+#let historia_usuario(rol, objetivo, beneficio) = context {
+  let id = zero-pad(counter("historia").get().at(0) + 1, 3)
+  let color = rgb("#e8f7fa")
   block(
     inset: 10pt,
-    stroke: gray + 1.25pt,
-    fill: rgb("f2f2f2"),
+    stroke: color.darken(30%).saturate(20%) + 1.25pt,
+    fill: color,
     width: 100%,
     radius: 10pt,
     breakable: false,
   )[
     *HU-#id:*
     #v(-0.5em)
-    #line(length: 100%, stroke: (paint: gray, dash: "dotted"))
+    #line(length: 100%, stroke: (paint: color.darken(30%).saturate(20%), dash: "dotted"))
     *Como* #rol \
     *Quiero* #objetivo \
     *Para* #beneficio.
@@ -28,8 +34,9 @@
   list(..items.map(item => [#item.]))
 }
 
-#let caso_de_uso(id, nombre, precond, desc, flujo, postcond, exc) = {
-  let color = rgb("f9f2ff")
+#let caso_de_uso(nombre, precond, desc, flujo, postcond, exc) = context {
+  let id = zero-pad(counter("caso_de_uso").get().at(0) + 1, 3)
+  let color = rgb("#f9f2ff")
   block(
     radius: 10pt,
     clip: true,
@@ -47,26 +54,63 @@
       [*Excepciones*], list_from_array(exc),
     ),
   )
+  counter("caso_de_uso").step()
 }
 
-#let requisito_funcional(id, descripcion) = {
+#let requisito_informacion(name, descripcion, puntos) = context {
+  let id = zero-pad(counter("requisito_informacion").get().at(0) + 1, 3)
+  let color = rgb("#e6eeff")
   block(
+    radius: 10pt,
+    clip: true,
     inset: 10pt,
-    stroke: black,
-    fill: rgb("e6f7ff"),
+    stroke: color.darken(30%).saturate(20%) + 1.25pt,
+    fill: color,
     width: 100%,
   )[
-    *RF-#id:* #descripcion
+    *RI-#id:* *#name*
+    #v(-0.5em)
+    #line(length: 100%, stroke: (paint: color.darken(30%).saturate(20%), dash: "dotted"))
+    #descripcion
+    #list_from_array(puntos)
   ]
+  counter("requisito_informacion").step()
 }
 
-#let requisito_no_funcional(id, descripcion) = {
+#let requisito_funcional(descripcion) = context {
+  let id = zero-pad(counter("requisito_funcional").get().at(0) + 1, 3)
+  let color = rgb("#fff4e6")
   block(
+    radius: 10pt,
+    clip: true,
     inset: 10pt,
-    stroke: black,
-    fill: rgb("fff2e6"),
+    stroke: color.darken(30%).saturate(20%) + 1.25pt,
+    fill: color,
     width: 100%,
   )[
-    *RNF-#id:* #descripcion
+    *RF-#id:*
+    #v(-0.5em)
+    #line(length: 100%, stroke: (paint: color.darken(30%).saturate(20%), dash: "dotted"))
+    #descripcion.
   ]
+  counter("requisito_funcional").step()
+}
+
+#let requisito_no_funcional(descripcion) = context {
+  let id = zero-pad(counter("requisito_no_funcional").get().at(0) + 1, 3)
+  let color = rgb("#fff2e6")
+  block(
+    radius: 10pt,
+    clip: true,
+    inset: 10pt,
+    stroke: color.darken(30%).saturate(20%) + 1.25pt,
+    fill: color,
+    width: 100%,
+  )[
+    *RNF-#id:*
+    #v(-0.5em)
+    #line(length: 100%, stroke: (paint: color.darken(30%).saturate(20%), dash: "dotted"))
+    #descripcion.
+  ]
+  counter("requisito_no_funcional").step()
 }
