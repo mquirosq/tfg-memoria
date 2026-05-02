@@ -34,6 +34,20 @@
   bibliografia: bibliography("/memoria/bibliografia.bib"),
 )
 
+#show ref: it => {
+  let el = it.element
+  if (el != none and el.func() == heading) {
+    if (el.level == 1) {
+      let num = counter(heading).at(el.location()).at(0)
+      link(el.location(), [Capítulo #num])
+    } else {
+      it
+    }
+  } else {
+    it
+  }
+}
+
 #include "sections/01_introduccion.typ"
 #include "sections/02_Gestion.typ"
 #include "sections/03_Contexto.typ"

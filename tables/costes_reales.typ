@@ -4,9 +4,9 @@
 #figure(
   table(
     columns: (auto, auto, auto),
-    align: (center + horizon, center + horizon, center + horizon),
+    align: (center + horizon, center + horizon, right + horizon),
 
-    [Partida], [Cálculo], [Total],
+    [Partida], [Cálculo], table.cell(align: center)[Total],
 
     [Coste de personal], [25,85 €/h x 329 horas], [8504,65 €],
 

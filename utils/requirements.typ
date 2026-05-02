@@ -45,12 +45,15 @@
       inset: 6pt,
       stroke: color.darken(15%).saturate(10%) + 1pt,
       fill: color,
-      table.header([*CU-#id*], [*#nombre*]),
+      table.header(
+        table.cell(fill: color.darken(5%).saturate(5%))[*CU-#id*],
+        table.cell(fill: color.darken(5%).saturate(5%))[*#nombre*],
+      ),
       [*Precondición*], [#precond.],
       [*Descripción*], [#desc.],
       [*Flujo principal*], enum_from_array(flujo),
       [*Postcondición*], [#postcond.],
-      [*Excepciones*], list_from_array(exc),
+      [*Excepciones*], { if exc.len() > 0 { list_from_array(exc) } else { "Ninguna." } },
     ),
   )
   counter("caso_de_uso").step()

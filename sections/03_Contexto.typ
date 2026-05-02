@@ -27,7 +27,7 @@ La secuenciación del ADN es el proceso que consiste en determinar el orden de l
 
 La secuenciación se realiza introduciendo una muestra del microorganismo en máquinas especializadas que generan las lecturas. Existen distintas tecnologías de secuenciación, como Illumina u Oxford Nanopore Technologies (ONT), que se diferencian principalmente en la longitud de sus lecturas, la precisión y el coste. La elección de la tecnología depende de los objetivos del estudio, el presupuesto disponible y las características del microorganismo a analizar.
 
-Las principales características de las dos tecnologías abordadas en este proyecto son:
+El framework aborado en este proyecto ha sido diseñado para ser compatible con dos de las tecnologías de secuenciado más extendidas, así como para la posible inclusión futura de forma sencilla de nuevas herramientas. Las principales características de las dos tecnologías abordadas en este proyecto son:
 - *Illumina*: genera lecturas cortas con alta precisión. Habitualmente produce lecturas pareadas (paired-end), lo que mejora la calidad del ensamblaje.
 - *ONT*: produce lecturas largas que facilitan la reconstrucción de regiones complejas del genoma, pero con una mayor tasa de error.
 
@@ -58,7 +58,7 @@ Los resultados de este proceso se almacenan en formato FASTA, que contiene los s
 === Anotación
 Una vez obtenido el genoma ensamblado, se inicia el proceso de anotación, o annotation en inglés, cuyo objetivo es identificar elementos biológicos relevantes como genes, regiones codificantes y proteínas asociadas.
 
-En este trabajo se utiliza la herramienta _Bakta_, ampliamente empleada en el ámbito de la genómica bacteriana. Bakta realiza la predicción de genes a partir de secuencias genómicas y asigna funciones biológicas mediante la comparación con bases de datos de referencia y modelos de anotación.
+En este trabajo se utiliza la herramienta _Bakta_, ampliamente empleada en el ámbito de la genómica bacteriana. Bakta realiza la identificación de genes a partir de secuencias genómicas y asigna funciones biológicas mediante la comparación con bases de datos de referencia y modelos de anotación.
 
 El resultado de este proceso es un conjunto de anotaciones estructuradas que describen la localización y función de los genes identificados dentro del genoma ensamblado.
 

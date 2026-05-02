@@ -32,18 +32,18 @@ Aunque estas herramientas son ampliamente utilizadas en la comunidad científica
 
 Con el objetivo de reducir esta barrera de entrada, han surgido plataformas que  ofrecen interfaces gráficas más accesibles para la ejecución de estos flujos de trabajo. Entre ellas destacan _Galaxy_ y _Geneious_.
 
-_Galaxy_ es una plataforma de código abierto basada en un entorno webque permite ejecutar herramientas de análisis bioinformático, gestionar datos y construir flujos de trabajo reproducibles. Su principal ventaja es la centralización de herramientas heterogéneas bajo una única interfaz, ofreciendo gran variedad de herramientas con usos distintos para cada fase. Sin embargo, el usuarios debe seleccionar manualmente cada herramienta, su orden de ejecución y configurar sus parámetros, lo que puede resultar complejo para usuarios sin experiencia técnica. Además, la amplia variedad de herramientas disponibles dificulta la selección de las más adecuadas para cada uso y la búsqueda de herramientas específicas puede resultar complicada.
+_Galaxy_ es una plataforma de código abierto basada en un entorno web que permite ejecutar herramientas de análisis bioinformático, gestionar datos y construir flujos de trabajo reproducibles. Su principal ventaja es la centralización de herramientas heterogéneas bajo una única interfaz, ofreciendo gran variedad de herramientas con usos distintos para cada fase. Sin embargo, el usuario debe seleccionar manualmente cada herramienta, su orden de ejecución y configurar sus parámetros, lo que puede resultar complejo para usuarios sin experiencia técnica. Además, la amplia variedad de herramientas disponibles dificulta la selección de las más adecuadas para cada uso y la búsqueda de herramientas específicas puede resultar complicada.
 
-Por otro lado, Geneious es una plataforma comercial de pago con interfaz gráfica que integra diversas herramientas de análisis de secuencias en entorno unificado. Su principal ventaja es la simplificación el flujo de trabajo, eliminando la necesidad de gestionar herramientas indepdendientes y sus datos intermedios. Esto reduce la curva de aprendizaje, no obatante, implica limitaciones en términos de flexibilidad y personalización, ya que los usuarios no pueden elegir libremente las herramientas a utilizar ni configurar sus parámetros de forma detallada. Adicionalmente, su enfoque más orientado al diseño molecular y análisis de secuencias limita su aplicabilidad en análisis genómico completo, lo que puede ser una barrera para usuarios con necesidades más específicas o avanzadas.
+Por otro lado, Geneious es una plataforma comercial de pago con interfaz gráfica que integra diversas herramientas de análisis de secuencias en un entorno unificado. Su principal ventaja es la simplificación el flujo de trabajo, eliminando la necesidad de gestionar herramientas independientes y sus datos intermedios. Esto reduce la curva de aprendizaje, no obstante, implica limitaciones en términos de flexibilidad y personalización, ya que los usuarios no pueden elegir libremente las herramientas a utilizar ni configurar sus parámetros de forma detallada. Adicionalmente, su enfoque más orientado al diseño molecular y análisis de secuencias limita su aplicabilidad en análisis genómico completo, lo que puede ser una barrera para usuarios con necesidades más específicas o avanzadas.
 
 En conclusión, las soluciones actuales proporcionan distintos niveles de abstracción sobre el flujo del análisis genómico. Mientras que plataformas como Galaxy ofrecen una amplia variedad de herramientas con gran flexibilidad, su complejidad técnica puede dificultar su adopción por parte de usuarios sin experiencia. Por otro lado, soluciones como Geneious simplifican el proceso pero a costa de limitar la personalización y la aplicabilidad en análisis genómico completo. Estas limitaciones resaltan que la brecha entre las herramientas de análisis genómico y los usuarios finales, especialmente en contextos clínicos, sigue siendo un desafío importante a abordar.
 
 // TODO: Anañdir capturas
 
 === Predicción de resistencia a antibióticos
-Existen diversos enfoques computacionales para la predicción de resistencia a antibióticos a partir de datos genómicos, que incluyen tanto modelos basados en aprendizaje automático o métodos basados en alineamiento contra bases de datos de genes de resistencia, como muchos otros enfoques. Entre los primeros se encuentran herramientas como _DeepARG_, basadas en redes neuronales, mientras que otras herramientas como _ResFinder_ se apoyan en estrategias de búqueda por homología frente a bases de datos curadas de datos de resistencia.
+Existen diversos enfoques computacionales para la predicción de resistencia a antibióticos a partir de datos genómicos, que incluyen tanto modelos basados en aprendizaje automático, como métodos basados en alineamiento contra bases de datos de genes de resistencia o modelos basados en las características de una familia de bacterias concreta. Entre los primeros se encuentran herramientas como _DeepARG_, basadas en redes neuronales, mientras que otras herramientas como _ResFinder_ se apoyan en estrategias de búqueda por homología frente a bases de datos curadas de datos de resistencia.
 
-// TODO: también existen los modelos de bichos concretos
+// TODO: Añadir ejemplo de ML para la predicción de resistencia a antibióticos con un bicho concreto.
 
 // TODO: Citas a algunos papers con ejemplos de modelos de ML para la predicción de resistencia a antibióticos, y breve descripción de los mismos???? -. mejorar en estado actual
 
@@ -54,7 +54,11 @@ Sin embargo, a pesar de su potencial utilidad, en la práctica su uso es limitad
 La ejecución de estos modelos suele requerir pasos adicionales de preprocesamiento y transformación de los datos de entrada, que no son parte de los pipelines estándar.
 Además, la preparación de los datos de entrada suele implicar conversión entre distintos formatos, así como la selección de características relevantes, lo que frecuentemente requiere un esfuerzo manual significativo o el desarrollo de scripts personalizados. A esto se suma la complejidad asociada a la instalación y configuración de los modelos, incluyendo la gestión de dependencias, la configuración de entornos de ejecución y la comprensión de los parámetros de entrada.
 
-Como resultado, estos enfoques se utilizan principalmente en entornos de investigación especialmente en equipos con experiencia en bioinformática o aprendizaje automático. En cambio, su adopción en entornos generales es todavía limitada. Este escenario resalta la necesidad de soluciones que permitan una integración más directa y fluida de modelos predictivos en el flujo de análisis genómico, reduciendo la fricción entre el procesamiento de datos y su análisis y explotación, facilitando así su adopción.
+Como resultado, estos enfoques se utilizan principalmente en entornos de investigación, especialmente en equipos con experiencia en bioinformática o aprendizaje automático. En cambio, su adopción en entornos generales es todavía limitada. Este escenario resalta la necesidad de soluciones que permitan una integración más directa y fluida de modelos predictivos en el flujo de análisis genómico, reduciendo la fricción entre el procesamiento de datos y su análisis y explotación.
+
+En este contexto, diferentes estudios @SADEGHI2024109370 señalan que, a pesar del creciente interés en sistemas de inteligencia artificial aplicados a la salud, muchos modelos permaneces en la fase de prototipo y no llegan a integrarse en entornos reales. La brecha entre el desarrollo de modelos y su despliegue sigue siendo uno de los principales retos en este ámbito.
+
+La disponibilidad de un framework como el propuesto en este trabajo puede contribuir a reducir esta brecha, al proporcionar un entorno que simplifica el despliegue, la integración y el uso de modelos predictivos dentro de flujos de análisis genómico completos, favoreciendo así tanto su adopción como la experimentación, validación y mejora de los mismos.
 
 === Limitaciones del enfoque actual
 Como se ha expuesto, el enfoque actual tanto del flujo de análisis genómico como de los modelos de predicción de resistencia a antibióticos presenta diversas limitaciones que afectan a la eficiencia, la escalabilidad y la adopción de estas herramientas en entornos reales.
@@ -91,7 +95,7 @@ A partir de las limitaciones del enfoque actual y las necesidades de los distint
 / *RG-001*: El sistema deberá proporcionar mecanismos para automatizar el flujo de análisis genómico, incluyendo ensamblaje y anotación en un único proceso integrado y abstrayendo la complejidad asociada a la ejecución de múltiples herramientas independientes.
 
 / *RG-002*: El sistema deberá permitir el acceso al flujo de análisis tanto de forma completa como a cada una de sus etapas. Se debe poder ejecutar cada etapa de forma independiente si así lo desea el usuario.
-/ *RG-003*: El sistema deberá facilitar la integración de modelos de predicción de resistencia a antibióticos en el flujo de análisis genómico, permitiendo su ejecución directa a partir de los resultados generados durante las etapas previas.
+/ *RG-003*: La arquitectura del sistema deberá facilitar la integración de modelos de predicción de resistencia a antibióticos en el flujo de análisis genómico, permitiendo su ejecución directa a partir de los resultados generados durante las etapas previas.
 / *RG-004*: El sistema deberá proporcionar una interfaz gráfica accesible para usuarios sin experiencia técnica, que permita la ejecución de flujos de análisis genómico y modelos de predicción de resistencia a antibióticos de forma sencilla.
 / *RG-005*: El sistema deberá minimizar la complejidad asociada a la gestión de herramientas, entornos de ejecución y dependencias, reduciendo la carga cognitiva del usuario.
 / *RG-006*: El sistema deberá proporcionar mecanismos que permitan realizar un seguimiento de los procesos de análisis genómico, permitiendo a los usuarios monitorizar el progreso, revisar resultados intermedios y gestionar los datos generados durante el proceso.
@@ -172,7 +176,7 @@ A continuación, se exponen las historias de usuario derivadas de los requisitos
 
 === Enfoque del sistema
 
-Dado el análisis de necesidades realizado, se propone el desarrollo de una plataforma orientada a la integración del flujo de análisis genómico y la predicción de resistencia a antibióticos, como una solución única incorporandolo todo en un único proceso. Se busca un enfoque dual: por un lado, una interfaz gráfica accesible e intuitiva que permite ir desde la secuenciación a la predicción de forma sencilla; y por otro, un framework extensible que facilita la incorporación de nuevos modelos y componentes por parte de los desarrolladores.
+Dado el análisis de necesidades realizado, se propone el desarrollo de una plataforma orientada a la integración del flujo de análisis genómico y la predicción de resistencia a antibióticos, como una solución única incorporandolo todo en un único proceso. Se busca un enfoque dual: por un lado, una *interfaz gráfica accesible* e intuitiva que permite ir desde la secuenciación a la predicción de forma sencilla; y por otro, un *framework extensible* que facilita la incorporación de nuevos modelos y componentes por parte de los desarrolladores.
 
 Se identifican tres principios clave:
 
@@ -183,21 +187,22 @@ Se identifican tres principios clave:
 Con estos principios, se busca dar soporte a los perfiles definidos en la sección de análisis de usuarios, proporcionando una solución para las necesidades de ambos.
 
 === Flujo de análisis genómico integrado
-El sistema implementa un flujo de procesamiento de datos genómicos en el que cada etapa transforma la información de entrada, generando resultados que pueden ser utilizados en etapas posteriores. Este flujo parte de los datos de secuenciación en formato FASTQ y finaliza con la generación de predicciones de resistencia a antibióticos. Se sigue un flujo modulas y flexible, que permite la ejecución completa del pipeline o la ejecución de sus distintas etapas de forma independiente, según las necesidades del usuario. El flujo general se muestra en la @fig:flujo_general.
+El sistema implementa un flujo de procesamiento de datos genómicos en el que cada etapa transforma la información de entrada, generando resultados que pueden ser utilizados en etapas posteriores. Este flujo parte de los datos de secuenciación en formato FASTQ y finaliza con la generación de predicciones de resistencia a antibióticos. Se sigue un flujo modular y flexible, que permite la ejecución completa del pipeline o la ejecución de sus distintas etapas de forma independiente, según las necesidades del usuario. El flujo general se muestra en la @fig:flujo_general.
 
+// TODO: Maybe poner las cajitas que corresponden a cada etapa en un color distinto
 #figure(
   placement: auto,
   image("/memoria/figures/flujo_general.svg", height: 90%),
   caption: "Flujo de análisis genómico integrado del sistema",
 )<fig:flujo_general>
 
-El proceso puede iniciarse desde distintos puntos del sistema. En el caso del flujo completo, los datos de secuenciación en formato FASTQ se utilizan como entrada para iniciar el proceso de ensamblaje del genoma, obteniéndose como resultado un conjunto de contigs en formato FASTA.
+El proceso puede iniciarse desde distintos puntos del sistema. En el caso del flujo completo, los datos de secuenciación en formato FASTQ se utilizan como entrada para iniciar el proceso de *ensamblaje* del genoma, obteniéndose como resultado un conjunto de contigs en formato FASTA.
 
-A partir de estos resultados, el sistema permite la ejecución de la etapa de anotación. Esta puede activarse de forma automática al finalizar el ensamblaje, si así se indica al iniciar el proceso, o manual. El sistema toma como entrada los contigs generados en la etapa anterior o el archivo FASTA proporcionado por el usuario, produciendo una representación funcional del genoma.
+A partir de estos resultados, el sistema permite la ejecución de la etapa de *anotación*. Esta puede activarse de forma automática al finalizar el ensamblaje, si así se indica al iniciar el proceso, o manual. El sistema toma como entrada los contigs generados en la etapa anterior o el archivo FASTA proporcionado por el usuario, produciendo una representación funcional del genoma.
 
-Posteriormente, esta representación es transformada de forma automática en un conjunto de características (features) compatibles con los modelos de predicción.  Este proceso de adaptación de datos se realiza de forma automática dentro del sistema, permitiendo la interoperabilidad entre las etapas del análisi genómico y los modelos predictivos sin intervención manual.
+Posteriormente, esta representación es transformada de forma automática en un conjunto de características (features) compatibles con los modelos de predicción.  Este proceso de adaptación de datos se realiza de forma automática dentro del sistema, permitiendo la interoperabilidad entre las etapas del análisis genómico y los modelos predictivos sin intervención manual.
 
-A partir de estas características, el usuario puede ejecutar el proceso de predicción de resistencia a antibióticos. En caso de activación, el sistema genera resultados interpretables que muestra de forma visual.
+A partir de estas características, el usuario puede ejecutar el proceso de *predicción* de resistencia a antibióticos. En caso de activación, el sistema genera resultados interpretables que muestra de forma visual.
 
 Además, el sistema permite la descarga de resultados en cada una de las etapas principales del flujo (ensamblaje, anotación y predicción). Esto permite adaptar el sistema a distintos usos y necesidades de los usuarios.
 
@@ -397,9 +402,7 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 
   "Se ha enviado una notificación al usuario (ACT-001) informando sobre el evento ocurrido",
 
-  (
-    "-",
-  ),
+  (),
 )
 
 #caso_de_uso(

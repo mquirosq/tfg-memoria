@@ -8,12 +8,11 @@
 #let c-ui = rgb("#ff7043") // orange
 
 // Estilos
-// Quería poner round pero entonces se hacen más anchas
 #let bar(color) = (
   stroke: stroke(paint: color, thickness: 6pt, cap: "butt"),
 )
 #let group-bar(color) = (
-  stroke: stroke(paint: color.darken(25%), thickness: 8pt, cap: "butt"),
+  stroke: stroke(paint: color.darken(40%), thickness: 8pt, cap: "butt"),
 )
 
 // Milestones

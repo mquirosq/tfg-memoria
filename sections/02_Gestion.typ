@@ -11,14 +11,14 @@ El objetivo principal de este proyecto es diseñar y desarrollar un framework qu
 
 Adicionalmente, se plantean los siguientes objetivos secundarios:
 
-- Desarrollar un sistema capaz de gestionar y convertir distintos formatos de datos genómicos (FASTQ, FASTA y anotaciones generadas con Bakta), ofreciendo un entorno único en el que realizar los procesos de ensamblaje y anotación.
-- Diseñar una arquitectura modular que permita la integración sencilla de modelos de predicción.
-- Implementar un mecanismo para automatizar la incorporación de modelos y su disponibilidad dentro de la plataforma.
-- Desarrollar una interfaz intuitiva que permita el uso del sistema de forma sencilla por parte del personal sanitario.
-- Implementar un sistema de notificaciones que informe a los usuarios sobre el estado de ejecución de sus tareas y disponibilidad de resultados.
-- Optimizar la gestión de procesos de alto coste computacional asociados al procesamiento y transformación de datos genómicos.
-- Adquirir experiencia en el desarrollo de aplicaciones que integran bioinformática y aprendizaje automático.
-- Integrar los conocimientos adquiridos a lo largo del grado en un proyecto práctico con aplicación en un contexto real.
+- Desarrollar un *sistema capaz de gestionar y convertir distintos formatos* de datos genómicos (FASTQ, FASTA y anotaciones generadas con Bakta), ofreciendo un entorno único en el que realizar los procesos de ensamblaje y anotación.
+- Diseñar una *arquitectura modular* que permita la integración sencilla de modelos de predicción.
+- Implementar un mecanismo para *automatizar la incorporación de modelos* y su disponibilidad dentro de la plataforma.
+- Desarrollar una *interfaz intuitiva* que permita el uso del sistema de forma sencilla por parte del personal sanitario.
+- Implementar un *sistema de notificaciones* que informe a los usuarios sobre el estado de ejecución de sus tareas y disponibilidad de resultados.
+- *Optimizar la gestión de procesos* de alto coste computacional asociados al procesamiento y transformación de datos genómicos.
+- Adquirir *experiencia en el desarrollo* de aplicaciones que integran bioinformática y aprendizaje automático.
+- Integrar los conocimientos adquiridos a lo largo del grado en un *proyecto práctico* con aplicación en un *contexto real*.
 
 
 == Metodología
@@ -32,7 +32,7 @@ Scrumban combina la planificación iterativa propia de Scrum con la gestión vis
 
 Como herramienta principal para la gestión de tareas se ha utilizado un tablero Kanban en Trello. Éste permite vidualizar el estado del proyecto mediante columnas (_Todo_, _In Progress_, _Blocked_ y _Done_), facilitando el seguimiento por parte de los tutores sin requerir reuniones diarias. Adicionalmente, se han establecido límites al trabajo en progreso (WIP), restringiendo el enfoque a una sola tarea activa para evitar la multitarea y favorecer la concentración y la finalización de tareas antes de iniciar nuevas.
 
-Deda la naturaleza individual del proyecto y la necesidad de flexibilidad en la planificación, las reuniones diarias propuestas por Scrumban se han sustituido por sesiones semanales de seguimiento con los tutores. En estas reuniones se revisa el progreso, se resuelven dudas y bloqueos y se ajusta la planificación.
+Dada la naturaleza individual del proyecto y la necesidad de flexibilidad en la planificación, las reuniones diarias propuestas por Scrumban se han sustituido por sesiones semanales de seguimiento con los tutores. En estas reuniones se revisa el progreso, se resuelven dudas y bloqueos y se ajusta la planificación.
 
 Este enfoque permite un desarrollo incremental y flexible, facilitando la entrega continua de funcionalidades sin depender de ciclos cerrados rígidos, adáptandose a las necesidades del proyecto y al ritmo académico.
 
@@ -56,11 +56,7 @@ Por el contrario, la fase de diseño de la arquitectura resultó requerir menor 
 
 Finalmente, se presenta el diagrama de Gantt del proyecto, en el que se representa de forma visual la distribución temporal de las principales tareas desarrolladas a lo largo de los distintos sprints:
 
-// TODO: Gantty pone los nombres de los meses en inglés, pero deberían estar en español. Investigar si es posible configurar el idioma de los meses en Gantty.
-
 #include "../figures/gantt_plan.typ"
-
-// TODO: Cannot remove today line from gantt_plan.yml, but it should be removed to avoid showing the current date in the Gantt chart.]
 
 
 == Presupuesto
