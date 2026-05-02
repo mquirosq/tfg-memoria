@@ -21,18 +21,18 @@ Por otro lado, el framework ofrece una infraestructura flexible diseñada para l
 
 En definitiva, este proyecto no se limita al desarrollo de una solución específica, sino que propone una herramienta reutilizable y extensible que facilita la integración de nuevos modelos predictivos en el flujo de trabajo clínico. De este modo, contribuye a reducir la brecha existente entre el desarrollo de modelos de predicción y su aplicación efectiva en la práctica clínica.
 
-// TODO: Actualizar la lista de capítulos.
+Este documento se compone de siete capítulos, en los cuales se profundiza en distintos aspectos del proyecto llevado a cabo durante el desarrollo de este trabajo de fin de grado.
 
-Este documento se compone de seis capítulos, en los cuales se profundiza en distintos aspectos del proyecto llevado a cabo durante el desarrollo de este trabajo de fin de grado.
+En primer lugar, @sec:planificación se centra en el estudio previo al proyecto, en el que se exponen aspectos como los objetivos del proyecto, la metodología seguida y la planificación temporal y presupuestaria del mismo.
 
-En primer lugar, el primer capítulo @sec:planificación se centra en el estudio previo al proyecto, en el que se exponen aspectos como los objetivos del proyecto, la metodología seguida y la planificación temporal y presupuestaria del mismo.
+La @sec:contexto describe el contexto en el que se enmarca este proyecto, incluyendo una descripción del proceso de análisis genómico y la predicción de resistencia a antibióticos, así como una revisión de los retos y necesidades actuales en este ámbito.
 
-En el segundo capítulo @sec:análisis se dedica al análisis del problema y el contexto del mismo, así como a la descripción de los requisitos funcionales y no funcionales que se han identificado para el proyecto.
+La @sec:análisis se dedica al análisis del problema y el contexto del mismo, así como a la descripción de los requisitos funcionales y no funcionales que se han identificado para el proyecto.
 
-El tercer capítulo @sec:diseño se centra en el diseño de la solución propuesta, incluyendo la arquitectura del sistema, los diagramas de clases, prototipos de interfaz y otros aspectos relevantes del diseño.
+La @sec:diseño se centra en el diseño de la solución propuesta, incluyendo la arquitectura del sistema, los diagramas de clases, prototipos de interfaz y otros aspectos relevantes del diseño.
 
-El cuarto capítulo @sec:implementación se dedica a la descripción de la implementación de la solución propuesta, describiendo las tecnologías utilizadas, la estructura del código y los aspectos más relevantes de la implementación.
+La @sec:implementación se dedica a la descripción de la implementación de la solución propuesta, describiendo las tecnologías utilizadas, la estructura del código y los aspectos más relevantes de la implementación.
 
-El quinto capítulo @sec:pruebas se centra en la descripción de las pruebas realizadas para validar la solución propuesta.
+La @sec:pruebas se centra en la descripción de las pruebas realizadas para validar la solución propuesta.
 
-Finalmente, el sexto capítulo @sec:conclusiones recoge las conclusiones obtenidas a lo largo del desarrollo del proyecto, así como las posibles líneas de trabajo futuro que se podrían seguir a partir de este trabajo de fin de grado.
+Finalmente, la @sec:conclusiones recoge las conclusiones obtenidas a lo largo del desarrollo del proyecto, así como las posibles líneas de trabajo futuro que se podrían seguir a partir de este trabajo de fin de grado.

@@ -239,7 +239,7 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 
 // TODO: añadir el nombre final del sistema?
 
-==== Pipleline de análisis genómico
+==== Pipeline de análisis genómico
 
 
 #figure(
@@ -598,16 +598,188 @@ Las notificaciones actúan como mecanismo de comunicación, informando al usuari
 
 === Requisitos funcionales
 
-Los requisitos funcionales son...
+De los casos de uso y los requisitos de información se derivan los siguientes requisitos funcionales, que describen las funcionalidades específicas que el sistema debe implementar para cumplir con las necesidades de los usuarios y soportar el flujo completo de análisis genómico y predicción de resistencia a antibióticos.
 
-// RF-XXX – Control de acceso
+#requisito_funcional(
+  "Ensamblaje de datos genómicos",
+  "El sistema deberá permitir crear tareas de ensamblaje a partir de archivos FASTQ",
+)
 
-// El sistema deberá garantizar que los usuarios solo puedan acceder a los datos de su propiedad.
+#requisito_funcional(
+  "Selección del tipo de ensamblaje",
+  "El sistema deberá permitir seleccionar el tipo de datos de entrada (originados por secuención Illumina o por secuenciación de ONT) para el ensamblaje, aplicando el proceso de ensamblaje adecuado para cada tipo de datos",
+)
+
+#requisito_funcional(
+  "Anotación de datos genómicos",
+  "El sistema deberá permitir ejecutar tareas de anotación a partir de archivos FASTA o procesos previos de ensamblaje sin anotación asociada, generando automáticamente features para la aplicación de modelos predictivos a partir de los resultados de anotación",
+)
+
+#requisito_funcional(
+  "Ejecución de flujo genómico completo",
+  "El sistema deberá permitir ejecutar tareas de anotación de forma automática tras el ensamblaje, generando automáticamente features para la aplicación de modelos predictivos a partir de los resultados de anotación",
+)
+
+#requisito_funcional(
+  "Generación de features",
+  "El sistema deberá permitir generar features a partir de los resultados de anotación en formatos soportados",
+)
+
+#requisito_funcional(
+  "Registro de tareas",
+  "El sistema deberá registrar los procesos de análisis genómico ejecutados por el usuario",
+)
+
+#requisito_funcional(
+  "Estado de procesos",
+  "El sistema deberá actualizar automáticamente el estado de los procesos durante su ejecución",
+)
+
+#requisito_funcional(
+  "Nombrado de procesos",
+  "El sistema deberá permitir asignar y modificar el nombre de los procesos para facilitar su identificación",
+)
+
+#requisito_funcional(
+  "Subida de archivos",
+  "El sistema deberá permitir subir archivos asociados a un usuario",
+)
+
+#requisito_funcional(
+  "Descarga de archivos",
+  "El sistema deberá permitir la descarga de los archivos subidos por el usuario o generados en las distintas etapas del análisis",
+)
+
+#requisito_funcional(
+  "Predicciones de resistencia a antibióticos",
+  "El sistema deberá permitir ejecutar modelos de predicción de resistencia a antibióticos a partir de las características generadas",
+)
+
+#requisito_funcional(
+  "Visualización de predicciones",
+  "El sistema deberá permitir visualizar los resultados de las predicciones de resistencia a antibióticos de forma clara e interpretable para el usuario",
+)
+
+#requisito_funcional(
+  "Integración de modelos predictivos",
+  "El sistema deberá permitie la integración de modelos de predicción que utilicen las características generadas",
+)
+
+#requisito_funcional(
+  "Generación de notificaciones",
+  "El sistema deberá generar notificaciones cuando un proceso de análisis genómico (ensamblaje o anotación) se inicie, se complete correctamente o falle",
+)
+
+#requisito_funcional(
+  "Consulta de notificaciones",
+  "El sistema deberá permitir consultar las notificaciones generadas para el usuario",
+)
+
+#requisito_funcional(
+  "Marcar notificaciones como leídas",
+  "El sistema deberá permitir marcar notificaciones como leídas",
+)
+
+#requisito_funcional(
+  "Notificaciones por email",
+  "El sistema deberá permitir enviar notificaciones por email al usuario si este activa esta opción en sus preferencias de notificación",
+)
+
+#requisito_funcional(
+  "Autenticación",
+  "El sistema deberá requerir autenticación para acceder a sus funcionalidades",
+)
+
+#requisito_funcional(
+  "Gestión de cuentas",
+  "El sistema deberá permitir a los usuarios registrarse y autenticarse mediante credenciales",
+)
+
+#requisito_funcional(
+  "Control de acceso",
+  "El sistema deberá restringir el acceso a recursos únicamente a su usuario propietario",
+)
 
 === Requisitos no funcionales
 
-Los requisitos no funcionales son...
+De las necesidades de los usuarios y del análisis del problema y la solución propuesta, se  derivan los siguientes requisitos no funcionales.
+
+==== Rendimiento y eficiencia
+#requisito_no_funcional(
+  "Ejecución asíncrona",
+  "El sistema deberá permitir la ejecución de tareas de análisis genómico de forma no bloqueante, de manera que el usuario pueda continuar interactuando con la interfaz durante su procesamiento",
+)
+
+// TODO: Creo que habría que dar un número específico para esto, en general creo q es demasiado general
+#requisito_no_funcional(
+  "Concurrencia",
+  "El sistema deberá permitir la ejecución concurrente de múltiples procesos de análisis genómico sin que esto afecte negativamente al rendimiento o la estabilidad del sistema",
+)
+
+#requisito_no_funcional(
+  "Gestión de almacenamiento",
+  "El sistema deberá gestionar los archivos de entrada y salida de forma eficiente, eliminando aquellos que no sean necesarios tras su procesamiento",
+)
+
+==== Escalabilidad y extensibilidad
+
+#requisito_no_funcional(
+  "Extensibilidad de modelos predictivos",
+  "El sistema deberá permitir la incorporación de nuevos modelos de predicción de resistencia a antibióticos sin necesidad de modificar la infraestructura o el flujo base del sistema",
+)
+
+#requisito_no_funcional(
+  "Extensibilidad de formatos de entrada",
+  "El sistema deberá permitir la incorporación de nuevos formatos de entrada para la generación de características mediante mecanismos desacoplados como parsers o adaptadores",
+)
+
+==== Mantenibilidad y modularidad
+
+#requisito_no_funcional(
+  "Arquitectura desacoplada",
+  "El sistema debera estar estructurado en componentes desacoplados que separen responsabilidades",
+)
+
+#requisito_no_funcional(
+  "Modularidad",
+  "El sistema deberá estar diseñado de forma modular, permitiendo la evolución independiente de sus componentes sin afectar al resto del sistema",
+)
+
+==== Seguridad
+#requisito_no_funcional(
+  "Integridad de datos",
+  "El sistema deberá garantizar la integridad de los datos mediante validacionas en las entidades y restricciones",
+)
+
+#requisito_no_funcional(
+  "Control de acceso",
+  "El sistema deberá garantizar que los usuarios solo puedan acceder a los recursos de su propiedad",
+)
+
+==== Trazabilidad
+#requisito_no_funcional(
+  "Trazabilidad del flujo",
+  "El sistema deberá permitir reconstruir el flujo de análisis genómico completo a partir de las relaciones entre tareas y sus resultados",
+)
+
+==== Usabilidad y accesibilidad
+#requisito_no_funcional(
+  "Facilidad de uso",
+  "El sistema deberá proporcionar una interfaz gráfica que abstraiga la complejidad técnica del pipeline de análisis genómico",
+)
+
+==== Portabilidad e interoperabilidad
+
+#requisito_no_funcional(
+  "Despliegue",
+  "El sistema deberá poder desplegarse en entornos Linux utilizando tecnologías estándar",
+)
+
+#requisito_no_funcional(
+  "Interoperabilidad",
+  "El sistema deberá permitir la importación y exportación de datos en formatos estándar (FASTA, JSON, CSV...) para su uso en otras herramientas o plataformas",
+)
 
 == Conclusiones
 
-En este capítulo concluimos que...
+En este capítulo se ha descrito el análisis del problema y la solución propuesta para el desarrollo de un sistema de análisis genómico integrado con modelos de predicción de resistencia a antibióticos. Adicionalmente, se han definido los casos de uso, los requisitos de información, los requisitos funcionales y no funcionales que guiarán el diseño e implementación del sistema.Estos requisitos reflejan la necesidad de un sistema no solo funcional, sino también robusto, extensible y adecuado para entornos reales de análisis bioinformático.

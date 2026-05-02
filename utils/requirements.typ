@@ -1,4 +1,3 @@
-// TODO: No está super bonito pero me vale por ahora
 #let zero-pad(n, width) = {
   let s = str(n)
   while s.len() < width { s = "0" + s }
@@ -61,6 +60,7 @@
   let id = zero-pad(counter("requisito_informacion").get().at(0) + 1, 3)
   let color = rgb("#e6eeff")
   block(
+    breakable: false,
     radius: 10pt,
     clip: true,
     inset: 10pt,
@@ -77,10 +77,11 @@
   counter("requisito_informacion").step()
 }
 
-#let requisito_funcional(descripcion) = context {
+#let requisito_funcional(name, descripcion) = context {
   let id = zero-pad(counter("requisito_funcional").get().at(0) + 1, 3)
   let color = rgb("#fff4e6")
   block(
+    breakable: false,
     radius: 10pt,
     clip: true,
     inset: 10pt,
@@ -88,7 +89,7 @@
     fill: color,
     width: 100%,
   )[
-    *RF-#id:*
+    *RF-#id:* *#name*
     #v(-0.5em)
     #line(length: 100%, stroke: (paint: color.darken(30%).saturate(20%), dash: "dotted"))
     #descripcion.
@@ -96,10 +97,11 @@
   counter("requisito_funcional").step()
 }
 
-#let requisito_no_funcional(descripcion) = context {
+#let requisito_no_funcional(name, descripcion) = context {
   let id = zero-pad(counter("requisito_no_funcional").get().at(0) + 1, 3)
-  let color = rgb("#fff2e6")
+  let color = rgb("#fbe3d5")
   block(
+    breakable: false,
     radius: 10pt,
     clip: true,
     inset: 10pt,
@@ -107,7 +109,7 @@
     fill: color,
     width: 100%,
   )[
-    *RNF-#id:*
+    *RNF-#id:* *#name*
     #v(-0.5em)
     #line(length: 100%, stroke: (paint: color.darken(30%).saturate(20%), dash: "dotted"))
     #descripcion.
