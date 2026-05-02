@@ -189,7 +189,6 @@ Con estos principios, se busca dar soporte a los perfiles definidos en la secci�
 === Flujo de análisis genómico integrado
 El sistema implementa un flujo de procesamiento de datos genómicos en el que cada etapa transforma la información de entrada, generando resultados que pueden ser utilizados en etapas posteriores. Este flujo parte de los datos de secuenciación en formato FASTQ y finaliza con la generación de predicciones de resistencia a antibióticos. Se sigue un flujo modular y flexible, que permite la ejecución completa del pipeline o la ejecución de sus distintas etapas de forma independiente, según las necesidades del usuario. El flujo general se muestra en la @fig:flujo_general.
 
-// TODO: Maybe poner las cajitas que corresponden a cada etapa en un color distinto
 #figure(
   placement: auto,
   image("/memoria/figures/flujo_general.svg", height: 90%),
