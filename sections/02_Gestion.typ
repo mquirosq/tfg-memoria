@@ -1,3 +1,5 @@
+#import "../utils/requirements.typ": riesgo
+
 = Estudio previo
 <sec:planificación>
 
@@ -79,8 +81,107 @@ Los costes incurridos finalmente durante la ejecución del proyecto han sido los
 
 Concluimos por tanto que el coste del proyecto asciende a 8.917,81 euros. El aumento en el coste respecto a lo planificado inicialmente se debe principalmente a la mayor dedicación de horas comentada en la sección de planificación. Sin embargo, gracias a la reserva se ha podido cubrir dicho aumento de costes, obteniendo un superávit de 350,68 euros, lo que representa aproximadamente un 3,78% del presupuesto total.
 
-== Riesgos
+== Análisis de Riesgos
 // TODO: Dani va a mandar algo
+El desarrollo del sistema propuesto, centrado en la integración del pipeline de análisis genómico y la incorporación de modelos de predicción de resistencia a antibióticos, presenta una serie de riesgos que podrían afectar a su viabilidad y correcta ejecución. A continuación, se detallan los principales riesgos identificados, junto con su probabilidad de ocurrencia, impacto potencial y estrategias de mitigación.
+
+#riesgo(
+  "Integración del pipeline completo",
+  "La unificación en un único flujo de distintas etapas del análisis genómico, tradicionalmente desacopladas, puede incrementar la complejidad del desarrollo y dificultar su correcta integración",
+  "Alto",
+  "Media",
+  (
+    "Desarrollo incremental por etapas independientes",
+    "Uso de interfaces claras entre componentes",
+    "Uso de herramientas consolidadas para cada fase",
+  ),
+)
+
+#riesgo(
+  "Dependencia de herramientas externas",
+  "El sistema depende de herramientas de bioinformática externas para el ensamblaje y la anotación, lo que introduce incertidumbre en cuanto a su compatibilidad, rendimiento y mantenimiento a lo largo del tiempo",
+  "Alto",
+  "Media",
+  (
+    "Uso de herramientas consolidadas y ampliamente utilizadas en la comunidad",
+    "Diseño flexible que permita sustituir herramientas sin afectar al resto del sistema",
+    "Gestión adecuada de errores en ejecuciones externas",
+  ),
+)
+
+#riesgo(
+  "Complejidad de la generación defeatures",
+  "La transformación de los resultados de anotación en características válidas para modelos predictivos puede resultar compleja",
+  "Alto",
+  "Media",
+  (
+    "Definición clara del formato intermedio",
+    "Validación de los datos generados",
+    "Mecanismos extensibles basados en parsers",
+  ),
+)
+
+#riesgo(
+  "Integración de modelos predictivos heterogéneos",
+  "El sistema pretende ser extensible a distintos modelos de predicción, lo que puede dificultar la definición de una interfaz común para su integración",
+  "Medio-Alto",
+  "Media",
+  (
+    "Definición de contratos de entrada/salida claros",
+    "Uso de adaptadores para integrar modelos",
+    "Documentación clara para la incorporación de nuevos modelos",
+    "Restricción inicial a modelos compatibles",
+  ),
+)
+
+#riesgo(
+  "Gestión de tareas asíncronas",
+  "La ejecución asíncrona de tareas de larga duración puede aumentar la complejidad del sistema, especialmente la gestión de estados y la comunicación con el usuario",
+  "Medio-Alto",
+  "Media",
+  (
+    "Definición clara de estados del proceso",
+    "Implementación de mecanismos de monitoreo",
+    "Uso de notificaciones para informar al usuario",
+  ),
+)
+
+#riesgo(
+  "Rendimiento en procesado de datos genómicos",
+  "Las tareas de ensamblaje y anotación pueden requerir un alto consumo de recursos, lo que puede afectar al rendimiento global del sistema",
+  "Alto",
+  "Media",
+  (
+    "Implementación de un servicio externo al sistema principal para el procesamiento de datos genómicos",
+    "Uso de entornos controlados de ejecución",
+    "Paralelización y uso de cola de tareas",
+  ),
+)
+
+#riesgo(
+  "Facilidad de uso para usuarios no técnicos",
+  "La complejidad del dominio bioinformático puede dificultar el uso del sistema por parte de usuarios sin experiencia técnica.",
+  "Medio",
+  "Media",
+  (
+    "Diseño de interfaz simple",
+    "Automaticación del flujo completo",
+    "Abstracción de detalles técnicos",
+    "Soporte de ejecución por etapas",
+  ),
+)
+
+#riesgo(
+  "Alcance del proyecto",
+  "Debido al contexto y el carácter extensible del sistema, existe el riesgo de que el alcance del proyecto se expanda más allá de lo inicialmente previsto y asumible dentro del marco temporal y de recursos disponibles",
+  "Alto",
+  "Alta",
+  (
+    "Definición clara de los objetivos y funcionalidades a desarrollar",
+    "Priorización de funcionalidades",
+    "Desarrollo y planificación iterativa e incremental",
+  ),
+)
 
 == Conclusiones
 En este capítulo se han expuesto los aspectos de gestión previos a la ejecución del proyecto, detallando los objetivos, la metodología adoptada y la planificación temporal y presupuestaria del proyecto. Se ha establecido un marco de trabajo que ha guiado la ejecución del mismo, permitiendo una gestión eficiente de los recursos y una adaptación flexible a las necesidades del proyecto a lo largo de su desarrollo.
