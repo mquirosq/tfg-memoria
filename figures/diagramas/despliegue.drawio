@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="fUTKILKybK0_5DBjonrT">
+    <mxGraphModel dx="1235" dy="715" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" adaptiveColors="none">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-2" parent="1" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;fillColor=#A9C4EB;strokeColor=#7EA6E0;" value="«device»&lt;div&gt;Dispositivo del usuario&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="180" x="10" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-4" parent="1" style="html=1;whiteSpace=wrap;" value="«execution environment»&lt;br&gt;&lt;b&gt;Navegador web&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="24" y="249" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-5" parent="1" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" value="«device»&lt;div&gt;Servidor&lt;/div&gt;" vertex="1">
+          <mxGeometry height="520" width="497" x="263" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-6" parent="1" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;fillColor=#FFCE9F;strokeColor=#FFB570;" value="«execution environment»&lt;div&gt;Docker Compose Stack: Web&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="444" x="286" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-8" parent="1" style="html=1;whiteSpace=wrap;" value="&lt;b&gt;Sistema web&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="306" y="209" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-10" parent="1" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;fillColor=#B9E0A5;strokeColor=#97D077;" value="«execution environment»&lt;div&gt;Docker Compose Stack: Bio&lt;/div&gt;" vertex="1">
+          <mxGeometry height="230" width="450" x="280" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-11" parent="1" style="html=1;whiteSpace=wrap;" value="&lt;b&gt;Sistema bioinformático&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="570" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-12" parent="1" style="html=1;whiteSpace=wrap;" value="&lt;b&gt;Sistema ejecución asíncrona bio&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="298" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-13" parent="1" style="html=1;whiteSpace=wrap;" value="&lt;b&gt;Sistema ejecución asíncrona web&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="570" y="209.5" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-14" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=55;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=95;entryDy=444;entryPerimeter=0;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Https" vertex="1">
+          <mxGeometry height="30" width="60" x="200" y="219" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-19" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="PostgreSQL" vertex="1">
+          <mxGeometry height="69" width="80" x="298" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-20" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-19" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="240" as="sourcePoint" />
+            <mxPoint x="366" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-22" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Archivos" vertex="1">
+          <mxGeometry height="50" width="90" x="390" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-23" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-22" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="291" as="sourcePoint" />
+            <mxPoint x="374" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-24" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Redis" vertex="1">
+          <mxGeometry height="69" width="80" x="468" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-25" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-24" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="407" y="298" as="sourcePoint" />
+            <mxPoint x="380" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-26" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-24" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="317" as="sourcePoint" />
+            <mxPoint x="480" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-27" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-11" style="endArrow=none;html=1;rounded=0;endFill=0;startArrow=block;startFill=1;" target="PFLdG5cFLWV1R3wz_iMM-13" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="640" y="410" as="sourcePoint" />
+            <mxPoint x="730" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-28" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Redis" vertex="1">
+          <mxGeometry height="69" width="80" x="468" y="440.5" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-30" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-28" style="endArrow=none;html=1;rounded=0;" target="PFLdG5cFLWV1R3wz_iMM-12" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="640" y="510" as="sourcePoint" />
+            <mxPoint x="640" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-31" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-28" style="endArrow=none;html=1;rounded=0;" target="PFLdG5cFLWV1R3wz_iMM-11" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="532" y="480" as="sourcePoint" />
+            <mxPoint x="510" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-32" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="API" vertex="1">
+          <mxGeometry height="30" width="60" x="596" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-33" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Bakta" vertex="1">
+          <mxGeometry height="69" width="80" x="298" y="516" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-34" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-33" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="476" as="sourcePoint" />
+            <mxPoint x="364" y="495" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-35" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Archivos" vertex="1">
+          <mxGeometry height="50" width="90" x="390" y="516" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-36" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-35" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=1;" target="PFLdG5cFLWV1R3wz_iMM-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="532" as="sourcePoint" />
+            <mxPoint x="397" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

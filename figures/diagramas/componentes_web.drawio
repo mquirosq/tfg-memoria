@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="fUTKILKybK0_5DBjonrT">
+    <mxGraphModel dx="790" dy="458" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" adaptiveColors="none">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-38" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCE9F;strokeColor=#FFB570;" value="" vertex="1">
+          <mxGeometry height="160" width="570" x="210" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-39" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;u&gt;Sistema Web&lt;/u&gt;" vertex="1">
+          <mxGeometry height="30" width="110" x="440" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-48" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-40" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-40" parent="1" style="html=1;whiteSpace=wrap;" value="Gestión de procesos" vertex="1">
+          <mxGeometry height="40" width="110" x="510" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-41" parent="1" style="html=1;whiteSpace=wrap;" value="Predicción" vertex="1">
+          <mxGeometry height="40" width="110" x="650" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-42" parent="1" style="html=1;whiteSpace=wrap;" value="Ejecución asíncrona" vertex="1">
+          <mxGeometry height="40" width="110" x="370" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-43" parent="1" style="html=1;whiteSpace=wrap;" value="Integración bioinformática" vertex="1">
+          <mxGeometry height="40" width="110" x="230" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-44" parent="1" style="html=1;whiteSpace=wrap;" value="Gestión de&amp;nbsp;&lt;div&gt;archivos&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="110" x="230" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-45" parent="1" style="html=1;whiteSpace=wrap;" value="Generación de features" vertex="1">
+          <mxGeometry height="40" width="110" x="650" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-46" parent="1" style="html=1;whiteSpace=wrap;" value="Notificaciones" vertex="1">
+          <mxGeometry height="40" width="110" x="370" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-47" parent="1" style="html=1;whiteSpace=wrap;" value="Autenticación y control de acceso" vertex="1">
+          <mxGeometry height="40" width="110" x="510" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-49" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-44" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="390" as="sourcePoint" />
+            <mxPoint x="260" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-51" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-45" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-40">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="472" y="320" as="sourcePoint" />
+            <mxPoint x="390" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-55" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-43" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="390" as="sourcePoint" />
+            <mxPoint x="260" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-56" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-45" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-41">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="420" as="sourcePoint" />
+            <mxPoint x="450" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-57" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-42" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-46">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="390" as="sourcePoint" />
+            <mxPoint x="562" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

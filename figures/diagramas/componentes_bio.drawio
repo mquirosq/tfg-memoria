@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="fUTKILKybK0_5DBjonrT">
+    <mxGraphModel dx="550" dy="456" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" adaptiveColors="none">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-38" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B9E0A5;strokeColor=#97D077;" value="" vertex="1">
+          <mxGeometry height="100" width="500" x="240" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-39" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;u&gt;Sistema Bioinformático&lt;/u&gt;" vertex="1">
+          <mxGeometry height="30" width="130" x="420" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-44" parent="1" style="html=1;whiteSpace=wrap;" value="Gestión de&amp;nbsp;&lt;div&gt;tareas&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="110" x="260" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-46" parent="1" style="html=1;whiteSpace=wrap;" value="Gestión de resultados" vertex="1">
+          <mxGeometry height="40" width="110" x="610" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-55" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-43" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-44">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="390" as="sourcePoint" />
+            <mxPoint x="370" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-57" edge="1" parent="1" source="PFLdG5cFLWV1R3wz_iMM-43" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="PFLdG5cFLWV1R3wz_iMM-46">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="425" y="360" as="sourcePoint" />
+            <mxPoint x="562" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PFLdG5cFLWV1R3wz_iMM-43" parent="1" style="html=1;whiteSpace=wrap;" value="Ejecución de análisis genómico" vertex="1">
+          <mxGeometry height="40" width="110" x="435" y="330" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

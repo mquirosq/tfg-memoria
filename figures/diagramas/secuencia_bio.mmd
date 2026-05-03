@@ -1,0 +1,72 @@
+---
+config:
+  theme: redux
+---
+sequenceDiagram
+    actor U as Usuario
+    participant UI
+    participant API
+    participant Storage@{ "type": "database" }
+    participant DB@{ "type": "database" }
+    participant Q@{ "type": "queue" }
+    participant W
+    participant BioAPI
+    participant BioQ@{ "type": "queue" }
+    participant BioW
+    participant Pipeline
+    box rgba(255, 206, 159) Sistema web
+    participant UI as Frontend
+    participant API as Backend
+    participant DB as Base de datos
+    participant Storage as Almacenamiento
+    participant Q as Cola Web
+    participant W as Worker Web
+    end
+    box rgba(185, 224, 165) Sistema Bioinformático
+    participant BioAPI as API Bioinformática
+    participant BioQ as Cola Bio
+    participant BioW as Worker Bio
+    participant Pipeline as Pipeline (Ensamblaje/Anotación)
+    end
+
+    U->>UI: Subida de archivos <br>y solicitud
+    UI->>API: Solicitud <br>ensamblaje/anotación
+
+    API->>Storage: Guardar archivos
+    API->>DB: Crear proceso <br>(estado: pending)
+    API->>Q: Encolar tarea web
+
+    Q->>W: Ejecutar tarea
+    W->>BioAPI: Solicitar <br>ensamblaje/anotación
+    W->>DB: Actualizar estado (running)
+    W->>DB: Crear notificación (start)
+    UI -->> U: Mostrar notificaciones
+
+    BioAPI->>BioQ: Encolar tarea bio
+    BioQ->>BioW: Ejecutar tarea
+    BioW->>Pipeline: Ejecutar pipeline
+    Pipeline-->>BioW: Resultado
+
+    BioW->>BioAPI: Actualizar estado
+
+    loop Polling estado <br>hasta finalización
+        W->>BioAPI: Consultar estado
+        BioAPI-->>W: Estado actual
+    end
+
+    W->>API: Recibir resultados
+    API->>Storage: Guardar archivos
+
+    opt Si ensamblaje
+      API->>Storage: Eliminar FASTQ
+    end
+
+    opt Si anotación
+        API->>API: Generar features
+        API->>DB: Guardar features
+    end
+
+    API->>DB: Actualizar estado <br>(completed)
+    API ->>DB: Crear notificación <br>(éxito)
+    API-->>UI: Resultados <br>disponibles
+    UI -->> U: Mostrar notificaciones

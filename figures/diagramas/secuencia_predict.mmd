@@ -1,0 +1,35 @@
+---
+config:
+  theme: redux
+---
+sequenceDiagram
+
+    actor U as Usuario
+    participant UI
+    participant API
+    participant DB@{ "type": "database" }
+    participant Adapt
+    participant ML
+    box rgba(255, 206, 159) Sistema web
+    participant UI as Frontend
+    participant API as Backend
+    participant DB as Base de datos
+    participant ML as Modelos de Predicción
+    participant Adapt as Adaptadores
+    end
+
+    U->>UI: Selección de modelo, <br>antibióticos y muestra
+    UI->>API: Solicitud <br>predicción
+    
+    API ->> DB: Obtener features <br>de muestra
+    DB -->> API: Features
+    loop para cada modelo y antibiótico
+    API ->> Adapt: Cargar pesos antibiótico
+    API ->> Adapt: Predecir resistencia
+    Adapt ->> ML: Obtener predicción
+    ML -->> Adapt: Predicción
+    Adapt -->> API: Predicción
+    end
+    
+    API-->>UI: Resultados <br>disponibles
+    UI -->> U: Mostrar resultados

@@ -59,6 +59,5 @@
 
 // TODO: en colaboración con el hospital? o incluir alguna mención o algo
 // Realizado en colaboración con el grupo de investigacion.... (Dani me va a mandar algo para esto)
-//
+
 // TODO: cambiar cabeceras de los estilos de las tablas (tan amarillos feos)
-// TODO: Riesgos y análisis de mercado??? (riegos sí, manda dani, análisis de mercado va en la situación actual)

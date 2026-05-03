@@ -1,0 +1,33 @@
+---
+config:
+  layout: dagre
+---
+flowchart TB
+ subgraph Client["Capa de Usuario"]
+        User(("Usuario"))
+        UI["Frontend Web"]
+  end
+ subgraph WebSystem["Sistema Web"]
+        API["Backend"]
+        DB[("Datos")]
+        Storage[("Archivos")]
+        RedisWeb[("Cola de tareas Web")]
+        CeleryWeb["Web Workers"]
+        ML["Modulo de Predicción"]
+  end
+ subgraph BioSystem["Sistema Bioinformático"]
+        RedisBio[("Cola de tareas Bio")]
+        CeleryBio["Bio Workers"]
+        Pipeline["Ensamblaje / Anotación"]
+  end
+    User --> UI
+    UI --> API
+    API --> DB & Storage & RedisWeb & ML
+    RedisWeb --> CeleryWeb
+    CeleryWeb --> API & RedisBio
+    RedisBio --> CeleryBio
+    CeleryBio --> Pipeline
+
+    style Client fill:#BBDEFB,stroke:#2962FF
+    style WebSystem fill:#FFE0B2,stroke:#FF6D00
+    style BioSystem fill:#C8E6C9,stroke:#00C853
