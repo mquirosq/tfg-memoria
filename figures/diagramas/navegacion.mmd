@@ -1,0 +1,32 @@
+---
+config:
+  layout: dagre
+---
+flowchart TB
+ subgraph Analisis["Módulos de análisis"]
+        Ens["Ensamblaje"]
+        Anot["Anotación"]
+        Pred["Predicción"]
+  end
+ subgraph Gestion["Gestión y seguimiento"]
+        Proc["Mis procesos"]
+        Notif["Notificaciones"]
+  end
+ subgraph Web["Sistema web"]
+        Home["Inicio"]
+        Analisis
+        Gestion
+  end
+    User(("Usuario")) --> Home
+    Home --> Ens & Proc & Notif
+    Ens -. genera procesos .-> Proc
+    Anot -. genera procesos .-> Proc
+    Ens -. genera FASTA .-> Anot
+    Anot -. genera features .-> Pred
+    Proc -. estado .-> Notif
+    Home --> Anot & Pred
+
+    style Analisis fill:#FFF9C4,stroke:#FFD600
+    style Gestion fill:#E1BEE7,stroke:#AA00FF
+    style User fill:#BBDEFB,stroke:#2962FF
+    style Web fill:#FFE0B2,stroke:#FF6D00

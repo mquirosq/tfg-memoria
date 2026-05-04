@@ -191,9 +191,27 @@ El diseño de la interfaz se ha realizado en coherencia con los objetivos defini
 - *Diseño lipio y orientado al dominio*: se prioriza la claridad visual y el orden en la presentación de la información, alineada con el contexto científico del sistema.
 
 === Estructura general de la interfaz
-[EN CONSTRUCCIÓN]
-- Navegación principal
-- Secciones - a lo mejor con un diagrama de navegación???
+La interfaz web es ofrecida por completo por el sistema web, que actúa como punto de entrada a toda la funcionalidad del sistema. Su estructura se ha diseñado para facilitar la navegación entre las distintas funcionalidades, permitiendo tanto la ejecución completa del flujo de análisis genómico como su uso por etapas, así como el seguimiento de los procesos en ejecución.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/navegacion.svg", width: 100%),
+  caption: "Diagrama de navegación de la interfaz",
+)<fig:navegacion>
+
+La navegación principal se organiza en torno a un conjunto reducido de secciones que reflejan las distintas etapas del flujo de análisis genómico y las funcionalidades de gestión del sistema, tal y como se muestra en la @fig:navegacion.
+
+Se distinguen dos grandes bloques: los módulos de análisis, que incluyen las funcionalidades de ensamblaje, anotación y predicción, y las secciones de gestión y seguimiento, centradas en la consulta de procesos y notificaciones. Asimismo, el diagrama refleja las relaciones entre estas secciones. Destaca el papel de la gestión de procesos como punto central del seguimiento de las ejecuciones. Adicionalmente, se observa la dependencia entre etapas del flujo, donde la anotación puede partir de resultados de ensamblaje y la predicción utiliza las características generadas durante la anotación.
+
+A continuación, se describe brevemente cada una de las secciones principales de la interfaz:
+
+- *Inicio*: sección de entrada al sistema que proporciona una visión general y acceso a las funcionalidades principales.
+- *Ensamblaje*: permite la subida de datos FASTQ y la ejecución del proceso de ensamblaje, ofreciendo además la opción de encadenar automáticamente la anotación.
+- *Anotación*: permite seleccionar datos FASTA y ejecutar procesos de anotación, así como generar características a partir de archivos de anotación externos.
+- *Predicción*: sección dedicada a la ejecución de modelos de predicción de resistencia a antibióticos, donde los usuarios pueden seleccionar las muestras, modelos y antibióticos de interés para obtener predicciones.
+- *Procesos*: sección central para la gestión de los procesos de análisis, incluyendo el seguimiento de su estado y la consulta de resultados.
+- *Notificaciones*: permite a los usuarios consultar las notificaciones generadas por el sistema relacionadas con el estado de sus procesos y otras alertas relevantes.
+
 
 // TODO
 === Interacción y experiencia de usuario
