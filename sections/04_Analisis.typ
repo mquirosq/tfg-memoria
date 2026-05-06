@@ -1,6 +1,7 @@
 #import "../utils/requirements.typ": (
   caso_de_uso, historia_usuario, requisito_funcional, requisito_informacion, requisito_no_funcional,
 )
+#import "../utils/todo.typ": todo
 
 = Análisis del problema
 <sec:análisis>
@@ -170,8 +171,6 @@ A continuación, se exponen las historias de usuario derivadas de los requisitos
   "evitar transformaciones manuales de los datos",
 )
 
-// TODO: A lo mejor añadir un mockup de la parte de visualización de resultados de predicciones? es un punto importante del sistema
-
 == Diseño conceptual de la solución
 
 === Enfoque del sistema
@@ -192,7 +191,10 @@ El sistema implementa un flujo de procesamiento de datos genómicos en el que ca
 #figure(
   placement: auto,
   image("/memoria/figures/flujo_general.svg", height: 90%),
-  caption: "Flujo de análisis genómico integrado del sistema",
+  caption: [Flujo de análisis genómico integrado del sistema. \
+    #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: yellow.lighten(70%)) = ensamblaje #h(1cm)
+    #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: orange.lighten(50%)) = anotación #h(1cm)
+    #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: red.lighten(60%)) = predicción],
 )<fig:flujo_general>
 
 El proceso puede iniciarse desde distintos puntos del sistema. En el caso del flujo completo, los datos de secuenciación en formato FASTQ se utilizan como entrada para iniciar el proceso de *ensamblaje* del genoma, obteniéndose como resultado un conjunto de contigs en formato FASTA.
@@ -589,7 +591,7 @@ A partir de los requisitos de información definidos, se deriva el Diagrama de E
 
 #figure(
   image("/memoria/figures/er_analisis.svg", width: 90%),
-  caption: "Diagrama Entidad-Relación (Modelo Conceptual)",
+  caption: "Diagrama Entidad-Relación",
 )<fig:diagrama_er>
 
 El modelo se estructura alrededor del usuario como elemento central, que actúa como propietario de los datos generados y como ejecutor de los procesos de análisis genómico. Los archivos subidos constituyen el punto de entrada de los datos genómicos, que son transformados a través de los distintos procesos de análisis genómico. A partir de los resultados de los procesos de anotación se generan las features, los genes y la información asociada a su presencia en cada muestra.

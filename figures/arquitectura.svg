@@ -17,11 +17,35 @@
   <defs
      id="defs1">
     <rect
+       x="423.55239"
+       y="1814.2717"
+       width="1347.3635"
+       height="1027.1979"
+       id="rect5" />
+    <rect
+       x="1361.8849"
+       y="115.55387"
+       width="981.02879"
+       height="114.37475"
+       id="rect4" />
+    <rect
        x="2374.5615"
        y="5042.608"
        width="1327.3532"
        height="246.79431"
        id="rect2" />
+    <rect
+       x="1361.8849"
+       y="115.55387"
+       width="981.02881"
+       height="114.37475"
+       id="rect4-4" />
+    <rect
+       x="1361.8849"
+       y="115.55387"
+       width="1341.2151"
+       height="137.72015"
+       id="rect4-4-5" />
   </defs>
   <sodipodi:namedview
      id="namedview1"
@@ -32,15 +56,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.14992242"
-     inkscape:cx="1143.925"
-     inkscape:cy="2991.5472"
-     inkscape:window-width="1920"
-     inkscape:window-height="991"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:zoom="0.29984484"
+     inkscape:cx="1329.0207"
+     inkscape:cy="3890.3454"
+     inkscape:window-width="2304"
+     inkscape:window-height="1190"
+     inkscape:window-x="-11"
+     inkscape:window-y="1285"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g1" />
+     inkscape:current-layer="g1"
+     showguides="false" />
   <g
      inkscape:groupmode="layer"
      inkscape:label="Image"
@@ -53,32 +78,39 @@
        id="image1" />
     <text
        xml:space="preserve"
-       style="font-size:86.66666667px;line-height:0;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000"
-       x="103.3868"
-       y="1704.2147"
-       id="text1"><tspan
-         id="tspan1"
-         x="103.3868"
-         y="1704.2147"
-         sodipodi:role="line"
-         style="line-height:0;font-size:86.66666667px">Sistema Web</tspan></text>
+       id="text4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:extra-condensed;font-size:74.6667px;line-height:1;font-family:Algerian;-inkscape-font-specification:'Algerian Extra-Condensed';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4);display:inline;fill:#000000"
+       x="366.4715"
+       y="0"
+       transform="translate(0,-45.686817)"><tspan
+         x="1578.4331"
+         y="175.20279"
+         id="tspan5"><tspan
+           style="font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+           id="tspan1">Capa de usuario</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text2"
-       style="font-size:86.6667px;line-height:0;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect2);shape-padding:0;fill:#000000"
-       transform="translate(-92.72704,25.350582)"><tspan
-         x="2374.5625"
-         y="5067.5094"
-         id="tspan3">Servicio Bioinformático</tspan></text>
+       id="text4-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:extra-condensed;font-size:74.6667px;line-height:1;font-family:Algerian;-inkscape-font-specification:'Algerian Extra-Condensed';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4-4);display:inline;fill:#000000"
+       x="366.4715"
+       y="0"
+       transform="translate(-1524.2211,1545.1168)"><tspan
+         x="1631.079"
+         y="175.20279"
+         id="tspan7"><tspan
+           style="font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+           id="tspan6">Sistema Web</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:86.6667px;line-height:0;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000"
-       x="1502.7711"
-       y="126.73221"
-       id="text3"><tspan
-         sodipodi:role="line"
-         id="tspan2"
-         x="1502.7711"
-         y="126.73221">Capa de usuario</tspan></text>
+       id="text4-2-1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:extra-condensed;font-size:74.6667px;line-height:1;font-family:Algerian;-inkscape-font-specification:'Algerian Extra-Condensed';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4-4-5);shape-padding:0;display:inline;fill:#000000"
+       x="366.4715"
+       y="0"
+       transform="translate(748.85012,4908.4951)"><tspan
+         x="1652.7967"
+         y="175.20279"
+         id="tspan9"><tspan
+           style="font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+           id="tspan8">Servicio Bioinformático</tspan></tspan></text>
   </g>
 </svg>

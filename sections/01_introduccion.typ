@@ -1,3 +1,5 @@
+#import "../utils/todo.typ": todo
+
 = Introducción
 <sec:introduccion>
 
@@ -21,7 +23,9 @@ Por otro lado, el framework ofrece una infraestructura flexible diseñada para l
 
 En definitiva, este proyecto no se limita al desarrollo de una solución específica, sino que propone una herramienta reutilizable y extensible que facilita la integración de nuevos modelos predictivos en el flujo de trabajo clínico. De este modo, contribuye a reducir la brecha existente entre el desarrollo de modelos de predicción y su aplicación efectiva en la práctica clínica.
 
-Este documento se compone de siete capítulos, en los cuales se profundiza en distintos aspectos del proyecto llevado a cabo durante el desarrollo de este trabajo de fin de grado.
+#todo("Meter info del contexto en el que se ha desarrolla, el grupo de investigación y como se mezcla con eso.")
+
+Este documento se compone de seis capítulos, en los cuales se profundiza en distintos aspectos del proyecto llevado a cabo durante el desarrollo de este trabajo de fin de grado.
 
 En primer lugar, el @sec:planificación se centra en el estudio previo al proyecto, en el que se exponen aspectos como los objetivos del proyecto, la metodología seguida y la planificación temporal y presupuestaria del mismo.
 
@@ -33,6 +37,6 @@ El @sec:diseño se centra en el diseño de la solución propuesta, incluyendo la
 
 El @sec:implementación se dedica a la descripción de la implementación de la solución propuesta, describiendo las tecnologías utilizadas, la estructura del código y los aspectos más relevantes de la implementación.
 
-El @sec:pruebas se centra en la descripción de las pruebas realizadas para validar la solución propuesta.
-
 Finalmente, el @sec:conclusiones recoge las conclusiones obtenidas a lo largo del desarrollo del proyecto, así como las posibles líneas de trabajo futuro que se podrían seguir a partir de este trabajo de fin de grado.
+
+// Meterinfo del contexto en el que se ha desarrollad, el grupo de investigación y como se mezcla con eso.

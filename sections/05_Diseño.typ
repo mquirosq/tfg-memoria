@@ -1,7 +1,10 @@
+#import "../utils/todo.typ": todo
+
 = Diseño de la solución
 <sec:diseño>
 
 == Introducción
+//TODO
 
 En este capítulo explicaremos...
 

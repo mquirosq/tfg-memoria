@@ -1,4 +1,5 @@
 #import "@preview/deal-us-tfc-template:1.1.1": *
+#import "utils/todo.typ": todo
 
 #show: TFC.with(
   titulo: "Trabajo fin de grado",
@@ -33,6 +34,7 @@
   ),
   bibliografia: bibliography("/memoria/bibliografia.bib"),
 )
+#outline(target: figure.where(kind: "todo"))
 
 #show ref: it => {
   let el = it.element
@@ -54,10 +56,8 @@
 #include "sections/04_Analisis.typ"
 #include "sections/05_Diseño.typ"
 #include "sections/06_Implementacion.typ"
-#include "sections/07_Pruebas.typ"
 #include "sections/XX_Conclusiones.typ"
 
-// TODO: en colaboración con el hospital? o incluir alguna mención o algo
-// Realizado en colaboración con el grupo de investigacion.... (Dani me va a mandar algo para esto)
+#todo("Esperando a que Dani mande la memoria para hacer referencia a la colaboración con el grupo de investigación")
 
-// TODO: cambiar cabeceras de los estilos de las tablas (tan amarillos feos)
+#todo("Cambiar cabeceras de los estilos de las tablas (tan amarillos feos)")

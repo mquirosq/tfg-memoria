@@ -1,3 +1,4 @@
+#import "../utils/todo.typ": todo
 = Implementación
 <sec:implementación>
 

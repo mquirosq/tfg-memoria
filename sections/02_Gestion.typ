@@ -1,4 +1,5 @@
 #import "../utils/requirements.typ": riesgo
+#import "../utils/todo.typ": todo
 
 = Estudio previo
 <sec:planificación>
@@ -82,7 +83,6 @@ Los costes incurridos finalmente durante la ejecución del proyecto han sido los
 Concluimos por tanto que el coste del proyecto asciende a 8.917,81 euros. El aumento en el coste respecto a lo planificado inicialmente se debe principalmente a la mayor dedicación de horas comentada en la sección de planificación. Sin embargo, gracias a la reserva se ha podido cubrir dicho aumento de costes, obteniendo un superávit de 350,68 euros, lo que representa aproximadamente un 3,78% del presupuesto total.
 
 == Análisis de Riesgos
-// TODO: Dani va a mandar algo
 El desarrollo del sistema propuesto, centrado en la integración del pipeline de análisis genómico y la incorporación de modelos de predicción de resistencia a antibióticos, presenta una serie de riesgos que podrían afectar a su viabilidad y correcta ejecución. A continuación, se detallan los principales riesgos identificados, junto con su probabilidad de ocurrencia, impacto potencial y estrategias de mitigación.
 
 #riesgo(
