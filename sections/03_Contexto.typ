@@ -18,14 +18,14 @@ Los microorganismos, como bacterias y virus, poseen material genético que conti
 Para llevar a este análisis, es necesario seguir un flujo de trabajo compuesto por varias etapas: secuenciación, ensamblaje y anotación (@fig:workflow). Este proceso transforma el ADN en datos crudos que posteriormente se convierten en información estructurada y biológicamente interpretable, que se puede utilizar en análisis más avanzados, como la predicción de resistencia a antibióticos.
 
 #figure(
-  image("/memoria/figures/workflow.png", width: 70%),
+  image("/memoria/figures/workflow.svg", width: 100%),
   caption: "Flujo de trabajo típico en el análisis genómico",
 )<fig:workflow>
 
 Estos procesos son complejos y requieren herramientas especializadas, así como un elevado coste computacional. En las siguientes secciones se describen las etapas principales del análisis genómico: secuenciación, ensamblaje y anotación del genoma.
 
 === Secuenciación
-La secuenciación del ADN es el proceso que consiste en determinar el orden de los nucleótidos (A, T, C y G) en una molécula de ADN. En el caso de los microorganismos, esto implica la fragmentación del material genético en pequeñas secuencias denominadas _lecturas_, que representan observaciones parciales del genoma original.
+La secuenciación del ADN es el proceso que consiste en determinar el orden de los nucleótidos (A, T, C y G) en una molécula de ADN, @fig:sequencing. En el caso de los microorganismos, esto implica la fragmentación del material genético en pequeñas secuencias denominadas _lecturas_, que representan observaciones parciales del genoma original.
 
 La secuenciación se realiza introduciendo una muestra del microorganismo en máquinas especializadas que generan las lecturas. Existen distintas tecnologías de secuenciación, como Illumina u Oxford Nanopore Technologies (ONT), que se diferencian principalmente en la longitud de sus lecturas, la precisión y el coste. La elección de la tecnología depende de los objetivos del estudio, el presupuesto disponible y las características del microorganismo a analizar.
 
@@ -36,13 +36,13 @@ El framework aborado en este proyecto ha sido diseñado para ser compatible con 
 Los datos generados se almacenan habitualmente en formato FASTQ, el cual incluye tanto la secuencia de nucleótidos como una puntuación de calidad para cada base, que indica la confianza en la precisión de la lectura.
 
 #figure(
-  image("/memoria/figures/secuenciacion.png", width: 70%),
+  image("/memoria/figures/secuenciacion.svg", width: 100%),
   caption: "Resumen de flujo de secuenciación",
 )<fig:sequencing>
 
 === Ensamblaje
 
-El ensamblaje genómico, assembly en inglés, es el proceso mediante el cual se reconstruye la secuencia completa del genoma a partir de las lecturas obtenidas en la secuenciación. Este proceso es especialmente complejo debido a la naturaleza fragmentada de los datos y la presencia de errores en las lecturas.
+El ensamblaje genómico, assembly en inglés, es el proceso mediante el cual se reconstruye la secuencia completa del genoma a partir de las lecturas obtenidas en la secuenciación (@fig:assembly). Este proceso es especialmente complejo debido a la naturaleza fragmentada de los datos y la presencia de errores en las lecturas.
 
 Para llevar a cabo el ensamblaje, se utilizan algoritmos que buscan solapamientos entre las lecturas para construir secuencias más largas llamadas _contigs_. Los contigs representan fragmentos continuos del genoma y, en condiciones ideales, permiten reconstruirlo de forma completa.
 
@@ -53,12 +53,12 @@ Dependiendo de la tecnología de secuenciación utilizada, se emplean distintas 
 Los resultados de este proceso se almacenan en formato FASTA, que contiene los secuencias ensambladas del genoma.
 
 #figure(
-  image("/memoria/figures/assembly.png", width: 70%),
+  image("/memoria/figures/assembly.svg", width: 100%),
   caption: "Resumen de flujo de ensamblaje",
 )<fig:assembly>
 
 === Anotación
-Una vez obtenido el genoma ensamblado, se inicia el proceso de anotación, o annotation en inglés, cuyo objetivo es identificar elementos biológicos relevantes como genes, regiones codificantes y proteínas asociadas.
+Una vez obtenido el genoma ensamblado, se inicia el proceso de anotación, o annotation en inglés, cuyo objetivo es identificar elementos biológicos relevantes como genes, regiones codificantes y proteínas asociadas, @fig:annotation.
 
 En este trabajo se utiliza la herramienta _Bakta_, ampliamente empleada en el ámbito de la genómica bacteriana. Bakta realiza la identificación de genes a partir de secuencias genómicas y asigna funciones biológicas mediante la comparación con bases de datos de referencia y modelos de anotación.
 
@@ -67,7 +67,7 @@ El resultado de este proceso es un conjunto de anotaciones estructuradas que des
 En este proyecto, dicha información se exporta en formato JSON, lo que permite su procesamiento automatizado e integración con el sistema desarrollado, facilitando su uso en modelos predictivos.
 
 #figure(
-  image("/memoria/figures/annotation.png", width: 70%),
+  image("/memoria/figures/annotation.svg", width: 100%),
   caption: "Resumen de flujo de anotación",
 )<fig:annotation>
 

@@ -193,13 +193,14 @@ Con estos principios, se busca dar soporte a los perfiles definidos en la secci�
 El sistema implementa un flujo de procesamiento de datos genómicos en el que cada etapa transforma la información de entrada, generando resultados que pueden ser utilizados en etapas posteriores. Este flujo parte de los datos de secuenciación en formato FASTQ y finaliza con la generación de predicciones de resistencia a antibióticos. Se sigue un flujo modular y flexible, que permite la ejecución completa del pipeline o la ejecución de sus distintas etapas de forma independiente, según las necesidades del usuario. El flujo general se muestra en la @fig:flujo_general.
 
 #figure(
-  placement: auto,
   image("/memoria/figures/flujo_general.svg", height: 90%),
-  caption: [Flujo de análisis genómico integrado del sistema. \
-    #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: yellow.lighten(70%)) = ensamblaje #h(1cm)
-    #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: orange.lighten(50%)) = anotación #h(1cm)
-    #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: red.lighten(60%)) = predicción],
+  caption: [Flujo de análisis genómico integrado del sistema.],
 )<fig:flujo_general>
+
+#box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: green.lighten(40%)) = secuenciación #h(1cm)
+#box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: yellow.lighten(70%)) = ensamblaje #h(1cm)
+#box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: orange.lighten(50%)) = anotación #h(1cm)
+#box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: red.lighten(60%)) = predicción
 
 El proceso puede iniciarse desde distintos puntos del sistema. En el caso del flujo completo, los datos de secuenciación en formato FASTQ se utilizan como entrada para iniciar el proceso de *ensamblaje* del genoma, obteniéndose como resultado un conjunto de contigs en formato FASTA.
 
