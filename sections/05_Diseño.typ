@@ -200,6 +200,7 @@ En conjunto, estos patrones permiten estructurar el sistema como una plataforma 
 - Uso de una base de datos relacional para la gestión de datos estructurados, garantizando la integridad y facilitando las consultas complejas necesarias para la gestión de procesos y usuarios
 - Uso de un sistema de almacenamiento de archivos para gestionar los datos de entrada y salida, optimizando el rendimiento y la eficiencia en la gestión de grandes volúmenes de datos genómicos
 - Separación en dos servicios principales (sistema web y sistema bioinformático) para mejorar la escalabilidad y facilitar la integración de nuevas herramientas sin afectar al resto del sistema
+- Uso de tailwind con DaisyUI para el diseño de la interfaz, permitiendo una rápida implementación de un diseño limpio y coherente, con componentes predefinidos que facilitan la creación de una experiencia de usuario atractiva y funcional.
 
 == Diseño de la interfaz de usuario
 
