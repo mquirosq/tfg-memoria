@@ -2,9 +2,6 @@
 
 = Contexto
 <sec:contexto>
-
-#todo("Poner las figuras en condiciones y no capturas de pantalla cutres :D")
-
 == Introducción
 
 En este capítulo se realiza una introducción al contexto biológico del proyecto, centrado en el procesamiento de datos genómicos y el uso de modelos predictivos para la predicción de resistencia a antibióticos. Este contexto es fundamental para comprender la relevancia del problema abordado y el vocabulario específico utilizado a lo largo de esta memoria.
