@@ -4,7 +4,7 @@
 <sec:diseño>
 
 == Introducción
-//TODO
+#todo("Por hacer")
 
 En este capítulo explicaremos...
 
@@ -100,8 +100,9 @@ Por otro lado, los módulos que componen el sistema bioinformático, mostrados e
 - *Módulo de gestión de resultados*: encargado de procesar los resultados generados y facilitar su recuperación por parte del sistema web.
 
 == Modelo de datos y clases
-// TODO: Quiero cambiar una cosa del modelo de datos así que no quiero trabajaer en esto todavía, me lo voy a saltar por ahora. Pero aquí se explicaría el modelo de datos, las clases principales, sus responsabilidades, etc. También se podrían incluir algunos diagramas de clases para ilustrar la estructura del sistema y la relación entre los distintos componentes.
-Quiero cambiar una cosa del modelo de datos así que no quiero hacerlo todavía pero irían:
+#todo(
+  "Quiero cambiar una cosa del modelo de datos así que no quiero trabajaer en esto todavía, me lo voy a saltar por ahora. Pero aquí se explicaría el modelo de datos, las clases principales, sus responsabilidades, etc. También se podrían incluir algunos diagramas de clases para ilustrar la estructura del sistema y la relación entre los distintos componentes.",
+)
 - Diagrama de clases
 - Diagrama de estado para los procesos!
 
@@ -153,7 +154,7 @@ Finalmente, el backend envía la respuesta al frontend, que se encarga de mostra
 Este diseño introduce una clara separación de responsabiliadades entre la orquestación del proceso, realizado por el backend, y la ejecución de los modelos de predicción, facilitando la extensibilidad del sistema. En particular, la incorporación de nuevos modelos o la adaptación a diferentes formatos de entrada se realiza mediante la implementación de nuevos adaptadores, sin necesidad de modificar el flujo principal de la aplicación.
 
 == Decisiones de diseño
-// TODO
+#todo("Por hacer")
 === Patrones de diseño
 [EN CONSTRUCCIÓN]
 - Patrón decorador para la el registro de modelos y parsers.
@@ -215,10 +216,9 @@ A continuación, se describe brevemente cada una de las secciones principales de
 - *Procesos*: sección central para la gestión de los procesos de análisis, incluyendo el seguimiento de su estado y la consulta de resultados.
 - *Notificaciones*: permite a los usuarios consultar las notificaciones generadas por el sistema relacionadas con el estado de sus procesos y otras alertas relevantes.
 
-
-// TODO
 === Interacción y experiencia de usuario
 [EN CONSTRUCCIÓN]
+#todo("Por hacer")
 
 ==== Ejecución del pipeline de análisis genómico
 - Explicar como se hace:
@@ -233,10 +233,12 @@ A continuación, se describe brevemente cada una de las secciones principales de
 - Sistema de notificaciones (?)
 
 === Visualización de los resultados
+#todo("Por hacer")
 [EN CONSTRUCCIÓN]
 - Visualización de resultados (este con mockup)
 
 === Decisiones de diseño
+#todo("Por hacer")
 [EN CONSTRUCCIÓN]
 - uso de tailwind / DaisyUI
 
@@ -245,7 +247,9 @@ A lo mejor mandar directamente a tecnologías???
 
 
 == Tecnologías y herramientas utilizadas
-// TODO: explicar las tecnologías elegidas,por qué se han elegido, qué ventajas aportan, etc.
+#todo(
+  "Por hacer, explicar las tecnologías utilizadas y las razones detrás de su elección.",
+)
 
 == Conclusiones
 

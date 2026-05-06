@@ -29,7 +29,7 @@ Aunque estas herramientas son ampliamente utilizadas en la comunidad científica
 //bakta nosequé sdasd
 //```
 
-// TODO: Maybe incluir un ejemplo de comando para cada etapa, o una captura de pantalla de la terminal con el proceso
+#todo("Incluir un ejemplo de comando para cada etapa, o una captura de pantalla de la terminal con el proceso")
 
 Con el objetivo de reducir esta barrera de entrada, han surgido plataformas que  ofrecen interfaces gráficas más accesibles para la ejecución de estos flujos de trabajo. Entre ellas destacan _Galaxy_ y _Geneious_.
 
@@ -39,14 +39,18 @@ Por otro lado, Geneious es una plataforma comercial de pago con interfaz gráfic
 
 En conclusión, las soluciones actuales proporcionan distintos niveles de abstracción sobre el flujo del análisis genómico. Mientras que plataformas como Galaxy ofrecen una amplia variedad de herramientas con gran flexibilidad, su complejidad técnica puede dificultar su adopción por parte de usuarios sin experiencia. Por otro lado, soluciones como Geneious simplifican el proceso pero a costa de limitar la personalización y la aplicabilidad en análisis genómico completo. Estas limitaciones resaltan que la brecha entre las herramientas de análisis genómico y los usuarios finales, especialmente en contextos clínicos, sigue siendo un desafío importante a abordar.
 
-// TODO: Anañdir capturas
+#todo("Añadir capturas")
 
 === Predicción de resistencia a antibióticos
 Existen diversos enfoques computacionales para la predicción de resistencia a antibióticos a partir de datos genómicos, que incluyen tanto modelos basados en aprendizaje automático, como métodos basados en alineamiento contra bases de datos de genes de resistencia o modelos basados en las características de una familia de bacterias concreta. Entre los primeros se encuentran herramientas como _DeepARG_, basadas en redes neuronales, mientras que otras herramientas como _ResFinder_ se apoyan en estrategias de búqueda por homología frente a bases de datos curadas de datos de resistencia.
 
-// TODO: Añadir ejemplo de ML para la predicción de resistencia a antibióticos con un bicho concreto.
+#todo(
+  "Incluir un ejemplo de modelo de ML para la predicción de resistencia a antibióticos para una familia/bacteria concreta",
+)
 
-// TODO: Citas a algunos papers con ejemplos de modelos de ML para la predicción de resistencia a antibióticos, y breve descripción de los mismos???? -. mejorar en estado actual
+#todo(
+  "Añadir citas a algunos papers con ejemplos de modelos de ML para la predicción de resistencia a antibióticos, y breve descripción de los mismos (A lo mejor en el estado actual)",
+)
 
 Estos enfoques han demostrado ser efectivos para inferir la resistencia a antibióticos a partir de representaciones derivadas del análisis genómico, como la presencia o ausencia de genes específicos o funciones biológicas obtenidas tras la anotación de la secuencia. En este sentido, podemos considerarlas como parte del análisis final dentro del flujo de análisis genómico, que utiliza los resultados generados en las etapas anteriores para producir predicciones.
 
@@ -221,7 +225,7 @@ Por el contrario, quedan fuera del alcance aspectos como el desarrollo de nuevas
 
 En conjunto, el sistema se orienta a reducir la barrera técnica existente en el proceso de análisis genómico y el uso de modelos de predicción de resistencia a antibióticos, proporcionando una interfaz unificada que abstrae dicha complejidad.
 
-// TODO: Mencionar algo del servicio de conversiones????
+#todo("Mencionar algo del desarrollo del servicio de conversiones??")
 
 
 == Catálogo de requisitos
@@ -242,8 +246,6 @@ Los actores principales que interactúan en los casos de uso son:
 Todos los casos de uso del ssitema requieren que el usuario(ACT-001), investigador o profesional de la salud, esté autenticado en el sistema mediante una cuenta de usuario válida.
 
 Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los datos del usuario, implementando mecanismos de control de propiedad, garantizando que únicamente se puedan consultar o modificar entidades pertenecientes al usuario autenticado, como procesos de análisis genómico, resultados o notificaciones asociadas a su cuenta.
-
-// TODO: añadir el nombre final del sistema?
 
 ==== Pipeline de análisis genómico
 
@@ -714,7 +716,8 @@ De las necesidades de los usuarios y del análisis del problema y la solución p
   "El sistema deberá permitir la ejecución de tareas de análisis genómico de forma no bloqueante, de manera que el usuario pueda continuar interactuando con la interfaz durante su procesamiento",
 )
 
-// TODO: Creo que habría que dar un número específico para esto, en general creo q es demasiado general
+#todo("A lo mejor hay que dar un número específico y hacer los requisitos no funcionales menos generales")
+
 #requisito_no_funcional(
   "Concurrencia",
   "El sistema deberá permitir la ejecución concurrente de múltiples procesos de análisis genómico sin que esto afecte negativamente al rendimiento o la estabilidad del sistema",

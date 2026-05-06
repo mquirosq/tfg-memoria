@@ -31,7 +31,7 @@ Para el desarrollo de este proyecto, se ha adoptado una metodología ágil adapt
 
 Scrumban combina la planificación iterativa propia de Scrum con la gestión visual del flujo de trabajo oferecido por Kanban. El desarrollo se ha dividido en iteraciones de duración variable (sprints), donde se definen objetivos concretos a corto plazo. Al inicio de cada iteración se se establecen las metas y al finalizar se evalúan los resultados obtenidos, ajustando la planificación en función del progreso y cambios en las prioridades y los requisitos.
 
-// TODO: Añadir captura de pantalla???]
+#todo("Añadir captura de pantalla del tablero de Trello o algo para ilustrar la gestión de tareas")
 
 Como herramienta principal para la gestión de tareas se ha utilizado un tablero Kanban en Trello. Éste permite vidualizar el estado del proyecto mediante columnas (_Todo_, _In Progress_, _Blocked_ y _Done_), facilitando el seguimiento por parte de los tutores sin requerir reuniones diarias. Adicionalmente, se han establecido límites al trabajo en progreso (WIP), restringiendo el enfoque a una sola tarea activa para evitar la multitarea y favorecer la concentración y la finalización de tareas antes de iniciar nuevas.
 
