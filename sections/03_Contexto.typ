@@ -1,7 +1,9 @@
+#import "../utils/todo.typ": todo
+
 = Contexto
 <sec:contexto>
 
-// TODO: Poner las figuras en condiciones y no capturas de pantalla cutres :D
+#todo("Poner las figuras en condiciones y no capturas de pantalla cutres :D")
 
 == Introducción
 

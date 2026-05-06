@@ -154,27 +154,46 @@ Finalmente, el backend envía la respuesta al frontend, que se encarga de mostra
 Este diseño introduce una clara separación de responsabiliadades entre la orquestación del proceso, realizado por el backend, y la ejecución de los modelos de predicción, facilitando la extensibilidad del sistema. En particular, la incorporación de nuevos modelos o la adaptación a diferentes formatos de entrada se realiza mediante la implementación de nuevos adaptadores, sin necesidad de modificar el flujo principal de la aplicación.
 
 == Decisiones de diseño
-#todo("Por hacer")
+En esta sección se explican las decisiones de diseño tomadas durante el desarrollo del sistema, incluyendo los patrones de diseño aplicados y otras decisiones técnicas relevantes. Estas decisiones se han tomado con el objetivo de cumplir con los requisitos definidos para el sistema, especialmente en lo que respecta a la escalabilidad, la extensibilidad y la mantenibilidad.
+
 === Patrones de diseño
-[EN CONSTRUCCIÓN]
-- Patrón decorador para la el registro de modelos y parsers.
-- Model View Template pq lo pone Django.
-- Patrón singletom para la configuración y los recursos compartidos. EL objeto config de django y la instancia de celery se inician una sola vez y se reutilizan en todo el sistema.
-- Patrón fachada. Módulos como services.py (para la lógica de negocio) y bio_api_client.py (para usar el bioservice) encapsulan la complehidad de la interacción con sistemas externos, proporcionando una interfaz sencilla y simple al resto del sistema.
-- Patrón observador en el sistema de notificaciones. Cuando cambian los estados de las tareas se genera una notificación (pero no es observer puro pq no hay subscripción dinámica ni nada, es más una generación de eventos que un patrón observer puro, pero se podría considerar una aproximación al patrón observer).
-- Patrón command: cada tarea de celery se define como un comando que puede ser ejecutada de forma asincrona por los workers.
-- ^Patrón strategy: el resgistro de modelos permite seleccionar dinamicamente la clase de modelo a usar, lo que permite aplicar distintos modelos de predicción???? (
-  overreach??
-)
-- Patrón repositorio para la gestión de la persistencia de datos, encapsulando el acceso a la base de datos y proporcionando una interfaz coherente para la gestión de entidades como procesos, usuarios, etc. (no se yo, es por tener un queryset)
+Para el diseño del sistema se han aplicado diversos patrones de diseño de software, algunos derivados de las tecnologías empleadas (framework y sistema de ejecución asíncrona), y otros aplicados de forma consciente para atender a los requisitos específicos definidos para el sistema, especialmente en lo que respecta a la extensibilidad.
 
-Separar por lo que he decidido implementar y los que vienen dados por el framework.
+==== Patrones derivados del framework y la infrastructura
+Estos patrones se han aplicado de forma implícita en el sistema, ya que vienen dados por las herramientas utilizadas.
 
-- Uso de adaptadores para la integración de modelos de predicción
-- Uso de parsers modulares para la generación de características a partir de los resultados de anotación, facilitando la incorporación de nuevas herramientas bioinformáticas y la evolución del sistema
+/ *Modelo-Vista-Template (MVT)*: El sistema web se apoya en el patrón MVT proporcionado por _Django_, que organiza la aplicación entorno a modelos de datos, vistas que gestionan la lógica de negocio y templates para la presentación de la información al usuario. Este patrón facilita la separación de responsabilidades y mejora la mantenibilidad del código.
+
+/ *Command*: El sistema de ejecución asincrona basado en _Celery_ sigue el patrón Command, donde cada tarea se define como un comando que encapsula una acción (por ejemplo, lanzar un ensamblaje o consultar el estado de un proceso) y puede ser ejecutada por los workers de forma desacoplada del resto del sistema.
+
+/ *Singleton*: Componenetes como la configuración de _Django_ y la instancia de _Celery_ actúan como singletons, ya que se inician una sola vez y se reutilizan en todo el sistema.
+
+==== Patrones aplicados en el diseño del sistema
+
+/ *Adapter - Adaptadores para modelos predictivos*: Uno de los principales retos del sistema es la integración de modelos de predicción heterogéneos, con distintos formatos de entrada, configuraciones y salidas. Para abordar esto, se ha adoptado el patrón Adapter, creando una capa de adaptadores que actúan como intermediarios entre la lógica del sistema y los modelos de predicción. Cada adaptador se encarga de transformar las características generadas a partir de los resultados de anotación en el formato requerido por el modelo, así como de gestionar la carga de parámetros y la ejecución del modelo. Esto permite:
+- Incoprorar nuevos modelos sin modificar la lógica principal del sistema, mediante la implemetación de nuevos adaptadores.
+- Aislar dependencias externas, ya que los adaptadores pueden gestionar las particularidades de cada modelo sin afectar al resto del sistema.
+- Facilitar la experimentación con distintos enfoques de predicción.
+
+/ *Registry - Registro dinámico de modelos y parsers*: El sistema implementa mecanismos de registro dinámico, basado en decoradores, que permite descubrir automáticamente modelos predictivos y parsers disponibles en el sistema. Este enfoque sigue un patron de tipo Registry, donde nuevas clases de modelos o parsers pueden añadirse al sistema simplemente registrando nuevas clases, sin necesidad de modificar el código existente. Esto facilita:
+- Cumplir los requisitos de extensibilidad.
+- Reducir el acoplamiento.
+- Facilitar la evolución del sistema.
+
+/ *Strategy - Selección dinámica de comportamiento*: De forma complementaria al patrñon de registro, los distintos modelos y deben poder ser utulizados por el usuario a petición. Usando el patrón Startegy, el sistema puede seleccionar dinámica qué modelo de predicción utilizar. Múltiples algoritmos (modelos de predicción) comparten una interfaz común y pueden intercambiarse en tiempo de ejecución.
+
+/ *Fachada - Encapsulación de complejidad*: La interacción con subsistemas complejos, como el sistema bioinformático o la gestión de procesos, se encapsulan servicios que actúan como fachadas, proporcionando una interfaz sencilla y unificada al resto del sistema. Esto:
+- Oculta la complejidad de la interacción con otros sistemas.
+- Simplifica el uso del sistema.
+- Reduce el acoplamiento entre componentes.
+- Centra la lógica de interacción con otros sistemas en las fachadas.
+
+
+En conjunto, estos patrones permiten estructurar el sistema como una plataforma extensible y desacoplada, capaz de integrar nuevos modelos de predicción y herramientas bioinformáticas de forma sencilla, cumpliendo con los requisitos definidos y facilitando la evolución continua del sistema.
 
 === Decisiones técnicas
-[EN CONSTRUCCIÓN]
+#todo("Por hacer")
+
 - Uso de workers asíncronos para la ejecución de tareas de larga duración
 - Uso de una arquitectura basada en servicios para mejorar la escalabilidad y facilitar la evolución independiente de los componentes
 - Uso de Docker para el despliegue del sistema, facilitando la portabilidad y la implementación en diferentes entornos
