@@ -57,7 +57,3 @@
 #include "sections/05_Diseño.typ"
 #include "sections/06_Implementacion.typ"
 #include "sections/XX_Conclusiones.typ"
-
-#todo("Esperando a que Dani mande la memoria para hacer referencia a la colaboración con el grupo de investigación")
-
-#todo("Cambiar cabeceras de los estilos de las tablas (tan amarillos feos)")
