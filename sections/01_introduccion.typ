@@ -3,6 +3,12 @@
 = Introducción
 <sec:introduccion>
 
+Este Trabajo de Fin de Grado se enmarca en el contexto del proyecto de investigación PID2022-139798OB-I00 #footnote(link("https://investigacion.us.es/sisius/sis_proyecto.php?idproy=37783")), en el cual la autora se encuentra actualmente contratada. Dicho proyecto tiene como objetivo el desarrollo de técnicas y herramientas de ingeniería de datos, con especial énfasis en tareas de predicción. En particular, este trabajo se sitúa dentro del paquete de trabajo P4 (Models for Antibiotic Resistance Prediction), orientado a la construcción y validación de modelos predictivos aplicados a datos biológicos, así como a su disponibilidad mediante herramientas accesibles para otros investigadores y profesionales del dominio.
+
+Este proyecto es desarrollado por el grupo DEAL (Data Engineering Applications Lab) de la Universidad de Sevilla. Adicionalmente, se colabora con la Dra. Lorena López-Cerero y la Dra. Marina Pulido, investigadoras expertas en microbiología del Grupo de Resistencia Microbiana de la Universidad de Sevilla.
+
+En este contexto, el presente trabajo se centra en facilitar el uso práctico de las técnicas desarrolladas, mediante el diseño de soluciones que permitan su ejecución, integración y explotación en entornos reales.
+
 La resistencia bacteriana a los antibióticos constituye uno de los mayores retos actuales para la salud pública a nivel mundial. Este fenómeno amenaza con revertir décadas de avances médicos, haciendo que infecciones y enfermedades comunes, hoy en día tratables de forma sencilla, vuelvan a ser potencialmente mortales. En la actualidad, se estima que causa más de 1,14 millones de muertes anuales, y se espera que esta cifra supere los 8 millones en 2050, situándose entre las principales causas de mortalidad, por delante de enfermedades como el cáncer.
 
 La resistencia a los antibióticos surge cuando las bacterias mutan en respuesta a la presión ejercida por el uso, en muchos casos indebido, de estos fármacos. Este proceso favorece la aparición y propagación de microorganismos con mecanismos de resistencia, lo que reduce la eficacia de los tratamientos disponibles y da lugar a infecciones más difíciles de tratar. A pesar de la magnitud de este problema, el desarrollo de nuevos antibióticos se ha ralentizado significativamente en las últimas décadas, debido tanto a los elevados costes como a la complejidad asociada a su investigación. Como consecuencia, las bacterias resistentes continúan aumentando rápidamente, mientras que el número de nuevos antibióticos disponibles para combatirlas ha permanecido estancado.
@@ -22,8 +28,6 @@ Por un lado, el sistema proporciona funcionalidades orientadas a la gestión y t
 Por otro lado, el framework ofrece una infraestructura flexible diseñada para la integración y despliegue de modelos predictivos orientados a la resistencia a antibióticos. En particular, se busca reducir la complejidad asociada a la incorporación de nuevos modelos, permitiendo que estos puedan añadirse de forma sencilla al sistema mediante una interfaz. Asimismo, se ofrece una interfaz de predicción que permite a los usuarios del ámbito de la salud acceder a las predicciones de resistencia de forma sencilla e incorpora los nuevos modelos automáticamente, de modo que estos quedan disponibles para su uso dentro de la plataforma sin necesidad de desarrollar componentes adicionales.
 
 En definitiva, este proyecto no se limita al desarrollo de una solución específica, sino que propone una herramienta reutilizable y extensible que facilita la integración de nuevos modelos predictivos en el flujo de trabajo clínico. De este modo, contribuye a reducir la brecha existente entre el desarrollo de modelos de predicción y su aplicación efectiva en la práctica clínica.
-
-#todo("Meter info del contexto en el que se ha desarrolla, el grupo de investigación y como se mezcla con eso.")
 
 Este documento se compone de seis capítulos, en los cuales se profundiza en distintos aspectos del proyecto llevado a cabo durante el desarrollo de este trabajo de fin de grado.
 

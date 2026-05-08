@@ -138,7 +138,7 @@ El diagrama de la @fig:secuencia_prediccion muestra el *flujo de predicción de 
 #figure(
   placement: auto,
   image("/memoria/figures/secuencia_predict.svg", width: 100%),
-  caption: "Diagrama de secuencia del flujo de predicción de resistencia a antibióticos",
+  caption: "Diagrama de secuencia del flujo de predicción de resistencia",
 )<fig:secuencia_prediccion>
 
 El flujo comienza cuando el *usuario* inicia un proceso de predicción a través de la interfaz web, el *frontend*. Para esto debe seleccionar la muestra sobre la que quiere hacer la predicción, así como los modelos y antibióticos de interés. Esta información se envía al *backend* mediante una solicitud de predicción, que incluye los datos seleccionados por el usuario.
@@ -192,15 +192,16 @@ Estos patrones se han aplicado de forma implícita en el sistema, ya que vienen 
 En conjunto, estos patrones permiten estructurar el sistema como una plataforma extensible y desacoplada, capaz de integrar nuevos modelos de predicción y herramientas bioinformáticas de forma sencilla, cumpliendo con los requisitos definidos y facilitando la evolución continua del sistema.
 
 === Decisiones técnicas
-#todo("Por hacer")
+Por otro lado, en el diseño del sistema se han tomado diversas decisiones técnicas orientadas a satisfacer los requisitos no funcionales definidos, especialmente en términos de rendimiento, escalabilidad, mantenibilidad y extensibilidad. A continuación, se describen las más relevantes.
 
-- Uso de workers asíncronos para la ejecución de tareas de larga duración
-- Uso de una arquitectura basada en servicios para mejorar la escalabilidad y facilitar la evolución independiente de los componentes
-- Uso de Docker para el despliegue del sistema, facilitando la portabilidad y la implementación en diferentes entornos
-- Uso de una base de datos relacional para la gestión de datos estructurados, garantizando la integridad y facilitando las consultas complejas necesarias para la gestión de procesos y usuarios
-- Uso de un sistema de almacenamiento de archivos para gestionar los datos de entrada y salida, optimizando el rendimiento y la eficiencia en la gestión de grandes volúmenes de datos genómicos
-- Separación en dos servicios principales (sistema web y sistema bioinformático) para mejorar la escalabilidad y facilitar la integración de nuevas herramientas sin afectar al resto del sistema
-- Uso de tailwind con DaisyUI para el diseño de la interfaz, permitiendo una rápida implementación de un diseño limpio y coherente, con componentes predefinidos que facilitan la creación de una experiencia de usuario atractiva y funcional.
+/ *Ejecución asíncrona de tareas*: se ha optado por el uso de un sistema de workers asíncronos para la ejecución de tareas de larga duración, como los procesos de ensamblaje y anotación. Esta decisión permite evitar el bloqueo de la interfaz de usuario y mejorar la experiencia de uso, permitiendo que el usuario continúe interactuando con el sistema mientras se ejecutan dichas tareas. Además, facilita la ejecución concurrente de múltiples procesos, contribuyendo al cumplimiento de los requisitos de rendimiento y eficiencia.
+
+/ *Arquitectura distribuida basada en servicios*: el sistema se ha diseñado siguiendo una arquitectura distribuida basada en servicios, separando la aplicación web del sistema bioinformático. Esta separación permite desacoplar la evolución independiente de ambos subsistemas, facilitando la integración de nuevas herramientas bioinformáticas sin afectar a la lógica de negocio del sistema web. Además, posibilita escalar cada componente de forma independiente según sus necesidades específicas, mejorando la eficiencia en el uso de recursos.
+
+/ *Despliegue a través de contenedores*: se ha optado por el uso de contenedores Docker para el despliegue del sistema, lo que facilita la portabilidad entre entornos y simplifica la gestión de dependencias. Dado que el sistema está compuesto por dos subsistemas independientes, el uso de contenedores permite aislar de forma eficiente las configuraciones y dependencias específicas de cad auno de ellos.
+
+/ *Diseño de la interfaz de usuario*: para la implementación de la interfaz de usuario se ha optado por el uso de Tailwind CSS junto con DaisyUI. Esta combinación permite construir interfaces de forma consistente y flexible mediante componentes predefinidos que facilitan la creación de una experiencia de usuario atractiva y funcional. Además, permite iterar rápidamente en el diseño sin introducir una gran complejidad técnica.
+
 
 == Diseño de la interfaz de usuario
 
@@ -212,7 +213,7 @@ El diseño de la interfaz se ha realizado en coherencia con los objetivos defini
 - *Minimización de la barrera técnica*: se evita exponer detalles internos del procesamiento, facilitando el uso del sistema por parte de usuarios sin experiencia técnica.
 - *Feedback continuo*: se proporciona a los usuarios información clara sobre el estado de cada proceso, especialmente en las tareas de larga duración, mediante indicadores visuales y notificaciones.
 - *Consistencia visual*: se mantiene un diseño uniforme y coherente a lo largo de toda la interfaz, mejorando la usabilidad y reduciendo la curva de aprendizaje.
-- *Diseño lipio y orientado al dominio*: se prioriza la claridad visual y el orden en la presentación de la información, alineada con el contexto científico del sistema.
+- *Diseño limpio y orientado al dominio*: se prioriza la claridad visual y el orden en la presentación de la información, alineada con el contexto científico del sistema.
 
 === Estructura general de la interfaz
 La interfaz web es ofrecida por completo por el sistema web, que actúa como punto de entrada a toda la funcionalidad del sistema. Su estructura se ha diseñado para facilitar la navegación entre las distintas funcionalidades, permitiendo tanto la ejecución completa del flujo de análisis genómico como su uso por etapas, así como el seguimiento de los procesos en ejecución.
@@ -256,15 +257,6 @@ A continuación, se describe brevemente cada una de las secciones principales de
 #todo("Por hacer")
 [EN CONSTRUCCIÓN]
 - Visualización de resultados (este con mockup)
-
-=== Decisiones de diseño
-#todo("Por hacer")
-[EN CONSTRUCCIÓN]
-- uso de tailwind / DaisyUI
-
-A lo mejor mandar directamente a tecnologías???
-
-
 
 == Tecnologías y herramientas utilizadas
 #todo(
