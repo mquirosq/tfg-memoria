@@ -4,9 +4,7 @@
 <sec:diseño>
 
 == Introducción
-#todo("Por hacer")
-
-En este capítulo explicaremos...
+En este capítulo se explica el diseño de la solución propuesta para abordar el problema de la predicción de resistencia a antibióticos a partir de datos genómicos. Se describe la arquitectura del sistema, los módulos que lo componen, los flujos principales de ejecución y las decisiones de diseño, tanto patrones como decisiones técnicas. Además, se presenta un mockup de la interfaz de visualización de resultados de predicción, uno de los aspectos clave del sistema, diseñado para facilitar la interpretación de los resultados por parte de los usuarios.
 
 == Visión general de la arquitectura
 
@@ -153,6 +151,50 @@ Finalmente, el backend envía la respuesta al frontend, que se encarga de mostra
 
 Este diseño introduce una clara separación de responsabiliadades entre la orquestación del proceso, realizado por el backend, y la ejecución de los modelos de predicción, facilitando la extensibilidad del sistema. En particular, la incorporación de nuevos modelos o la adaptación a diferentes formatos de entrada se realiza mediante la implementación de nuevos adaptadores, sin necesidad de modificar el flujo principal de la aplicación.
 
+== Tecnologías y herramientas utilizadas
+En esta subsección se describen las principales tecnologías y herramientas utilizadas en el desarrollo del sistema, explicando las razones detrás de su elección. La selección de tecnologías se ha realizado teniendo en cuenta los requisitos definidos para el proyecto, especialmente aquellos relacionados con la mantenibilidad, extensibilidad, interoperabilidad y facilidad de despliegue.
+
+=== Frontend
+La interfaz web se ha desarrollado utilizando HTML, CSS y JavaScript, junto con Tailwind CSS y DaisyUI para el diseño visual de la aplicación.
+
+Se ha optado por no utilizar frameworks frontend complejos como React o Angular, ya que la interfaz del sistema se centra principalmente en la gestión de formularios, la visualización de resultados y el seguimiento de procesos asíncronos, sin requerir una lógica de interacción especialmente compleja en el lado del cliente. El uso de este tipo de frameworks habría introducido una complejidad adicional tanto en el desarrollo como en el despliegue del sistema, sin aportar beneficios significativos para los objetivos del proyecto. En su lugarm se ha priorizado una arquitectura frontend ligera y sencilla de mantener que permite iterar rápidamente sobre el diseño de la interfaz y adaptarla a las necesidades de los usuarios, sin la sobrecarga que implicaría un framework más pesado.
+
+Para el diseño visual se ha utilizado _DaisyUI_, basada en _Tailwind CSS_. Tailwind permite construir interfaces de forma flexible mediante clases, mientras que DaisyUI proporciona componentes reutilizables que permiten ofrecer una apariencia consistente. Esta decisión permite acelerar el desarrollo de la interfaz, garantizando al mismo tiempo una apariencia consistente y profesional.
+
+=== Backend web
+El backend del sistema web se ha desarrollado utilizando Django como framework principal y PostgreSQL como sistema de gestión de bases de datos.
+
+Debido a la integración con modelos de predicción, se ha decidido utilizar _Python_ como lenguaje principal del proyecto, ya que se trata del lenguaje predominante tanto en el ámbito de la ciencia de datos y el aprendizaje automático. Esto facilita la integración con modelos prodictivos y herramientas externas en el mismo ecosistema tecnológico.
+
+Dentro de los frameworks de desarrollo web disponibles para Python, se ha optado por _Django_ debido a su amplia gama de funcionalidades integradas, como sus sistema de gestión de usuarios y autenticación, el ORM para la persistencia de datos y el panel de administración. Estas características permiten acelerar el desarrollo de funcionalidades comunes y permiten centrarse en la lógica específica del proyecto. Además, gran parte del sistema consiste en la gestión de entidades persistentes relacionadas entre sí como procesos, archivos o notificaciones, lo que se adapta bien al modelo relacional y el ORM de Django.
+
+Como sistema de persistencia se ha utilizado _PostgreSQL_ debido a su fiabilidad, rendimiento y  compatibilidad con Django.
+
+=== Sistema bioinformático
+El subsistema bioinformático se ha desarrollado también principalmente en Python, debido a la amplia disponibilidad de herramientas y bibliotecas bioinformáticas, haciendo que sea el lenguaje más adecuado para la integración de las herramientas de ensamblaje y anotación, así como para la gestión de pipelines de procesamiento.
+
+Para la implementación de la API del sistema bioinformático se ha utilizado _FastAPI_. A diferencia del sistema web principal, este subsistema no requiere funcionalidades avanzadas de gestión de usuarios o renderizado de vistas, sino una interfaz ligera y eficiente orientada a la comunicación entre servicios. FastAPI permite implementar esta API de forma sencilla, con buena integración con Python.
+
+El sistema bioinformático integra herramientas especializadas para distintas etapas del pipeline genómico. Por un lado se hace uso de herramientas de ensamblaje como _SPAdes_  _Raven_ or _Flye_, permitiendo adaptar el procesamiento a distintos tipos de datos de secuenciación, incluyendo tecnologías Illumina y ONT.
+
+Por otro lado, para la anotación del genoma se utiliza _Bakta_, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. Bakta ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
+
+=== Gestión de tareas asíncronas
+La ejecución de procesos bioinformáticos como el ensamblaje o la anotación pueden prolongarse durante varias decenas de minutos y consumir una gran cantidad de recursos computacionales. Por esto, son incompatibles con la ejecución sincrónica en una aplicación web tradicional.
+
+Para resolver este problema se ha utilizado _Celery_ junto con _Redis_ como sistema de getión de tareas asíncronas y cola de mensajes.
+
+Celery permite definir tareas desacopladas que son ejecutadas por workers independientes del servidor web principal. Esto permite delegar la ejecución de procesos de larga duración sin bloquear la interacción del usuario con la aplicación y facilita la ejecución concurrente de múltiples tareas.
+
+Por otro lado, Redis se emplea como intermediario para la gestión de colas gracias a su sencilla intergación con Celery y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
+
+Además, este enfoque simplifica la coordinación entre el sistema web y el sistema bioinformático, permitiendo gestionar el envío de tareas, la monitorización de su estado y la recuperación de resultados de forma desacoplada.
+
+=== Despliegue y contenedorización
+Para el despliegue del sistema se ha optado por una arquitectura basada en contenedores utilizando _Docker_. El uso de contenedores permite aislar las dependencias y configuraciones específicas de cada subsistema, facilitando la portabilidad entre entornos y simplificando el proceso de instalación y ejecución. El uso de contenedores también facilita el despliegue independiente de cada subsistema, permitiendo escalar cada uno de ellos según las necesidades de carga y rendimiento.
+
+Para la orquestación de los contenedores se ha decidido usar _Docker Compose_, lo que permite definir y gestionar la infraestructura del sistema de forma sencilla a través de archivos de configuración. Esto simplifica tanto el despliegue como la puesta en producción del sistema.
+
 == Decisiones de diseño
 En esta sección se explican las decisiones de diseño tomadas durante el desarrollo del sistema, incluyendo los patrones de diseño aplicados y otras decisiones técnicas relevantes. Estas decisiones se han tomado con el objetivo de cumplir con los requisitos definidos para el sistema, especialmente en lo que respecta a la escalabilidad, la extensibilidad y la mantenibilidad.
 
@@ -187,7 +229,6 @@ Estos patrones se han aplicado de forma implícita en el sistema, ya que vienen 
 - Simplifica el uso del sistema.
 - Reduce el acoplamiento entre componentes.
 - Centra la lógica de interacción con otros sistemas en las fachadas.
-
 
 En conjunto, estos patrones permiten estructurar el sistema como una plataforma extensible y desacoplada, capaz de integrar nuevos modelos de predicción y herramientas bioinformáticas de forma sencilla, cumpliendo con los requisitos definidos y facilitando la evolución continua del sistema.
 
@@ -237,32 +278,22 @@ A continuación, se describe brevemente cada una de las secciones principales de
 - *Procesos*: sección central para la gestión de los procesos de análisis, incluyendo el seguimiento de su estado y la consulta de resultados.
 - *Notificaciones*: permite a los usuarios consultar las notificaciones generadas por el sistema relacionadas con el estado de sus procesos y otras alertas relevantes.
 
-=== Interacción y experiencia de usuario
-[EN CONSTRUCCIÓN]
-#todo("Por hacer")
+=== Visualización e interpretación de resultados
 
-==== Ejecución del pipeline de análisis genómico
-- Explicar como se hace:
-- Pipeline completo
-- Ejecución por etapas
-- Predicción
+La visualización de los resultados de predicción de forma sencilla e interpretable es uno de los requisitos fundamentales del sistema. Por este motivo, el diseño de la interfaz se ha orientado a representar de forma clara la información generada durante la ejecución de los modelos predictivos.
 
-==== Gestión de procesos y estados
-- Gestión de procesos
+En los resultados de predicción, @fig:mock_prediccion,se muestran los antibióticos evaluados frente a los modelos seleciconados, indicando la predicción de resistencia generada para cada combinación, indicando con colores si la muestra presenta resistencia o sensibilidad frente a cada antibiótico. Esta visualización permite a los usuarios interpretar rápidamente los resultados y tomar decisiones informadas sobre el tratamiento a seguir.
 
-==== Notificaciones
-- Sistema de notificaciones (?)
+Además de las predicciones individuales generadas por cada modelo, el sistema representa una predicción agregada, a tarvés de la media de los resultados. Esta aproximación proporciona una visión global, facilitando la interpretación en escenarios en los que intervienen múltiples modelos.
 
-=== Visualización de los resultados
-#todo("Por hacer")
-[EN CONSTRUCCIÓN]
-- Visualización de resultados (este con mockup)
+#figure(
+  placement: auto,
+  image("../figures/mock_prediccion.svg", width: 80%),
+  caption: "Mockup de la interfaz de visualización de predicciones.",
+)<fig:mock_prediccion>
 
-== Tecnologías y herramientas utilizadas
-#todo(
-  "Por hacer, explicar las tecnologías utilizadas y las razones detrás de su elección.",
-)
+La interfaz también incorpora mecanismos de representación del estado de los procesos, permitiendo al usuario identificar de forma sencilla si una tarea se encuentra en ejecución, finalizada correctamente o ha producido algún error. Para ello, se utilizan colores, marcadores de estado e indicadores de progreso. Esto resulta especialmente relevante debido al elevado tiempo de ejecución asociado a determinadas tareas bioinformáticas.
 
 == Conclusiones
 
-En esta capítulo concluimos que...
+En conclusión, el diseño del sistema se ha orientado a cumplir con los requisitos definidos para el proyecto, especialmente en términos de extensibilidad, mantenibilidad y facilidad de uso. La arquitectura distribuida basada en servicios, junto con la aplicación de patrones de diseño como Adapter, Registry y Strategy, permite integrar nuevos modelos de predicción y herramientas bioinformáticas de forma sencilla, sin necesidad de modificar la lógica principal del sistema.
