@@ -56,7 +56,7 @@ El usuario accede al sistema a través de un cliente web, típicamente el navega
 Para la comprensión de las responsabilidades y la organización del sistema, se ha realizado una descomposición en módulos de cada uno de los bloques principales. Esta descomposición se ha llevado a cabo siguiendo principios de diseño modular y separación de responsabilidades, con el objetivo de facilitar la mantenibilidad, la escalabilidad y la evolución del sistema. La descomposición en módulos presentada es una organización coceptual del sistema, basada en responsabilidades, no necesariamente una correspondencia directa con la estructura final del código o con las aplicaciones del framework utilizado.
 
 
-=== Módulos del sistema web
+=== Módulos del sistema web <sec:modulos_web>
 
 Los módulos que componen el sistema web, mostrados en la figura @fig:modulos_web, son los siguientes:
 
@@ -97,7 +97,7 @@ Por otro lado, los módulos que componen el sistema bioinformático, mostrados e
 
 - *Módulo de gestión de resultados*: encargado de procesar los resultados generados y facilitar su recuperación por parte del sistema web.
 
-== Modelo de datos y clases
+== Modelo de datos y clases <sec:modelo_datos>
 #todo(
   "Quiero cambiar una cosa del modelo de datos así que no quiero trabajaer en esto todavía, me lo voy a saltar por ahora. Pero aquí se explicaría el modelo de datos, las clases principales, sus responsabilidades, etc. También se podrían incluir algunos diagramas de clases para ilustrar la estructura del sistema y la relación entre los distintos componentes.",
 )
