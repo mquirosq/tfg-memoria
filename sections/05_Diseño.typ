@@ -151,50 +151,6 @@ Finalmente, el backend envía la respuesta al frontend, que se encarga de mostra
 
 Este diseño introduce una clara separación de responsabiliadades entre la orquestación del proceso, realizado por el backend, y la ejecución de los modelos de predicción, facilitando la extensibilidad del sistema. En particular, la incorporación de nuevos modelos o la adaptación a diferentes formatos de entrada se realiza mediante la implementación de nuevos adaptadores, sin necesidad de modificar el flujo principal de la aplicación.
 
-== Tecnologías y herramientas utilizadas
-En esta subsección se describen las principales tecnologías y herramientas utilizadas en el desarrollo del sistema, explicando las razones detrás de su elección. La selección de tecnologías se ha realizado teniendo en cuenta los requisitos definidos para el proyecto, especialmente aquellos relacionados con la mantenibilidad, extensibilidad, interoperabilidad y facilidad de despliegue.
-
-=== Frontend
-La interfaz web se ha desarrollado utilizando HTML, CSS y JavaScript, junto con Tailwind CSS y DaisyUI para el diseño visual de la aplicación.
-
-Se ha optado por no utilizar frameworks frontend complejos como React o Angular, ya que la interfaz del sistema se centra principalmente en la gestión de formularios, la visualización de resultados y el seguimiento de procesos asíncronos, sin requerir una lógica de interacción especialmente compleja en el lado del cliente. El uso de este tipo de frameworks habría introducido una complejidad adicional tanto en el desarrollo como en el despliegue del sistema, sin aportar beneficios significativos para los objetivos del proyecto. En su lugarm se ha priorizado una arquitectura frontend ligera y sencilla de mantener que permite iterar rápidamente sobre el diseño de la interfaz y adaptarla a las necesidades de los usuarios, sin la sobrecarga que implicaría un framework más pesado.
-
-Para el diseño visual se ha utilizado _DaisyUI_, basada en _Tailwind CSS_. Tailwind permite construir interfaces de forma flexible mediante clases, mientras que DaisyUI proporciona componentes reutilizables que permiten ofrecer una apariencia consistente. Esta decisión permite acelerar el desarrollo de la interfaz, garantizando al mismo tiempo una apariencia consistente y profesional.
-
-=== Backend web
-El backend del sistema web se ha desarrollado utilizando Django como framework principal y PostgreSQL como sistema de gestión de bases de datos.
-
-Debido a la integración con modelos de predicción, se ha decidido utilizar _Python_ como lenguaje principal del proyecto, ya que se trata del lenguaje predominante tanto en el ámbito de la ciencia de datos y el aprendizaje automático. Esto facilita la integración con modelos prodictivos y herramientas externas en el mismo ecosistema tecnológico.
-
-Dentro de los frameworks de desarrollo web disponibles para Python, se ha optado por _Django_ debido a su amplia gama de funcionalidades integradas, como sus sistema de gestión de usuarios y autenticación, el ORM para la persistencia de datos y el panel de administración. Estas características permiten acelerar el desarrollo de funcionalidades comunes y permiten centrarse en la lógica específica del proyecto. Además, gran parte del sistema consiste en la gestión de entidades persistentes relacionadas entre sí como procesos, archivos o notificaciones, lo que se adapta bien al modelo relacional y el ORM de Django.
-
-Como sistema de persistencia se ha utilizado _PostgreSQL_ debido a su fiabilidad, rendimiento y  compatibilidad con Django.
-
-=== Sistema bioinformático
-El subsistema bioinformático se ha desarrollado también principalmente en Python, debido a la amplia disponibilidad de herramientas y bibliotecas bioinformáticas, haciendo que sea el lenguaje más adecuado para la integración de las herramientas de ensamblaje y anotación, así como para la gestión de pipelines de procesamiento.
-
-Para la implementación de la API del sistema bioinformático se ha utilizado _FastAPI_. A diferencia del sistema web principal, este subsistema no requiere funcionalidades avanzadas de gestión de usuarios o renderizado de vistas, sino una interfaz ligera y eficiente orientada a la comunicación entre servicios. FastAPI permite implementar esta API de forma sencilla, con buena integración con Python.
-
-El sistema bioinformático integra herramientas especializadas para distintas etapas del pipeline genómico. Por un lado se hace uso de herramientas de ensamblaje como _SPAdes_  _Raven_ or _Flye_, permitiendo adaptar el procesamiento a distintos tipos de datos de secuenciación, incluyendo tecnologías Illumina y ONT.
-
-Por otro lado, para la anotación del genoma se utiliza _Bakta_, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. Bakta ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
-
-=== Gestión de tareas asíncronas
-La ejecución de procesos bioinformáticos como el ensamblaje o la anotación pueden prolongarse durante varias decenas de minutos y consumir una gran cantidad de recursos computacionales. Por esto, son incompatibles con la ejecución sincrónica en una aplicación web tradicional.
-
-Para resolver este problema se ha utilizado _Celery_ junto con _Redis_ como sistema de getión de tareas asíncronas y cola de mensajes.
-
-Celery permite definir tareas desacopladas que son ejecutadas por workers independientes del servidor web principal. Esto permite delegar la ejecución de procesos de larga duración sin bloquear la interacción del usuario con la aplicación y facilita la ejecución concurrente de múltiples tareas.
-
-Por otro lado, Redis se emplea como intermediario para la gestión de colas gracias a su sencilla intergación con Celery y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
-
-Además, este enfoque simplifica la coordinación entre el sistema web y el sistema bioinformático, permitiendo gestionar el envío de tareas, la monitorización de su estado y la recuperación de resultados de forma desacoplada.
-
-=== Despliegue y contenedorización
-Para el despliegue del sistema se ha optado por una arquitectura basada en contenedores utilizando _Docker_. El uso de contenedores permite aislar las dependencias y configuraciones específicas de cada subsistema, facilitando la portabilidad entre entornos y simplificando el proceso de instalación y ejecución. El uso de contenedores también facilita el despliegue independiente de cada subsistema, permitiendo escalar cada uno de ellos según las necesidades de carga y rendimiento.
-
-Para la orquestación de los contenedores se ha decidido usar _Docker Compose_, lo que permite definir y gestionar la infraestructura del sistema de forma sencilla a través de archivos de configuración. Esto simplifica tanto el despliegue como la puesta en producción del sistema.
-
 == Decisiones de diseño
 En esta sección se explican las decisiones de diseño tomadas durante el desarrollo del sistema, incluyendo los patrones de diseño aplicados y otras decisiones técnicas relevantes. Estas decisiones se han tomado con el objetivo de cumplir con los requisitos definidos para el sistema, especialmente en lo que respecta a la escalabilidad, la extensibilidad y la mantenibilidad.
 
@@ -212,23 +168,23 @@ Estos patrones se han aplicado de forma implícita en el sistema, ya que vienen 
 
 ==== Patrones aplicados en el diseño del sistema
 
-/ *Adapter - Adaptadores para modelos predictivos*: Uno de los principales retos del sistema es la integración de modelos de predicción heterogéneos, con distintos formatos de entrada, configuraciones y salidas. Para abordar esto, se ha adoptado el patrón Adapter, creando una capa de adaptadores que actúan como intermediarios entre la lógica del sistema y los modelos de predicción. Cada adaptador se encarga de transformar las características generadas a partir de los resultados de anotación en el formato requerido por el modelo, así como de gestionar la carga de parámetros y la ejecución del modelo. Esto permite:
-- Incoprorar nuevos modelos sin modificar la lógica principal del sistema, mediante la implemetación de nuevos adaptadores.
-- Aislar dependencias externas, ya que los adaptadores pueden gestionar las particularidades de cada modelo sin afectar al resto del sistema.
-- Facilitar la experimentación con distintos enfoques de predicción.
+/ *Adapter - Adaptadores para modelos predictivos*: Uno de los principales retos del sistema es la integración de modelos de predicción heterogéneos, con distintos formatos de entrada, configuraciones y salidas. Para abordar esto, se ha adoptado el patrón _Adapter_, creando una capa de adaptadores que actúan como intermediarios entre la lógica del sistema y los modelos de predicción. Cada adaptador se encarga de transformar las características generadas a partir de los resultados de anotación en el formato requerido por el modelo, así como de gestionar la carga de parámetros y la ejecución del modelo. Esto permite:
+  - Incoprorar nuevos modelos sin modificar la lógica principal del sistema, mediante la implemetación de nuevos adaptadores.
+  - Aislar dependencias externas, ya que los adaptadores pueden gestionar las particularidades de cada modelo sin afectar al resto del sistema.
+  - Facilitar la experimentación con distintos enfoques de predicción.
 
-/ *Registry - Registro dinámico de modelos y parsers*: El sistema implementa mecanismos de registro dinámico, basado en decoradores, que permite descubrir automáticamente modelos predictivos y parsers disponibles en el sistema. Este enfoque sigue un patron de tipo Registry, donde nuevas clases de modelos o parsers pueden añadirse al sistema simplemente registrando nuevas clases, sin necesidad de modificar el código existente. Esto facilita:
-- Cumplir los requisitos de extensibilidad.
-- Reducir el acoplamiento.
-- Facilitar la evolución del sistema.
+/ *Registry - Registro dinámico de modelos y parsers*: El sistema implementa mecanismos de registro dinámico, basado en decoradores, que permite descubrir automáticamente modelos predictivos y parsers disponibles en el sistema. Este enfoque sigue un patrón de tipo _Registry_, donde nuevas clases de modelos o parsers pueden añadirse al sistema simplemente registrando nuevas clases, sin necesidad de modificar el código existente. Esto facilita:
+  - Cumplir los requisitos de extensibilidad.
+  - Reducir el acoplamiento.
+  - Facilitar la evolución del sistema.
 
-/ *Strategy - Selección dinámica de comportamiento*: De forma complementaria al patrñon de registro, los distintos modelos y deben poder ser utulizados por el usuario a petición. Usando el patrón Startegy, el sistema puede seleccionar dinámica qué modelo de predicción utilizar. Múltiples algoritmos (modelos de predicción) comparten una interfaz común y pueden intercambiarse en tiempo de ejecución.
+/ *Strategy - Selección dinámica de comportamiento*: De forma complementaria al patrón de registro, los distintos modelos no solo deben estar en el sistema sino que deben poder ser utilizados por el usuario a petición. Usando el patrón _Strategy_, el sistema puede seleccionar de forma dinámica qué modelo de predicción utilizar. Múltiples algoritmos, en este caso modelos de predicción, comparten una interfaz común y pueden intercambiarse en tiempo de ejecución.
 
 / *Fachada - Encapsulación de complejidad*: La interacción con subsistemas complejos, como el sistema bioinformático o la gestión de procesos, se encapsulan servicios que actúan como fachadas, proporcionando una interfaz sencilla y unificada al resto del sistema. Esto:
-- Oculta la complejidad de la interacción con otros sistemas.
-- Simplifica el uso del sistema.
-- Reduce el acoplamiento entre componentes.
-- Centra la lógica de interacción con otros sistemas en las fachadas.
+  - Oculta la complejidad de la interacción con otros sistemas.
+  - Simplifica el uso del sistema.
+  - Reduce el acoplamiento entre componentes.
+  - Centra la lógica de interacción con otros sistemas en las fachadas.
 
 En conjunto, estos patrones permiten estructurar el sistema como una plataforma extensible y desacoplada, capaz de integrar nuevos modelos de predicción y herramientas bioinformáticas de forma sencilla, cumpliendo con los requisitos definidos y facilitando la evolución continua del sistema.
 
@@ -239,18 +195,18 @@ Por otro lado, en el diseño del sistema se han tomado diversas decisiones técn
 
 / *Arquitectura distribuida basada en servicios*: el sistema se ha diseñado siguiendo una arquitectura distribuida basada en servicios, separando la aplicación web del sistema bioinformático. Esta separación permite desacoplar la evolución independiente de ambos subsistemas, facilitando la integración de nuevas herramientas bioinformáticas sin afectar a la lógica de negocio del sistema web. Además, posibilita escalar cada componente de forma independiente según sus necesidades específicas, mejorando la eficiencia en el uso de recursos.
 
-/ *Despliegue a través de contenedores*: se ha optado por el uso de contenedores Docker para el despliegue del sistema, lo que facilita la portabilidad entre entornos y simplifica la gestión de dependencias. Dado que el sistema está compuesto por dos subsistemas independientes, el uso de contenedores permite aislar de forma eficiente las configuraciones y dependencias específicas de cad auno de ellos.
+/ *Despliegue a través de contenedores*: se ha optado por el uso de contenedores para el despliegue del sistema, lo que facilita la portabilidad entre entornos y simplifica la gestión de dependencias. Dado que el sistema está compuesto por dos subsistemas independientes, el uso de contenedores permite aislar de forma eficiente las configuraciones y dependencias específicas de cada uno de ellos.
 
-/ *Diseño de la interfaz de usuario*: para la implementación de la interfaz de usuario se ha optado por el uso de Tailwind CSS junto con DaisyUI. Esta combinación permite construir interfaces de forma consistente y flexible mediante componentes predefinidos que facilitan la creación de una experiencia de usuario atractiva y funcional. Además, permite iterar rápidamente en el diseño sin introducir una gran complejidad técnica.
-
+/ *Diseño de la interfaz de usuario*: para la implementación de la interfaz de usuario se han seguido principios de diseño orientados a la simplicidad, la flexibilidad y la accesibilidad, buscando crear una experiencia de usuario intuitiva y eficiente, evitando complejidad innecesaria.
 
 == Diseño de la interfaz de usuario
 
 === Principios de diseño
-El diseño de la interfaz se ha realizado en coherencia con los objetivos definidos en la <sec:objetivos>, buscando crear una experiencia de usuario intuitiva y accesible, que permita a los usuarios interactuar con el sistema de forma eficiente y sin necesidad de conocimientos técnicos avanzados. Para ello, se han seguido los siguientes principios de diseño:
+El diseño de la interfaz se ha realizado en coherencia con los objetivos definidos en la @sec:objetivos, buscando crear una experiencia de usuario intuitiva y accesible, que permita a los usuarios interactuar con el sistema de forma eficiente y sin necesidad de conocimientos técnicos avanzados. Para ello, se han seguido los siguientes principios de diseño:
 
 - *Simplificación del flujo de trabajo*: se abstrae la complejidad del pipeline de análisis genómico, permitiendo su ejecución mediante interacciones sencillas como la subida de un archivo o la selección de opciones en la intefaz.
-- *Flexibilidad en la ejecución*: se permite ejecutar el flujo completo o por etapas, dando a los usuarios la posibilidad de gestioanr sus procesos de forma personalizada según sus necesidades.
+
+- *Flexibilidad en la ejecución*: se permite ejecutar el flujo completo o por etapas, dando a los usuarios la posibilidad de gestionar sus procesos de forma personalizada según sus necesidades.
 - *Minimización de la barrera técnica*: se evita exponer detalles internos del procesamiento, facilitando el uso del sistema por parte de usuarios sin experiencia técnica.
 - *Feedback continuo*: se proporciona a los usuarios información clara sobre el estado de cada proceso, especialmente en las tareas de larga duración, mediante indicadores visuales y notificaciones.
 - *Consistencia visual*: se mantiene un diseño uniforme y coherente a lo largo de toda la interfaz, mejorando la usabilidad y reduciendo la curva de aprendizaje.
@@ -272,6 +228,7 @@ Se distinguen dos grandes bloques: los módulos de análisis, que incluyen las f
 A continuación, se describe brevemente cada una de las secciones principales de la interfaz:
 
 - *Inicio*: sección de entrada al sistema que proporciona una visión general y acceso a las funcionalidades principales.
+
 - *Ensamblaje*: permite la subida de datos FASTQ y la ejecución del proceso de ensamblaje, ofreciendo además la opción de encadenar automáticamente la anotación.
 - *Anotación*: permite seleccionar datos FASTA y ejecutar procesos de anotación, así como generar características a partir de archivos de anotación externos.
 - *Predicción*: sección dedicada a la ejecución de modelos de predicción de resistencia a antibióticos, donde los usuarios pueden seleccionar las muestras, modelos y antibióticos de interés para obtener predicciones.
@@ -282,7 +239,7 @@ A continuación, se describe brevemente cada una de las secciones principales de
 
 La visualización de los resultados de predicción de forma sencilla e interpretable es uno de los requisitos fundamentales del sistema. Por este motivo, el diseño de la interfaz se ha orientado a representar de forma clara la información generada durante la ejecución de los modelos predictivos.
 
-En los resultados de predicción, @fig:mock_prediccion,se muestran los antibióticos evaluados frente a los modelos seleciconados, indicando la predicción de resistencia generada para cada combinación, indicando con colores si la muestra presenta resistencia o sensibilidad frente a cada antibiótico. Esta visualización permite a los usuarios interpretar rápidamente los resultados y tomar decisiones informadas sobre el tratamiento a seguir.
+En los resultados de predicción (@fig:mock_prediccion) se muestran los antibióticos evaluados frente a los modelos seleciconados, indicando la predicción de resistencia generada para cada combinación, indicando con colores si la muestra presenta resistencia o sensibilidad frente a cada antibiótico. Esta visualización permite a los usuarios interpretar rápidamente los resultados y tomar decisiones informadas sobre el tratamiento a seguir.
 
 Además de las predicciones individuales generadas por cada modelo, el sistema representa una predicción agregada, a tarvés de la media de los resultados. Esta aproximación proporciona una visión global, facilitando la interpretación en escenarios en los que intervienen múltiples modelos.
 

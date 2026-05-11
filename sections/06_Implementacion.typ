@@ -8,6 +8,48 @@ En este capítulo se aborda el proceso de implementación del sistema desarrolla
 
 Para cada sprint se describen los objetivos planteados, las principales decisiones técnicas adoptadas, los problemas encontrados durante el desarrollo y los resultados obtenidos.
 
+== Tecnologías y herramientas utilizadas
+En esta subsección se describen las principales tecnologías y herramientas utilizadas en el desarrollo del sistema, explicando las razones detrás de su elección. La selección de las mismas se ha realizado teniendo en cuenta los requisitos definidos para el proyecto, especialmente aquellos relacionados con la mantenibilidad, extensibilidad, interoperabilidad y facilidad de despliegue.
+
+=== Frontend
+La interfaz web se ha desarrollado utilizando HTML, CSS y JavaScript, junto con Tailwind CSS y DaisyUI para el diseño visual de la aplicación.
+
+Se ha optado por no utilizar frameworks frontend complejos como React o Angular, ya que la interfaz del sistema se centra principalmente en la gestión de formularios, la visualización de resultados y el seguimiento de procesos asíncronos, sin requerir una lógica de interacción especialmente compleja en el lado del cliente. El uso de este tipo de frameworks habría introducido una complejidad adicional tanto en el desarrollo como en el despliegue del sistema, sin aportar beneficios significativos para los objetivos del proyecto. En su lugar se ha priorizado una arquitectura frontend ligera y sencilla de mantener que permite iterar rápidamente sobre el diseño de la interfaz y adaptarla a las necesidades de los usuarios, sin la sobrecarga que implicaría un framework más pesado.
+
+Para el diseño visual se ha utilizado _DaisyUI_, basada en _Tailwind CSS_. Tailwind permite construir interfaces de forma flexible mediante clases, mientras que DaisyUI proporciona componentes reutilizables que permiten ofrecer una apariencia consistente. Esta decisión permite acelerar el desarrollo de la interfaz, evitando complejidad innecesaria  garantizando al mismo tiempo una apariencia consistente y profesional.
+
+=== Backend web
+El backend del sistema web se ha desarrollado utilizando _Django_ como framework principal y _PostgreSQL_ como sistema de gestión de bases de datos.
+
+Debido a la integración con modelos de predicción, se ha decidido utilizar _Python_ como lenguaje principal del proyecto, ya que se trata del lenguaje predominante tanto en el ámbito de la ciencia de datos y el aprendizaje automático. Esto facilita la integración con modelos prodictivos y herramientas externas en el mismo ecosistema tecnológico.
+
+Dentro de los frameworks de desarrollo web disponibles para Python, se ha optado por _Django_ debido a su amplia gama de funcionalidades integradas, como sus sistema de gestión de usuarios y autenticación, el ORM para la persistencia de datos y el panel de administración. Estas características permiten acelerar el desarrollo de funcionalidades comunes y permiten centrarse en la lógica específica del proyecto. Además, gran parte del sistema consiste en la gestión de entidades persistentes relacionadas entre sí como procesos, archivos o notificaciones, lo que se adapta bien al modelo relacional y el ORM de Django.
+
+Como sistema de persistencia se ha utilizado _PostgreSQL_ debido a su fiabilidad, rendimiento y  compatibilidad con Django.
+
+=== Sistema bioinformático
+El subsistema bioinformático se ha desarrollado también principalmente en Python, debido a la amplia disponibilidad de herramientas y bibliotecas bioinformáticas, haciendo que sea el lenguaje más adecuado para la integración de las herramientas de ensamblaje y anotación, así como para la gestión de pipelines de procesamiento.
+
+Para la implementación de la API del sistema bioinformático se ha utilizado _FastAPI_. A diferencia del sistema web principal, este subsistema no requiere funcionalidades avanzadas de gestión de usuarios o renderizado de vistas, sino una interfaz ligera y eficiente orientada a la comunicación entre servicios. FastAPI permite implementar esta API de forma sencilla, con buena integración con Python.
+
+El sistema bioinformático integra herramientas especializadas para distintas etapas del pipeline genómico. Por un lado se hace uso de herramientas de ensamblaje como _SPAdes_  _Raven_ or _Flye_, permitiendo adaptar el procesamiento a distintos tipos de datos de secuenciación, incluyendo tecnologías Illumina y ONT.
+
+Por otro lado, para la anotación del genoma se utiliza _Bakta_, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. Bakta ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
+
+=== Gestión de tareas asíncronas
+Para la gestión de las tareas asíncronas de ensamblaje y anotación se ha utilizado _Celery_ junto con _Redis_ como sistema de cola de mensajes.
+
+Celery permite definir tareas desacopladas que son ejecutadas por workers independientes del servidor web principal. Esto permite delegar la ejecución de procesos de larga duración sin bloquear la interacción del usuario con la aplicación y facilita la ejecución concurrente de múltiples tareas.
+
+Por otro lado, Redis se emplea como intermediario para la gestión de colas gracias a su sencilla intergación con Celery y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
+
+Además, este enfoque simplifica la coordinación entre el sistema web y el sistema bioinformático, permitiendo gestionar el envío de tareas, la monitorización de su estado y la recuperación de resultados de forma desacoplada.
+
+=== Despliegue y contenedorización
+Para el despliegue del sistema se ha optado por una arquitectura basada en contenedores utilizando _Docker_. Se ha optado por esta tecnología ya que se trata del sistema más extendido y conocido de contenedorización. Además, cuenta con muy bien soporte y documentación online, lo que facilita su uso tanto durante el desarrollo como en la fase de despliegue y producción.
+
+Para la orquestación de los contenedores se ha decidido usar _Docker Compose_, lo que permite definir y gestionar la infraestructura del sistema de forma sencilla a través de archivos de configuración. Esto simplifica tanto el despliegue como la puesta en producción del sistema.
+
 
 == Sprint 1 - Estudio previo y definición del sistema
 === Objetivos
@@ -31,7 +73,7 @@ Se realizaron pruebas preliminares con distintas herramientas bioinformáticas p
 3. *Generación de features* a partir de los datos anotados.
 4. *Predicción* de resistencia a antibióticos utilizando modelos de machine learning.
 
-También se identificó la necesidad de desacoplar la ejecución de tareas bioinformáticas del sistema web principal debido al elevado tiempo de ejecución y consumo de recursos de las herramientas de ensamblaje y anotación. Esto llevó a definir dos subsistemas separados dentro del proyecto: el sistema web principal y el sistema bioinformático encargado de ejecutar las tareas de procesamiento genómico.
+También se identificó la necesidad de desacoplar la ejecución de tareas bioinformáticas del sistema web principal debido al elevado tiempo de ejecución y consumo de recursos de las herramientas de ensamblaje y anotación. Se decidió diseñar en el sprint siguiente un sistema que aislaría las tareas largas y computacionalmente intensivas del backend principal, evitando que las tareas de larga duración afectasen a la capacidad de respuesta del sistema web.
 
 Durante esta fase se definió además una primera aproximación de los requisitos funcionales y no funcionales del sistema, así como una planificación inicial del desarrollo organizada en distintos sprints.
 
@@ -51,11 +93,9 @@ Los objetivos principales fueron:
 - Definir patrones de diseño a utilizar.
 
 === Detalles de implementación
-Durante este sprint se diseñó la arquitectura del sistema, teniendo en cuenta las necesidades y requisitos definidos en el sprint anterior. Debido a la naturaleza computacionalmente intensiva de las tareas de procesamiento genómico, se optó por una arquitectura distribuida que separa el sistema en dos subsistemas principales:
+Durante este sprint se diseñó la arquitectura del sistema, teniendo en cuenta las necesidades y requisitos definidos en el sprint anterior. Debido a la necesidad de aislar las tareas largas y computacionalmente intensivas del backend principal, se optó por una arquitectura distribuida que separa el sistema en dos subsistemas principales:
 - Un sistema web encargado de la gestión de usuarios, procesos, almacenamiento y predicciones.
 - Un sistema bioinformático encargado de ejecutar las tareas de ensamblaje y anotación.
-
-Esta separación surgió como respuesta a la necesidad de aislar las tareas largas y computacionalmente intensivas del backend principal, evitando que las tareas de larga duración afectasen a la capacidad de respuesta del sistema web.
 
 También se definió un mecanismo de comunicación basado en APIs HTTP y ejecución asíncrona mediante colas de tareas y workers desacoplados, permitiendo separar la gestión de procesos de su ejecución real. Se tomó la decisión de implementar instancias de la cola de tareas y workers específicos para cada subsistema, para así mantener una separación clara entre las tareas relacionadas con el sistema web y las tareas relacionadas con el sistema bioinformático y además poder escalar, desplegar y monitorear cada subsistema de forma independiente según las necesidades del proyecto.
 
@@ -71,9 +111,9 @@ En esta fase se seleccionaron las tecnologías principales utilizadas durante el
 
 - _Docker_ para el despliegue y aislamiento de dependencias.
 
-Adicionalmente, se diseñó el modelo inicial de datos, definiendo entidades relacionadas con usuarios, procesos, archivos y notificaciones, así como las relaciones entre ellas. Finalmente, se evaluaron distntos enfoques de diseño, investigando patrones comunes en sistemas similares, con el objetivo de facilitar la extensibilidad del sistema. , especialmente en lo relativo a la integración de nuevos modelos predictivos y mecanismos de generación de características.
+Adicionalmente, se diseñó el modelo inicial de datos, definiendo entidades relacionadas con usuarios, procesos, archivos y notificaciones, así como las relaciones entre ellas. Finalmente, se evaluaron distintos enfoques de diseño, investigando patrones comunes en sistemas similares, con el objetivo de facilitar la extensibilidad del sistema. Se puso especial énfasis en lo relativo a la integración de nuevos modelos predictivos y mecanismos de generación de características.
 
-=== Conclusiones
+=== Resultados
 Este sprint fue fundamental para establecer una arquitectura sólida y escalable que permitiera abordar las necesidades específicas del proyecto, especialmente en relación con la ejecución de tareas bioinformáticas. La separación en subsistemas permitió diseñar un sistema más modular y mantenible, facilitando el desarrollo progresivo de funcionalidades en los siguientes sprints.
 
 == Sprint 3 - Desarrollo de la infrastructura base
@@ -81,7 +121,6 @@ Este sprint fue fundamental para establecer una arquitectura sólida y escalable
 Este sprint se desarrolló entre el 16 de diciembre de 2025 y el 13 de enero de 2026, con el objetivo principal de implementar la infraestructura base del sistema, incluyendo la configuración de la base de datos, la implementación de mecanismos de autenticación y autorización, y la creación de contenedores Docker para facilitar el desarrollo y despliegue del sistema. Los objetivos específicos de este sprint fueron:
 
 - Establecer las bases técnicas para el desarrollo del sistema.
-
 - Configurar la base de datos.
 - Implementar mecanismos de autenticación y autorización.
 - Configurar contenedores Docker para el desarrollo y despliegue.
@@ -91,10 +130,10 @@ La principal decisión técnica que ha condicionado el desarrollo de este sprint
 
 ==== Organización del proyecto Django
 
-Se inicializó el sistema web utilizando _Django_, organizando la funcionalidad en distintas aplicaciones siguiendo una separación basada en responsabilidades. La división en apps real no coincide exactamente con la descomposición conceptual presentada en @sec:modulos_web, ya que se ha adaptado a la estructura de _Django_ buscando un equilibrio entre la separación de responsabilidades y la coherencia con el framework utilizado.
+Se inicializó el sistema web utilizando _Django_, organizando la funcionalidad en distintas aplicaciones siguiendo una separación basada en responsabilidades. La división en apps real no coincide exactamente con la descomposición conceptual presentada en la @sec:modulos_web, ya que se ha adaptado a la estructura de _Django_ buscando un equilibrio entre la separación de responsabilidades y la coherencia con el framework utilizado. Las aplicaciones principales definidas fueron:
 
-Las aplicaciones principales definidas fueron:
 - `home`: gestión de autenticación, navegación general y página principal.
+
 - `conversion`: gestión de procesos bioinformáticos, comunicación con el sistema bioinformático, almacenamiento de archivos y generación de features.
 - `prediction`: ejecución de modelos de predicción y gestión de resultados.
 - `notifications`: gestión de notificaciones asociadas al estado de los procesos.
@@ -102,7 +141,7 @@ Las aplicaciones principales definidas fueron:
 Esta organización permite mantener una separación clara entre las distintas áreas del sistema, encapsulando la lógica específica de cada dominio dentro de su propia aplicación y reduciendo el acoplamiento entre componentes.
 
 ==== Configuración de persistencia y almacenamiento
-Aunque inicialmente se consideró el uso de _SQLite_ como sistema de persistencia en las primeras fases del desarrollo por su simplicidad, finalmente se optó por hacer uso de _PostgreSQL_ desde el inicio debido a que el acceso a la base de datos de distintos workers podía dar problemas de concurrencia. ASí mismo, se optó por esta opción para evitar problemas de migración y compatibilidad que podrían surgir al cambiar de SQLite a PostgreSQL en fases posteriores.
+Aunque inicialmente se consideró el uso de _SQLite_ como sistema de persistencia en las primeras fases del desarrollo por su simplicidad, finalmente se optó por hacer uso de _PostgreSQL_ desde el inicio debido a que el acceso a la base de datos de distintos workers podía dar problemas de concurrencia. Así mismo, se optó por esta opción para evitar problemas de migración y compatibilidad que podrían surgir al cambiar de SQLite a PostgreSQL en fases posteriores.
 
 Se definió el modelo de datos inicial utilizando los modelos de _Django_, incluyendo entidades relacionadas con usuarios, procesos, archivos y notificaciones y sus relaciones, especificadas en @sec:modelo_datos.
 
@@ -187,7 +226,7 @@ Se implementaron funcionalidades de:
 
 Esto permitió restringir el acceso a procesos y resultados únicamente a sus propietarios.
 
-=== Conclusiones
+=== Resultados
 
 En este sprint se estableció la infraestructura técnica fundamental del sistema, permitiendo el desarrollo de funcionalidades posteriores. La separación en subsistemas independientes mediante Docker y la comunicación HTTP REST proporciona escalabilidad y mantenibilidad. La utilización de Celery con Redis permite procesar tareas largas sin bloquear el sistema web, mientras que la arquitectura modular de Django facilita la extensión futura del sistema con nuevas aplicaciones y funcionalidades.
 
@@ -219,7 +258,9 @@ Las herramientas bioinformáticas se integraron mediante la ejecución de proces
 
 ===== Integración de herramientas de ensamblaje
 El sistema se disñó para soportar distintos tipos de tecnologías de secuenciación, integrando diferentes herramientas de ensamblaje según el tipo de lecturas utilizadas. Para secuenciación de lecturas cortas (_Illumina_) se integró _SPAdes_, mientras que para secuenciación de lecturas largas (_ONT_) se integraron _Flye_ y _Raven_. En todos los casos, la integración sigue una estructura similar:
-1. Asegurar que a herramienta se encuentra instalada.
+
+1. Asegurar que la herramienta se encuentra instalada.
+
 2. Validar los parámetros de entrada.
 3. Generar el comando de ejecución con los parámetros adecuados.
 4. Ejecutar el comando utilizando `subprocess` y monitorizar su progreso.
@@ -261,11 +302,9 @@ Un ejemplo simplificado del comando utilizado para la ejecución de Bakta se mue
 ===== Gestión de archivos y directorios
 Finalmente, se implementó un sistema de gestión de directorios temporales y persistentes para aislar la ejecución de cada proceso bioinformático. Cada tarea dispone de un directorio de trabajo independiente donde se almacenan archivos intermedios, logs y resultados generados durante la ejecución. Esto facilita tanto la recuperación de errores como la limpieza automática de datos temporales una vez finalizado el procesamiento.
 
-#todo("A lo mejor Dani me puede dar alguna clave de extra para esta sección, que he ido un poco a ojo")
-
 ==== Diseño de la API de comunicación entre subsistemas
 
-La comunicación entre el sistema web y el sistema bioinformático se implementó mediante una API REST sobre HTTP. Esta API permite desacoplar completamente ambos subsistemas y facilita la evolución independiente de cada uno. El sistema bioinformático expone endpoints para:
+La comunicación entre el sistema web y el sistema bioinformático se implementó mediante una API REST sobre HTTP. Esta API permite desacoplar completamente ambos subsistemas y facilita la evolución independiente de cada uno. El sistema bioinformático expone los endpoints mostrados en la @table:endpoints_bio, que permiten iniciar procesos de ensamblaje y anotación, consultar su estado y recuperar resultados. Cada endpoint se diseñó siguiendo principios RESTful, utilizando métodos HTTP adecuados para cada operación y estructurando las URLs de forma clara y consistente.
 
 #todo("Arreglar el formato de la tabla, es demasiado alta para una única página y la parte de abajo peta")
 
@@ -308,7 +347,7 @@ Una vez dada la orden de iniciar una tarea bioinformática, se almacena el ident
 
 Cuando el estado del proceso cambia, el worker actualiza la información asociada en la base de datos del sistema web y coordina la recuperación de resultados, la generación de notificaciones y la gestión del ciclo de vida de los archivos temporales y persistentes. Este enfoque permite mantener sincronizados ambos subsistemas sin bloquear la aplicación web ni depender de conexiones persistentes de larga duración.
 
-=== Conclusiones
+=== Resultados
 Durante este sprint se implementó la funcionalidad clave del pipeline bioinformático del sistema, incluyendo tanto el sistema bioinformático como su integración con el sistema web. La independencia de ambos subsistemas permitió ejecutar procesos de ensamblaje y anotación de forma desacoplada y asíncrona, sentando las bases para la integración posterior de generación de features y la integración de modelos de predicción.
 
 == Sprint 5 - Integración y generación de features
@@ -321,7 +360,7 @@ Durante este sprint se implementó la funcionalidad clave del pipeline bioinform
 === Detalles de implementación
 Como se ha llevado a cabo, etc.
 
-=== Conclusiones
+=== Resultados
 
 - Parseo de resultados
 - Persistencia en base de datos
@@ -338,7 +377,7 @@ Como se ha llevado a cabo, etc.
 === Detalles de implementación
 Como se ha llevado a cabo, etc.
 
-=== Conclusiones
+=== Resultados
 - Pipleine de predicción de resistencia
 - Integración de modelo
 
@@ -355,7 +394,7 @@ Adicionalmente, se definió el módulo `ai_models`, para la administración aisl
 === Detalles de implementación
 Como se ha llevado a cabo, etc.
 
-=== Conclusiones
+=== Resultados
 
 - Arquitectura de modelos
 - Registro automático de modelos
@@ -371,7 +410,7 @@ Como se ha llevado a cabo, etc.
 === Detalles de implementación
 Como se ha llevado a cabo, etc.
 
-=== Conclusiones
+=== Resultados
 
 - Pantallas de conversión de datos genómicos
 - Notificaciones y seguimiento
@@ -388,7 +427,7 @@ Como se ha llevado a cabo, etc.
 === Detalles de implementación
 Como se ha llevado a cabo, etc.
 
-=== Conclusiones
+=== Resultados
 
 - Integración del sistema
 - Pruebas y validación
@@ -404,7 +443,7 @@ Como se ha llevado a cabo, etc.
 === Detalles de implementación
 Como se ha llevado a cabo, etc.
 
-=== Conclusiones
+=== Resultados
 - Redacción de la memoria
 - Ajustes finales
 - Puesta en producción

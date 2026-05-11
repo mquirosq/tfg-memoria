@@ -9,7 +9,7 @@
 En este capítulo se exponen aspectos de gestión previos a la ejecución del proyecto detallando aspectos como los objetivos del mismo, la metodología seguida para su desarrollo y la planificación temporal y presupuestaria del proyecto.
 
 
-== Objetivos
+== Objetivos <sec:objetivos>
 El objetivo principal de este proyecto es diseñar y desarrollar un framework que integre el procesamiento y conversión de datos genómicos con la incorporación de modelos predictivos, con el fin de facilitar su uso por parte de personal sanitario en entornos reales.
 
 Adicionalmente, se plantean los siguientes objetivos secundarios:

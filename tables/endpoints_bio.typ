@@ -3,11 +3,12 @@
 #import "../utils/todo.typ": todo
 
 #figure(
+  placement: auto,
   table(
     columns: (auto, auto, 1fr),
     align: (center + horizon, center + horizon, left + horizon),
 
-    [Endpoint], [Método], [Descripción],
+    [Endpoint], [Método], table.cell(align: center)[Descripción],
 
     [/assembly/illumina], [POST], [Iniciar ensamblaje de secuencias Illumina con archivos FASTQ R1 y R2 con SPAdes.],
 
@@ -45,7 +46,7 @@
 
     [/workers], [GET], [Obtener información sobre workers de Celery activos y sus estadísticas.],
 
-    [/], [GET], [Root endpoint con información general de la API y lista de endpoints disponibles.],
+    [/], [GET], [Endpoint raíz con información general de la API y lista de endpoints disponibles.],
   ),
   caption: "Endpoints expuestos por la API del sistema bioinformático para la comunicación con el sistema web",
 )<table:endpoints_bio>
