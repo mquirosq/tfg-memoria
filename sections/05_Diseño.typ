@@ -249,8 +249,6 @@ Además de las predicciones individuales generadas por cada modelo, el sistema r
   caption: "Mockup de la interfaz de visualización de predicciones.",
 )<fig:mock_prediccion>
 
-#todo("Update image when svg is available")
-
 La interfaz también incorpora mecanismos de representación del estado de los procesos, permitiendo al usuario identificar de forma sencilla si una tarea se encuentra en ejecución, finalizada correctamente o ha producido algún error. Para ello, se utilizan colores, marcadores de estado e indicadores de progreso. Esto resulta especialmente relevante debido al elevado tiempo de ejecución asociado a determinadas tareas bioinformáticas.
 
 == Conclusiones

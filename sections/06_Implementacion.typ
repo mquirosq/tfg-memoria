@@ -9,6 +9,9 @@ En este capítulo se aborda el proceso de implementación del sistema desarrolla
 Para cada sprint se describen los objetivos planteados, las principales decisiones técnicas adoptadas, los problemas encontrados durante el desarrollo y los resultados obtenidos.
 
 == Tecnologías y herramientas utilizadas
+
+#todo("Maybe añadir un diagrama a modo resumen de las tecnologías?")
+
 En esta subsección se describen las principales tecnologías y herramientas utilizadas en el desarrollo del sistema, explicando las razones detrás de su elección. La selección de las mismas se ha realizado teniendo en cuenta los requisitos definidos para el proyecto, especialmente aquellos relacionados con la mantenibilidad, extensibilidad, interoperabilidad y facilidad de despliegue.
 
 === Frontend
