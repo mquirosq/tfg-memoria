@@ -50,6 +50,8 @@
   }
 }
 
+#show heading.where(level: 3): set heading(outlined: false)
+
 #include "sections/01_introduccion.typ"
 #include "sections/02_Gestion.typ"
 #include "sections/03_Contexto.typ"

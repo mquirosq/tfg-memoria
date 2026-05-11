@@ -309,8 +309,6 @@ Finalmente, se implementó un sistema de gestión de directorios temporales y pe
 
 La comunicación entre el sistema web y el sistema bioinformático se implementó mediante una API REST sobre HTTP. Esta API permite desacoplar completamente ambos subsistemas y facilita la evolución independiente de cada uno. El sistema bioinformático expone los endpoints mostrados en la @table:endpoints_bio, que permiten iniciar procesos de ensamblaje y anotación, consultar su estado y recuperar resultados. Cada endpoint se diseñó siguiendo principios RESTful, utilizando métodos HTTP adecuados para cada operación y estructurando las URLs de forma clara y consistente.
 
-#todo("Arreglar el formato de la tabla, es demasiado alta para una única página y la parte de abajo peta")
-
 #include "../tables/endpoints_bio.typ"
 
 Cada proceso de ensamblaje o anotación se identifica mediante un UUID único que permite sincronizar el estado entre ambos subsistemas. Un ejemplo simplificado de endpoint utilizado para iniciar procesos de ensamblaje se muestra en @cod:bio_endpoint.py.
