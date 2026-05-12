@@ -353,19 +353,115 @@ Durante este sprint se implementó la funcionalidad clave del pipeline bioinform
 
 == Sprint 5 - Integración y generación de features
 
-[5], [27/01-10/02 2026], [Procesamiento y parseo de datos anotados y almacenamiento en base de datos],
 === Objetivos
-- Objetivo 1
-- Objetivo 2
+Este sprint se desarrolló entre el 27 de enero y el 10 de febrero de 2026, con el objetivo principal de implementar el procesamiento de los resultados de anotación y su transformación en características estructuradas utilizables por el sistema de predicción. Adicionalmente, se buscaba implementar el diseño de la arquitectura desacoplada orientada a facilitar la incorporación futura de nuevos formatos y herramientas bioinformáticas.
+
+- Procesar los resultados generados durante la anotación genómica.
+- Diseñar un sistema de generación de features reutilizable y extensible.
+- Persistir la información genómica relevante en la base de datos.
+- Integrar la generación de features dentro del flujo asíncrono del sistema.
+- Facilitar la incorporación futura de nuevos parsers y formatos de anotación.
 
 === Detalles de implementación
-Como se ha llevado a cabo, etc.
+==== Procesamiento y persistencia de resultados anotados
+Una vez finalizado el proceso de anotación, el sistema bioinformático genera distintos archivos que contienen información sobre genes, proteínas y otros elementos genómicos identificados durante el análisis. Para que esta información pudiera ser utilizada posteriormente por el sistema de predicción, se decidió transformarla en información estructurada persistible dentro de la base de datos del sistema web.
+
+Inicialmente, se optó por trabajar con las salidas JSON generadas por _Bakta_, debido a su estructura jerárquica y facilidad de procesamiento desde Python. Un ejemplo simplificado del parser implementado se muestra en @cod:parser.py.
+
+#figure(
+  placement: auto,
+  [
+    #set text(size: 12pt)
+    #raw(read("/memoria/code/parser.py"), block: true, lang: "python")
+  ],
+  caption: "Ejemplo simplificado de parser de JSON generado por Bakta",
+)<cod:parser.py>
+
+
+A partir de los resultados se decidió extraer las siguientes características relevantes para la posterior generación de features y predicción de resistencia. Entre ellas destacan:
+
+- *Identificadores asociados al gen* (`identifiers`),incluyendo:
+  - El nombre asociado al gen (`gene`, @cod:parser.py:5).
+  - Referencias externas (`db_xrefs`, @cod:parser.py:6).
+  - El nombre del producto asociado (`product`, @cod:parser.py:7).
+
+- *Información del sistema experto de anotación*: incluyendo:
+  - El campo del experto (`expert_field`, @cod:parser.py:25).
+  - El tipo del experto (`expert_type`, @cod:parser.py:26).
+
+Además, el sistema permite opcionalmente realizar una extracción más exhaustiva de las *características de la secuencia genética*:
+- Posición inicial (`start`, @cod:parser.py:31).
+- Posición final (`end`, @cod:parser.py:32).
+- Secuencia nucleotídica (`nt`, @cod:parser.py:33).
+- Secuencia aminoacídica (`aa`, @cod:parser.py:34).
+
+Dichas características, se almacenan asociadas al proceso de anotación correspondiente a través de los modelos `Gene` y `FileGene`. El modelo `Gene` representa la información global asociada a un gen identificado, mientras que `FileGene` modela la relación entre un gen concreto y un archivo o proceso de anotación específico.
+
+Adicionalmente, para el modelo `Gene` se implementó un queryset personalizado que permite recuperar genes de forma sencilla utilizando cualquiera de sus identificadores asociados. Esto facilita la búsqueda de información relacionada con un gen independientemente del nombre concreto utilizado por distintas herramientas bioinformáticas o modelos de predicción. Un extracto de código de dicho queryset se encuentra en @cod:gene_queryset.py.
+
+#figure(
+  placement: auto,
+  [
+    #set text(size: 12pt)
+    #raw(read("/memoria/code/gene_queryset.py"), block: true, lang: "python")
+  ],
+  caption: "Queryset personalizado para el modelo Gene",
+)<cod:gene_queryset.py>
+
+==== Arquitectura modular de parsers
+Como punto de extensión adicional del sistema y con el objetivo de facilitar la incorporación futura de nuevas herramientas bioinformáticas y formatos de salida, se decidió desacoplar la lógica de extracción de features mediante un mecanismo basado en parsers. Este enfoque permite definir un parser para cada tipo de salida bioinformática, evitando acoplar el pipeline de generación de features a una herramienta bioinformática concreta y permitiendo extender el sistema sin modificar la lógica principal de procesamiento.
+
+Se definió la clase base `BaseParser` que establece la interfaz común para todos los parsers (@cod:base_parser.py). Esta clase define el método `parse`, que debe ser implementado por cada parser concreto para transformar los resultados de la anotación en estructuras procesables por el sistema.
+
+#figure(
+  placement: auto,
+  [
+    #set text(size: 12pt)
+    #raw(read("/memoria/code/base_parser.py"), block: true, lang: "python")
+  ],
+  caption: "Clase base para los parsers",
+)<cod:base_parser.py>
+
+para facilitar la extensibilidad del sistema, se implementó un mecanismo de registro automático basado en el patrón _Registry_ (@cod:parser_registry.py). Este mecanismo permite registrar automáticamente nuevos parsers mediante decoradores, evitando configuraciones manuales.
+
+#figure(
+  placement: auto,
+  [
+    #set text(size: 12pt)
+    #raw(read("/memoria/code/parser_registry.py"), block: true, lang: "python")
+  ],
+  caption: "Registro de parsers",
+)<cod:parser_registry.py>
+
+Cada parser se registra utilizando un identificador único que posteriormente permite su resolución dinámica dentro del flujo de generación de features. Un ejemplo simplificado de implementación de parser se muestra en @cod:parser_decorator.py.
+
+#figure(
+  placement: auto,
+  [
+    #set text(size: 12pt)
+    #raw(read("/memoria/code/parser_decorator.py"), block: true, lang: "python")
+  ],
+  caption: "Ejemplo de implementación de un parser concreto utilizando el sistema de registro mediante decoradores",
+)<cod:parser_decorator.py>
+
+El sistema de parsers combina el mecanismo de registro automático con un enfoque inspirado en el patrón _Strategy_ (@cod:parser_strategy.py). Cada parser implementa una interfaz común de procesamiento (`parse_file`), permitiendo intercambiar dinámicamente distintos algoritmos de extracción de features (parsers) según el tipo de resultado bioinformático recibido. La selección del parser concreto se realiza mediante resolución dinámica basada en identificadores registrados, desacoplando completamente la lógica de selección de la implementación concreta del parser.
+
+#figure(
+  placement: auto,
+  [
+    #set text(size: 12pt)
+    #raw(read("/memoria/code/parser_strategy.py"), block: true, lang: "python")
+  ],
+  caption: "Interfaz Strategy para los parsers",
+)<cod:parser_strategy.py>
+
+==== Integración con el flujo de procesamiento
+Finalmente, la generación de features se integró dentro del flujo asíncrono de anotado del sistema web. Una vez finalizado el proceso de anotación en el sistema bioinformático, el worker encargado de monitorizar el estado del proceso detecta la finalización de la tarea y recupera automáticamente los resultados generados. A continuación, se inicia el proceso de generación de features utilizando el sistema de parsers definido previamente. Esto permite automatizar completamente la transición entre la etapa de anotación y la posterior fase de predicción.
+
+Adicionalmente, se incorporó la posibilidad de realizar una extracción de las características desde archivos externos de anotación previamente generados. De este modo, el usuario puede cargar un archivo JSON generado por _Bakta_ y reutilizar resultados de anotación existentes sin necesidad de ejecutar nuevamente el pipeline bioinformático completo.
 
 === Resultados
-
-- Parseo de resultados
-- Persistencia en base de datos
-
+A lo largo de este sprint se implementó la generación automática de features a partir de los resultados de anotación genómica, así como una arquitectura modular y extensible de parsers. La integración de esta funcionalidad dentro del flujo de procesamiento del sistema web permitió automatizar completamente la transición entre la etapa de anotación y la posterior fase de predicción. Además, el soporte para archivos externos de anotación permite al usuario final reutilizar resultados previamente generados sin necesidad de ejecutar nuevamente las herramientas bioinformáticas, aumentando la flexibilidad del sistema.
 
 
 == Sprint 6 - Módulo de predicción de resistencia
