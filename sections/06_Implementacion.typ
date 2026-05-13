@@ -354,7 +354,7 @@ Durante este sprint se implementó la funcionalidad clave del pipeline bioinform
 == Sprint 5 - Integración y generación de features
 
 === Objetivos
-Este sprint se desarrolló entre el 27 de enero y el 10 de febrero de 2026, con el objetivo principal de implementar el procesamiento de los resultados de anotación y su transformación en características estructuradas utilizables por el sistema de predicción. Adicionalmente, se buscaba implementar el diseño de la arquitectura desacoplada orientada a facilitar la incorporación futura de nuevos formatos y herramientas bioinformáticas.
+Este sprint se desarrolló entre el 27 de enero y el 10 de febrero de 2026, con el objetivo principal de implementar el procesamiento de los resultados de anotación y su transformación en características estructuradas utilizables por el sistema de predicción. Adicionalmente, se buscaba implementar el diseño de la arquitectura desacoplada orientada a facilitar la incorporación futura de nuevos formatos y herramientas bioinformáticas. Los objetivos específicos de este sprint fueron:
 
 - Procesar los resultados generados durante la anotación genómica.
 - Diseñar un sistema de generación de features reutilizable y extensible.
@@ -376,7 +376,6 @@ Inicialmente, se optó por trabajar con las salidas JSON generadas por _Bakta_, 
   ],
   caption: "Ejemplo simplificado de parser de JSON generado por Bakta",
 )<cod:parser.py>
-
 
 A partir de los resultados se decidió extraer las siguientes características relevantes para la posterior generación de features y predicción de resistencia. Entre ellas destacan:
 
@@ -463,16 +462,97 @@ Adicionalmente, se incorporó la posibilidad de realizar una extracción de las 
 === Resultados
 A lo largo de este sprint se implementó la generación automática de features a partir de los resultados de anotación genómica, así como una arquitectura modular y extensible de parsers. La integración de esta funcionalidad dentro del flujo de procesamiento del sistema web permitió automatizar completamente la transición entre la etapa de anotación y la posterior fase de predicción. Además, el soporte para archivos externos de anotación permite al usuario final reutilizar resultados previamente generados sin necesidad de ejecutar nuevamente las herramientas bioinformáticas, aumentando la flexibilidad del sistema.
 
-
 == Sprint 6 - Módulo de predicción de resistencia
-
-[6], [10/02-03/03 2026], [Desarrollo del módulo de predicción de resistencia mediante ML],
 === Objetivos
-- Objetivo 1
-- Objetivo 2
+Este sprint se desarrolló entre el 10 de febrero y el 3 de marzo de 2026 y tuvo como objetivo implementar el módulo encargado de realizar predicciones de resistencia a antibióticos a partir de las características almacenadas en base de datos durante las etapas anteriores del pipeline. Los objetivos principales de este sprint fueron:
+
+- Implementar el pipeline de predicción de resistencia a antibióticos.
+- Integrar modelos de machine learning dentro del sistema web.
+- Ofrecer utilidades para la transformación de features al formato de entrada de los modelos.
 
 === Detalles de implementación
-Como se ha llevado a cabo, etc.
+
+==== Implementación de modelos de predicción
+Para la versión propia del sistema y a modo de ejemplo, se decidió implementar el flujo básico de predicción para dos modelos proporcionados por el equipo de investigación, el modelo `base_bakta_50` y el modelo `base_bakta_90`. Se trata de dos modelos similares por lo que comentaremos la implementación del primero, definido en el archivo `model_classes.py` (@cod:base_bakta_50.py).
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/base_bakta_50.py"), block: true, lang: "python"),
+  caption: "Modelo de predicción base_bakta_50",
+)<cod:base_bakta_50.py>
+
+El modelo `base_bakta_50` es un modelo de machine learning específico, diseñado para realizar predicciones de resistencia a antibióticos a partir de una lista de presencia/ausencia de genes relevantes para la resistencia.
+
+Para obtener las features se definió el método `features()` (@cod:bakta_50_features.py). El modelo `bakta_50` se entrenó para receibir como inputs genes específicos que vienen dados en un archivo de pickle. Por lo tanto, sacamos los nombres de los genes del archivo y los procesamos para añadir los identificadores de la base de datos corresponsiente para poder identificarlos correctamente en nuestro sistema (@cod:bakta_50_features.py:10).
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/bakta_50_features.py"), block: true, lang: "python"),
+  caption: "Definición de las features utilizadas por el modelo base_bakta_50",
+)<cod:bakta_50_features.py>
+
+Por otro lado, para la carga del modelo se definió el método `load()` (@cod:bakta_50_load.py), encargado de cargar los pesos del modelo para el antibiótico específico desde los archivos de pesos y cambiar el modelo a modo evaluación. En este método se llama al método features para cargar los nombres de los genes en las variables internas del modelo.
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/bakta_50_load.py"), block: true, lang: "python"),
+  caption: "Definición del método de carga para el modelo base_bakta_50",
+)<cod:bakta_50_load.py>
+
+Finalmente, se definió un método `predict()` (@cod:bakta_50_predict.py) encargado de realizar la predicción a partir de las características obtenidas, devolviendo un valor numérico que representa la probabilidad de resistencia a un antibiótico específico. Dentro de este método se calculan las features de presencia y ausencia haciendo uso de las funciones auxilares explicadas en la próxima sección.
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/bakta_50_predict.py"), block: true, lang: "python"),
+  caption: "Definición del método de predicción para el modelo base_bakta_50",
+)<cod:bakta_50_predict.py>
+
+==== Utilidades de transformación de features
+
+Para facilitar la transformación de las características almacenadas en la base de datos al formato requerido por los distintos modelos de predicción, se implementó un conjunto de utilidades de transformación en el archivo `input_utils.py`.
+
+El objetivo es que en la definición de cada modelo se puedan utilizar las utilidades de transformación de forma automática, ocultando la complejidad de algunas de las funciones más comunes.
+
+Para la transformación, muchos de los modelos estudiados requiere como input la ausencia o presencia de ciertos genes en la muestra. Por esto se definió la función `presence_from_list(model_feature, file_upload)` (@cod:model_utils_presence.py), encargada de calcular la presencia o ausencia de genes a partir de los resultados almacenados en la base de datos, devolviendo un vector binario que indica la presencia o ausencia de cada gen relevante para el modelo normalizado. El método devuelve una lista de valores binarios con un elemento por cada gen en `model_features`, indicando el 1 presencia y el 0 ausencia del mismo en la muestra.
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/model_utils_presence.py"), block: true, lang: "python"),
+  caption: "Función de cálculo de presencia o ausencia de genes a partir de los resultados almacenados en la base de datos",
+)<cod:model_utils_presence.py>
+
+Por otro lado, se definió la función `get_columns_from_pickle`
+
+"""
+Load column names from a pickle file for a given model.
+Args:
+model_name: name of the model (used to locate the correct directory)
+column_file_name: name of the pickle file containing the columns (e.g. 'columns.pkl')
+Returns:
+A list of column names loaded from the pickle file.
+"""
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/model_utils_pickle.py"), block: true, lang: "python"),
+  caption: "Función de carga de archivos de pickle con información relevante para la generación de features",
+)<cod:model_utils_pickle.py>
+
+
+
+
+
+==== Integración con el flujo de procesamiento
+
+La predicción de resistencia se integró dentro del flujo asíncrono del sistema. Una vez finalizada la generación de features, el usuario puede enviar el proceso para predicción, lo que inicia una tarea Celery que:
+
+1. Obtiene las características asociadas al proceso de anotación desde la base de datos.
+2. Carga dinámicamente el modelo de predicción solicitado mediante el mecanismo de registro.
+3. Transforma las características al formato requerido por el modelo.
+4. Ejecuta la predicción y almacena los resultados.
+5. Genera notificaciones informando al usuario sobre la finalización del proceso.
+
+Este enfoque permite desacoplar completamente el pipeline de predicción de los modelos específicos utilizados, facilitando la extensión del sistema con nuevos modelos en el futuro.
 
 === Resultados
 - Pipleine de predicción de resistencia
@@ -480,72 +560,125 @@ Como se ha llevado a cabo, etc.
 
 
 == Sprint 7 - Arquitectura modular para modelos de predicción
-
-Adicionalmente, se definió el módulo `ai_models`, para la administración aislada de los modelos de aprendizaje automático.
-
-[7], [03/03-17/03 2026], [Diseño e implementación de arquitectura modular para modelos de predicción],
 === Objetivos
-- Objetivo 1
-- Objetivo 2
+Este sprint se desarrolló entre el 3 y el 17 de marzo de 2026 y tuvo como objetivo refinar la arquitectura de modelos de predicción, optimizar el rendimiento del sistema y preparar la integración con la interfaz de usuario. Los objetivos principales fueron:
+
+- Implementar un mecanismo de registro automático de modelos mediante decoradores.
+- Definición de adaptadores para los modelos.
+- Validar la integridad de los adaptadores de modelos durante el registro.
+- Validar la compatibilidad de los modelos con los distintos antibióticos.
 
 === Detalles de implementación
-Como se ha llevado a cabo, etc.
+
+==== Arquitectura modular de modelos de predicción
+Con el objetivo de cumplir con los requisitos de extensibilidad y facilitar la incorporación futura de nuevos modelos de predicción, se implementó la arquitectura modular definida para los modelos de predicción, siguiendo un enfoque basado en los patrones _Registry_ y _Strategy_. El mecanismo final es similar al implementado para los parsers, permitiendo registrar nuevos modelos de forma automática mediante decoradores y seleccionar dinámicamente el modelo concreto a utilizar en función de la configuración del proceso de predicción.
+
+Primero, se definió una clase base `ModelInterface`que establece la interfaz común para loas adaptadores de todos los modelos de predicción, definiendo los métodos que deben ser implementados por cada modelo concreto para realizar predicciones a partir de las características almacenadas en la base de datos (@cod:model_interface.py). Patrón _Adapter_ (decir algo más).
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/model_interface.py"), block: true, lang: "python"),
+  caption: "Clase base para los modelos de predicción",
+)<cod:model_interface.py>
+
+En la interfaz se definen tres métodos:
+
+- `features(file_upload)` - (@cod:model_interface.py:3): Dado un archivo de subida persistido en base de datos (`FileUpload`), devuelve las características necesarias para realizar la predicción (por ejemplo, una lista de genes presentes o ausentes).
+
+- `load()` - (@cod:model_interface.py:6): Carga los pesos del modelo y realiza cualquier preparación necesaria para la ejecución de predicciones.
+- `predict(file_upload)` - (@cod:model_interface.py:9): Realiza la predicción de resistencia a antibióticos a partir de las características asociadas al archivo de subida proporcionado, devolviendo un valor numérico que representa la probabilidad de resistencia.
+
+A continuación, se implementó un mecanismo de registro automático para los modelos de predicción, siguiendo el patrón _Registry_ de forma similar al utilizado para los parsers. Este mecanismo permite registrar nuevos modelos mediante decoradores, evitando configuraciones manuales y facilitando la extensión del sistema con nuevos modelos de forma sencilla (@cod:model_registry.py).
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/model_registry.py"), block: true, lang: "python"),
+  caption: "Registro de modelos de predicción",
+)<cod:model_registry.py>
+
+Se definieron dos diccionarios con los modelos y sus clases y los antibioticos a los que dan soporte, que se populan al iniciar la aplicación de froma automátcia gracias al decorador definido en @cod:model_registry.py:22. Al decorador se le puede pasar un identificador que mostrará a los usuarios en el sistema final así como se usará de forma interna patra identificar al modelo. Adicionalmente, en el resgistro se computan los antibióticos que están disponibles para cada modelo a partir de los archivos de pesos asociados a cada modelo, lo que permite mostrar esta información de forma dinámica en la interfaz de usuario y evitar errores de configuración.
+
+Además, para asegurar la integridad de las clases y los métodos de los adaptadores se definió un validador que se ejecuta durante el registro de cada modelo, verificando que la clase implementa correctamente la interfaz definida en `ModelInterface`, que los métodos necesarios están presentes y proporciona el nombre de la clase como identificador para el modelo si no se ha definido uno en el decorador (@cod:model_registry.py:9).
+
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/model_registry_utils.py"), block: true, lang: "python"),
+  caption: "Registro de modelos de predicción",
+)<cod:model_registry_utils.py>
+
+
+Por otro lado, inspirado en el patrón _Strategy_ se definió un mecanismo de selección dinámica del modelo concreto a utilizar en función de la configuración del proceso de predicción. Esto permite intercambiar distintos modelos de predicción simplemente llamando a una función con distintos parámetros. El código se puede ver en @cod:model_predict.py, donde se define la función `get_prediction` que recibe como parámetro el nombre del modelo a utilizar, el antibiótico y el archivo de subida asociado al proceso de predicción, resolviendo dinámicamente la clase del modelo a utilizar a través del mecanismo de registro y ejecutando las funciones de carga (`load()`) y predicción (`predict()`) de forma transparente para el usuario.
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/model_predict.py"), block: true, lang: "python"),
+  caption: "Llamada única de predicción",
+)<cod:model_predict.py>
+
+
+==== Instrucciones de integración de nuevos modelos
+
+Se definió el módulo `ai_models`.
+
+gracias a todos los mecanismos definidos, la integración de nuevos modelos de predicción se reduce a implementar una clase que herede de `ModelInterface`, implementando los métodos necesarios para la transformación de características, carga de pesos y ejecución de predicciones, y decorarla con el decorador de registro definido en @cod:model_registry.py.
+
+En este sprint se formalizó completamente la arquitectura modular de modelos de predicción, consolidando el mecanismo de registro automático y validación de adaptadores. Se desarrolló el módulo `ai_models` para la administración centralizada de los modelos de aprendizaje automático, incluyendo:
+
+- Una estructura de directorios estandarizada para cada modelo, con carpetas `pesos/` conteniendo archivos `.pt` con los pesos por antibiótico.
+- Un sistema de validación que verifica la correctitud de cada adaptador durante el registro, incluyendo la verificación de la firma de métodos y la implementación de la interfaz `ModelInterface`.
+- Un mecanismo de descubrimiento dinámico de antibióticos soportados por cada modelo, leyendo automáticamente los archivos de pesos disponibles.
+- Utilidades para la transformación de características genómicas al formato específico requerido por cada modelo.
+
+La estructura estándar definida para cada modelo simplifica significativamente la incorporación de nuevos modelos:
+
+```
+ai_models/<model_name>/
+    pesos/
+        <antibiotic>.pt
+    model_classes.py
+```
+
+Donde `model_classes.py` debe exponer la arquitectura del modelo y la clase adaptadora que implementa la interfaz de predicción, registrada mediante el decorador `@register_model("alias")`.
+
+==== Adaptación de los modelos existentes
+
+Para aplicar este modelo se definió un adaptador encargado de transformar las características almacenadas en la base de datos al formato de entrada requerido por el modelo. Este adaptador se implementó como una clase concreta que hereda de una interfaz común definida para los adaptadores de modelos, siguiendo un enfoque inspirado en el patrón _Adapter_. Un ejemplo simplificado del adaptador implementado se muestra en PATATA.
 
 === Resultados
 
-- Arquitectura de modelos
-- Registro automático de modelos
+En este sprint se consolidó la arquitectura modular de modelos de predicción, estableciendo:
+
+- Un sistema robusto de registro automático de modelos con validación de integridad.
+- Una estructura estándar para la incorporación de nuevos modelos que minimiza la configuración manual.
+- Un mecanismo de descubrimiento dinámico de funcionalidades (antibióticos soportados) que facilita la exposición en la interfaz de usuario.
+- Dos modelos de predicción completamente funcionales (`base_bakta_50` y `base_bakta_90`) listos para uso en producción.
 
 
 == Sprint 8 - Interfaz de usuario y notificaciones
 
-[8], [17/03-14/04 2026], [Desarrollo de la interfaz de usuario y sistema de notificaciones],
 === Objetivos
-- Objetivo 1
-- Objetivo 2
 
 === Detalles de implementación
-Como se ha llevado a cabo, etc.
 
 === Resultados
-
-- Pantallas de conversión de datos genómicos
-- Notificaciones y seguimiento
-- Pantalla de predicción
-
 
 == Sprint 9 - Integración del sistema, pruebas y validación
 
-[9], [14/04-21/04 2026], [Integración del sistema, pruebas y validación],
 === Objetivos
-- Objetivo 1
-- Objetivo 2
 
 === Detalles de implementación
-Como se ha llevado a cabo, etc.
 
 === Resultados
-
-- Integración del sistema
-- Pruebas y validación
-
 
 == Sprint 10 - Memoria, ajustes finales y puesta en producción
 
-[10], [21/04-12/05 2026], [Redacción de la memoria, ajustes finales y puesta en producción],
 === Objetivos
-- Objetivo 1
-- Objetivo 2
 
 === Detalles de implementación
-Como se ha llevado a cabo, etc.
 
 === Resultados
-- Redacción de la memoria
-- Ajustes finales
-- Puesta en producción
-- Despliegue final
+
 
 == Conclusiones
 
-En este capítulo concluimos que...

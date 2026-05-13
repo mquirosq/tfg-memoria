@@ -1,0 +1,31 @@
+MODEL_REGISTRY = {
+    # 'model_name': ModelAdapterClass,
+}
+
+MODEL_ANTIBIOTICS = {
+    # 'model_name': ['antibiotic1', 'antibiotic2', ...],
+}
+
+def _validate_adapter_init(cls) -> None:
+    try:
+        sig = inspect.signature(cls.__init__)
+    except (TypeError, ValueError):
+        raise TypeError(f"Cannot inspect __init__ of adapter {cls!r}")
+
+    params = [p for p in sig.parameters.values() if p.name != 'self']
+    names = {p.name for p in params}
+    if 'antibiotic' not in names:
+        raise TypeError(
+            f"Adapter {cls.__name__} must accept an 'antibiotic' parameter in __init__"
+        )
+
+def register_model(name: str = None):
+    def _decorator(cls):
+        _validate_adapter_init(cls)
+        key = (name or cls.__name__).lower()
+        base_dir = Path(__file__).resolve().parents[1]
+        pesos_dir = base_dir / 'ai_models' / key / 'pesos'
+        MODEL_REGISTRY[key] = cls
+        MODEL_ANTIBIOTICS[key] = _compute_model_supported_antibiotics(pesos_dir)
+        return cls
+    return _decorator
