@@ -688,14 +688,168 @@ Predicción final",
 )
 
 == Sprint 8 - Interfaz de usuario y notificaciones
-
-[8], [17/03-14/04 2026], [Desarrollo de la interfaz de usuario y sistema de notificaciones],
-
 === Objetivos
+Este sprint se desarrolló entre el 17 de marzo y el 14 de abril de 2026 y tuvo como objetivo implementar la interfaz de usuario final del sistema, así como los mecanismos de seguimiento y notificación de procesos. Durante esta fase se integraron las funcionalidades desarrolladas en sprints anteriores dentro de una interfaz unificada que permite ejecutar y monitorizar el pipeline completo de análisis genómico desde el navegador. Los objetivos principales de este sprint fueron:
+- Desarrollar la interfaz web del sistema.
+- Integrar los flujos de ensamblaje, anotación y predicción.
+- Implementar un sistema de notificaciones asociado al estado de las tareas.
+- Implementar vistas para la gestión y el seguimiento de procesos.
+- Implementar una interfaz visual para la consulta de los resultados de predicción.
 
 === Detalles de implementación
 
+==== Desarrollo de la interfaz web
+A partir del diseño definido en la fase de arquitectura del sistema, se implementó una estructura de templates basada en _Django Templates_, organizada en torno a una plantilla base común (`base.html`). Esta plantilla incluye la estructura general de la aplicación, la barra de navegación, el footer, los estilos compartidos y la integración del sistema de mensajes de Django. El resto de plantillas herdan de esta plantilla base, permitiendo reutilizar componentes comunes y mantener una apariencia homogénea en toda la aplicación.
+
+Los templates se organizaron siguiendo una estructura modular, separando las distintas áreas funcionales del sistema en directorios específicos (`templates/conversion/`, `templates/prediction/` y `templates/notifications/`). Esta organización permite mantener una separación clara entre las distintas funcionalidades del sistema.
+
+También se trabajó en la definición de una identidad visual coherente para toda la aplicación, manteniendo una paleta de colores uniforme y adaptando las vistas a distintos tamaños de pantalla mediante diseño responsive.Esto permitió mejorar la experiencia de usuario y facilitar el uso de la aplicación desde diferentes dispositivos.
+
+La interfaz se desarrolló por completo en inglés debido al carácter internacional del ámbito del proyecto. Además, gran parte de la tterminología técnica utilizada en análisis genómico y modelos predictivos se emplea habitualmente en inglés, por lo que se consideró que mantener la interfaz en este idioma facilitaría su comprensión y uso por parte de investigadores y profesionales del ámbito bioinformático a nivel global.
+
+Adicionalmente, se diseñó una barra de navegación común que permite acceder desde cualquier vista a las principales funcionalidades del sistema: ensamblaje, anotación, seguimiento de procesos, predicción y notificaciones, así como un acceso directo a la página de inicio (@fig:navbar).
+
+#figure(
+  image("/memoria/figures/navbar.png", width: 100%),
+  caption: "Barra de navegación del sistema web",
+)<fig:navbar>
+
+#todo("Update navbar photo when I get the svg logo (probably on the 16th)")
+
+===== Formularios de ensamblaje y anotación
+Para el ensamblaje y la anotación se definieron vistas específicas orientadas a solicitar al usuario los archivos y parámetros necesarios para iniciar cada proceso.
+
+Se definieron formularios _HTML5_ con validación manual a través de `request.POST` y `request.FILES`. Se optó por esta opción debido a la simplicidad de los formularios. Esta aproximación proporciona control explícito sobre la validación y mantiene la lógica centralizada en las vistas.
+
+Se implementaron validaciones tanto sobre los archivos subidos como sobre la coherencia del flujo de procesamiento. Estas validaciones comprueban la existencia y el formato de los archivos, la compatibilidad entre tecnologías de secuenciación y ensamblaje, así como la validez y propiedad de los procesos previos utilizados como entrada.
+
+En la vista de ensamblaje (@fig:assembly_view), el usuario puede seleccionar entre ensamblaje para lecturas cortas (_Illumina_) con _SPAdes_, o lecturas largas (_ONT_) con _Flye_ o _Raven_. En función de la opción seleccionada se muestran dinámicamente los campos necesarios para cada ripo de ensamblaje. Adicionalmente, se incorporó una opción de anotación automática tras finalizar el ensamblaje, permitiendo encadenar ambas etapas dentro de un único flujo de trabajo.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_assembly.png", width: 100%),
+  caption: "Vista de ensamblaje en la pestaña ONT",
+)<fig:assembly_view>
+
+Por otro lado, la vista de anotación (@fig:annotation_view) permite al usuario seleccionar un archivo FASTA proveniente de un ensamblaje previo o subir un archivo FASTA externo. También se incorporó una opción para realizar la extracción profunda de características, incluyendo información adicional sobre las secuencias genómicas.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_annotation.png", width: 100%),
+  caption: "Vista de anotación",
+)<fig:annotation_view>
+
+Además, se añadió una segunda pestaña a la vista de anotación orientada a únicamente a la generación de features a partir de archivos JSON generado por _Bakta_, permitiendo reutilizar anotaciones externas sin necesidad de repetir el pipeline completo de anotación.
+
+#todo("Rehacer capturas de pantalla de anotación y ensamblaje cuando esté cambiado lo de conversions")
+
+===== Interfaz de predicción
+
+La interfaz de predicción (`prediction.html`), permite a los usuarios ejecutar modelos de predicción de resistencia a antibióticos sobre muestras previamente procesadas. El flujo de interacción implementado es:
+
+1. Selección de antibióticos.
+2. Selección de los modelos compatibles.
+3. Selección de la muestra.
+4. Ejecución de la predicción.
+5. Visualización de resultados.
+
+Tanto la lista de modelos como la compatibilidad con antibióticos se generan dinámicamente a partir del sistema de registro de modelos implementado en el sprint anterior. Esto evita mantener configuraciones manuales duplicadas en frontend y garantiza que únicamente se muestren combinaciones válidas para el usuario.
+
+La vista inicial de predicción puede observarse en @fig:prediction_view_form.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_prediction.png", width: 100%),
+  caption: "Formulario de predicción",
+)<fig:prediction_view_form>
+
+Una vez ejecutada la predicción, el sistema llama internamente a `get_prediction_matrix()` para generar las predicciones de todas las combinaciones entre modelos y antibióticos seleccionados. Los resultados se muestran mediante una matriz tabular donde cada fila representa un antibiótico y cada columna un modelo de predicción. Adicionalmente, como en el mockup, se añadió una columna adicional que muestra la media de las predicciones para cada antibiótico, proporcionando una visión global de la resistencia estimada para cada antibiótico independientemente del modelo utilizado (@fig:prediction_view_results).
+
+Los valores de probabilidad de resistencia se representan visualmente mediante códigos de color, facilitando la interpretación rápida de los resultados: verde para probabilidades bajas, amarillo para probabilidades intermedias y rojo para probabilidades altas.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_prediction_results.png", width: 100%),
+  caption: "Visualización de resultados de predicción",
+)<fig:prediction_view_results>
+
+Adicionalmente, se implementó la posibilidad de exportar en formato CSV la matriz de completa de resultados para su análisis posterior o integración con herramientas externas. La exportación mantiene la misma estructura tabular mostrada en la interfaz.
+
+===== Seguimiento de procesos
+
+Para el seguimiento de procesos se implementó una vista (`task_list.html`) que muestra el historial completo de tareas del usuario autenticado. Esta vista permite monitorizar procesos de ensamblaje, anotación y extracción de features de forma visual mediante indicadores de estado y componentes gráficos diferenciados según el tipo y estado de la tarea (@fig:tasks_view).
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_task_list.png", width: 100%),
+  caption: "Vista de lista de tareas",
+)<fig:tasks_view>
+
+Cada proceso muestra información relacionada con:
+- Tipo de proceso.
+- Estado actual.
+- Archivo de entrada asociado.
+- Fecha de última actualización.
+- Resultados generados.
+
+Se utilizaron badges y otros indicadores visuales como el color para reprentar estados como `pending`, `running`, `completed`o `failed`, permitiendo identificar rápidamente la situación de cada proceso.
+
+Adicionalmente, desde esta pantalla el usuario puede acceder a una vista detallada de cada proceso (@fig:tasks_view_details), donde se muestran las distintas etapas ejecutadas, los archivos generados y las opciones de descarga disponibles. También se incorporó la posibilidad de asignar nombres personalizados a los procesos para facilitar su identificación posterior.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_task_detail.png", width: 100%),
+  caption: "Vista de detalle de tarea",
+)<fig:tasks_view_details>
+
+==== Sistema de notificaciones
+Finalmente, se implementó el un sistema completo de notificaciones, dentro del módulo `notifications`, permitiendo informar al usuario sobre el estado y evolución de sus procesos bioinformáticos.
+
+Las notificaciones se generan automáticamente desde los workers y procesos de monitorización asociados al flujo asíncrono del sistema. Cada notificación se persiste en la base de datos y queda asociada al usuario correspondiente.
+
+Desde la interfaz, las notificaciones se muestran mediante un icono de campana integrado en la barra de navegación, acompañado de un contador de notificaciones sin leer. Al acceder a la vista de historial (@fig:notification_history), el usuario puede consultar todas sus notificaciones organizadas cronológicamente y filtrarlas según su estado. adicionalmente, las notificaciones presentan distintos estilos visuales según su contenido para su fácil identificación y rápida comprensión.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_notifications.png", width: 100%),
+  caption: "Vista de historial de notificaciones",
+)<fig:notification_history>
+
+#todo("A lo mejor cambiar la captura si cambio el contenido de las notis (que hay que cambiarlo probablemente)")
+
+Las notificaciones incluyen distintos tipos de eventos relacionados con:
+- Inicio de procesos.
+- Finalización correcta.
+- Fallos durante la ejecución.
+- Advertencias o recomendaciones.
+- Saturación del servidor o retrasos en la ejecución.
+
+Para simplificar la gestión de estas operaciones se impleentó un servicio centralizado (`notifications/services.py`) encargado tanto de persistit las notificaciones como de gestionar el envío opcional de correos electrónicos utilizando las utilidades integradas en _Django_. Se definieron distintas funciones según el tipo de notificación, un ejemplo simplificado de una función de generación de notificaciones de finalización correcta de un proceso se muestra en @cod:notify_user_conversion_complete.py.
+
+#figure(
+  placement: auto,
+  raw(read("/memoria/code/notify_user_conversion_complete.py"), block: true, lang: "python"),
+  caption: "Ejemplo de código de notify_user_conversion_complete()",
+)<cod:notify_user_conversion_complete.py>
+
+#todo("Cambiar el snippet cuando tenga los mensajes de notificaiones definidos")
+
+Adicionalmente, se incorporó soporte para notificaciones por correo electrónico. Para ello, el usuario puede configurar su dirección de correo y otorgar consentimiento desde la pantalla de configuración de perfil (@fig:notification_settings).
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/view_profile_settings.png", width: 100%),
+  caption: "Vista de configuración de notificaciones",
+)<fig:notification_settings>
+
+La integración entre el sistema de notificaciones y el flujo de los procesos genómicos, se implementó directamente dentro de als tareas de _Celery_. Son los propios workers los encargados de actualizar el estado de las tareas y generar las notificaciones correspondientes, garantizando que la información mostrada al usuario permanezca sincronizada con el estado real de ejecución.
+
 === Resultados
+Durante este sprint se implementó la interfaz de usuario completa del sistema, integrando todas las funcionalidades desarrolladas en fases anteriores dentro de una aplicación web coherente y funcional. Asimismo, se desarrolló un sistema de seguimiento y notificaciones que permite monitorizar el estado de los procesos bioinformáticos de forma centralizada y transparente para el usuario.
+
+La interfaz de predicción se diseñó para facilitar la interpretación visual de los resultados y permitir su exportación para análisis posteriores, mientras que las vistas de seguimiento y notificaciones mejoraron significativamente la experiencia de usuario durante la ejecución de tareas de larga duración.
+
+Este sprint permitió ofrecer toda la funcionalidad desarrollada previamente en una aplicación completamente funcional desde el punto de vista del usuario final, integrando procesamiento bioinformático, generación de features, modelos predictivos y monitorización asíncrona dentro de una única interfaz web
 
 == Sprint 9 - Integración del sistema, pruebas y validación
 
@@ -720,4 +874,3 @@ Predicción final",
 
 
 == Conclusiones
-

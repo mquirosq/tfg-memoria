@@ -1,4 +1,4 @@
-#import "@preview/deal-us-tfc-template:1.2.0": *
+#import "@preview/deal-us-tfc-template:1.2.1": *
 #import "utils/todo.typ": todo
 
 #show: TFC.with(
