@@ -37,14 +37,14 @@ Para la implementación de la API del sistema bioinformático se ha utilizado _F
 
 El sistema bioinformático integra herramientas especializadas para distintas etapas del pipeline genómico. Por un lado se hace uso de herramientas de ensamblaje como _SPAdes_  _Raven_ or _Flye_, permitiendo adaptar el procesamiento a distintos tipos de datos de secuenciación, incluyendo tecnologías Illumina y ONT.
 
-Por otro lado, para la anotación del genoma se utiliza _Bakta_, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. Bakta ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
+Por otro lado, para la anotación del genoma se utiliza _Bakta_, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. _Bakta_ ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
 
 === Gestión de tareas asíncronas
 Para la gestión de las tareas asíncronas de ensamblaje y anotación se ha utilizado _Celery_ junto con _Redis_ como sistema de cola de mensajes.
 
-Celery permite definir tareas desacopladas que son ejecutadas por workers independientes del servidor web principal. Esto permite delegar la ejecución de procesos de larga duración sin bloquear la interacción del usuario con la aplicación y facilita la ejecución concurrente de múltiples tareas.
+_Celery_ permite definir tareas desacopladas que son ejecutadas por workers independientes del servidor web principal. Esto permite delegar la ejecución de procesos de larga duración sin bloquear la interacción del usuario con la aplicación y facilita la ejecución concurrente de múltiples tareas.
 
-Por otro lado, Redis se emplea como intermediario para la gestión de colas gracias a su sencilla intergación con Celery y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
+Por otro lado, _Redis_ se emplea como intermediario para la gestión de colas gracias a su sencilla intergación con _Celery_ y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
 
 Además, este enfoque simplifica la coordinación entre el sistema web y el sistema bioinformático, permitiendo gestionar el envío de tareas, la monitorización de su estado y la recuperación de resultados de forma desacoplada.
 
@@ -52,6 +52,11 @@ Además, este enfoque simplifica la coordinación entre el sistema web y el sist
 Para el despliegue del sistema se ha optado por una arquitectura basada en contenedores utilizando _Docker_. Se ha optado por esta tecnología ya que se trata del sistema más extendido y conocido de contenedorización. Además, cuenta con muy bien soporte y documentación online, lo que facilita su uso tanto durante el desarrollo como en la fase de despliegue y producción.
 
 Para la orquestación de los contenedores se ha decidido usar _Docker Compose_, lo que permite definir y gestionar la infraestructura del sistema de forma sencilla a través de archivos de configuración. Esto simplifica tanto el despliegue como la puesta en producción del sistema.
+
+=== Pruebas y validación
+Para las pruebas unitarias se ha utilizado _unittest_, el framework de testing estándar de _Python_ integrado en _Django_. Se ha elegido esta tecnología debido a su integración nativa con el framework, que facilita la creación de tests para modelos, vistas, servicios y componentes del sistema. Además, _unittest_ aísla los tests creando automáticamente una base de datos de prueba y haciendo rollback tras cada ejecución
+
+Adicionalmente, se ha hecho uso de la biblioteca _unittest.mock_, que permite simular comportamientos y dependencias durante las pruebas, facilitando la validación de componentes de forma aislada.
 
 
 == Sprint 1 - Estudio previo y definición del sistema
@@ -853,24 +858,113 @@ Este sprint permitió ofrecer toda la funcionalidad desarrollada previamente en 
 
 == Sprint 9 - Integración del sistema, pruebas y validación
 
-[9], [14/04-21/04 2026], [Integración del sistema, pruebas y validación],
-
-
 === Objetivos
+Este sprint se desarrolló entre el 14 y el 21 de abril de 2026 y tuvo como objetivo validar el funcionamiento global del sistema desarrollado durante los sprints anteriores. Durante esta fase se realizaron pruebas sobre los distintos componentes implementados, verificando tanto el correcto funcionamiento individual de los módulos principales como la ejecución completa del pipeline de análisis genómico y predicción. Los objetivos principales de este sprint fueron:
+
+- Validar el funcionamiento de los distintos módulos del sistema y su interacción.
+- Realizar pruebas sobre los servicios y tareas asíncronas implementadas.
+- Detectar y corregir errores encontrados.
+- Validar la experiencia de uso desde la interfaz web.
 
 === Detalles de implementación
 
+==== Validación funcional del pipeline completo
+Durante este sprint se realizaron pruebas funcionales manuales sobre el flujo completo soportado por la aplicación. Estas pruebas permitieron verificar la correcta ejecución de las distintas etapas del sistema y la sincronización entre el sistema web y el subsistema bioinformático. Se validaron distintos escenarios de uso, incluyendo:
+
+- Flujo completo automático de ensamblaje y anotación.
+- Ejecución independiente de ensamblajes.
+- Ejecución manual de procesos de anotación.
+- Generación aislada de features a partir de archivos JSON.
+- Ejecución de modelos de predicción.
+- Exportación de resultados en formato FASTA, JSON y CSV.
+
+Las pruebas se realizaron utilizando distintos archivos de ejemplo y diferentes configuraciones de parámetros, comprobando la correcta persistencia de resultados, la actualización de estados y la generación adecuada de archivos de salida.
+
+Adicionalmente, se verificó el correcto funcionamiento del sistema de notificaciones, comprobando que las notificaciones se generaban y mostraban correctamente en la interfaz durante las distintas fases de ejecución de los procesos.
+
+==== Pruebas automatizadas
+
+Además de las pruebas funcionales manuales, se desarrolló una suite de pruebas automatizadas sobre distintos componentes críticos del sistema, especialmente aquellos relacionados con la lógica de negocio, el procesamiento asíncrono y la integración entre subsistemas.
+
+Las pruebas implementadas cubren principalmente:
+- Modelos de datos y validación de relaciones.
+- Sistema de parsers y generación de features.
+- Servicios de notificaciones.
+- Cliente de integración con el sistema bioinformático.
+- Registro y carga dinámica de modelos de predicción.
+- Utilidades de transformación de características.
+
+Las pruebas se diseñaron cubriendo distintos escenarios de ejecución, incluyendo casos válidos, entradas inválidas y situaciones de error, permitiendo validar el comportamiento del sistema ante diferentes condiciones.
+
+Para facilitar el aislamiento de componentes se utilizaron técnicas de mocking para simular dependencias externas, especialmente en el caso del sistema bioinformático y las llamadas HTTP, evitando la necesidad de ejecutar procesos reales durante las pruebas y permitiendo controlar los estados y respuestas de manera precisa.
+
+Adicionalmente, se ha hecho uso de _subtests_ para validar el comportamiento de determinadas funcionalidades con múltiples combinaciones de parámetros de entrada, reduciendo la duplicación de código y facilitando la cobertura de distintos escenarios de ejecución.
+
+==== Validación del sistema asíncrono
+También se realizaron pruebas específicas sobre el sistema de tareas asíncronas implementado mediante _Celery_, verificando especialmente el comportamiento de los mecanismos de polling y la sincronización entre subsistemas.
+
+Estas pruebas permitieron validar:
+
+- La actualización del estado de los procesos.
+- La descarga y persistencia de los resultados generados.
+- La gestión de errores y reintento automático de las tareas.
+- La eliminación de archivos temporales tras completar procesos.
+- La generación automática de notificaciones asociadas a los procesos.
+
+Una vez más, para facilitar estas pruebas se utilizaron llamadas simuladas (mocking) sobre servicios externos, permitiendo validar el comportamiento del sistema de forma aislada sin depender de la ejecución real del subsistema bioinformático.
+
+==== Corrección de errores y ajustes finales
+
+Durante las pruebas se identificaron y corrigieron varios problemas. Entre los principales ajustos realizados destacan:
+
+- *Gestión de archivos temporales*: Se detectó que en algunos flujos los archivos FASTQ temporales no se eliminaban correctamente. Se revisó la lógica de limpieza en los workers de _Celery_ y se implementaron mecanismos adicionales para asegurar su eliminación incluso en casos de error.
+
+- *Exportación de JSON en flujos completos*: Durante pruebas de flujos complejos (ensamblaje + anotación automática), se encontró que el archivo JSON de anotación generado tras el flujo no se descargaba correctamente desde la interfaz. Se revisó la lógica de las tareas y se detectó que el archivo no se estaba descargando.
+
+- *Sincronización de notificaciones*: Se identificaron casos en los que determinadas notificaciones no se almacenaban correctamente cuando una tarea fallaba inesperadamente. Para solucionarlo se añadió una utilidad adicional encargada de garantizar la persistencia de las notificaciones generadas por los workers.
+
 === Resultados
+Durante este sprint se validó el funcionamiento global del sistema mediante una combinación de pruebas funcionales manuales y pruebas automatizadas. Las pruebas realizadas permitieron comprobar la correcta interacción entre los distintos módulos implementados, así como el funcionamiento del pipeline completo de procesamiento y predicción desde la interfaz web.
+
+Adicionalmente, se verificó el correcto comportamiento del sistema asíncrono y de los mecanismos de sincronización entre subsistemas, confirmando la estabilidad general de la arquitectura desarrollada.
+
+Los problemas identificados fueron menores, principalmente relacionados con la gestión de archivos temporales y la sincronización de notificaciones, lo que indica que la arquitectura definida en sprints anteriores fue sólida. Tras la corrección de estos problemas, el sistema se encontró preparado para su despliegue y uso.
 
 == Sprint 10 - Memoria, ajustes finales y puesta en producción
 
-[10], [21/04-12/05 2026], [Redacción de la memoria, ajustes finales y puesta en producción],
-
 === Objetivos
+
+Este sprint final se desarrolló entre el 21 de abril y el 12 de mayo de 2026 con el objetivo de completar la redacción de la memoria del proyecto y preparar el sistema para su despliegue en producción. Los objetivos principales fueron:
+
+- Redactar la documentación del proyecto.
+- Realizar ajustes finales de optimización y pulido de la interfaz.
+- Preparar el sistema para su puesta en producción.
 
 === Detalles de implementación
 
+==== Redacción de la memoria
+
+La memoria del proyecto se redactó en formato Typst, incluyendo diagramas y figuras para ilustrar conceptos complejos, como la arquitectura del sistema, flujos de procesos, y capturas de pantalla de la interfaz.
+
+Además, se elaboró un archivo `README.md` para el repositorio del proyecto, incluyendo instrucciones para el uso del sistema y su extensión a través de la adición de nuevos modelos de predicción.
+
+==== Ajustes finales del sistema
+
+Se realizaron varios ajustes para mejorar la experiencia de usuario:
+
+- *Refinamiento de interfaz*: Se ajustaron algunos colores ()
+- *Mensajes de usuario*: Se mejoró la claridad y especificidad de mensajes de error y confirmación en las vistas.
+- *Configuración de timeouts*: Se ajustaron los timeouts en el polling de sincronización entre subsistemas para operaciones largas.
+- *Adición de nuevos middlewares de seguridad*: Se añadieron middlewares adicionales para mejorar la seguridad de la aplicación.
+- *Mensajes de notificaciones*: Se definieron mensajes de notificación más específicos y detallados para cada tipo de evento, mejorando la información proporcionada al usuario sobre el estado de sus procesos.
+
+==== Preparación para producción
+
+#todo("Tengo que ver que es lo que tengo que hacer exactamente, pq todavía no está hecho :D.")
+
+
 === Resultados
+El proyecto se completó exitosamente dentro del plazo establecido. Se entergó un sistema completamente funcional y listo para ser desplegado en un entorno de producción con soporte para PostgreSQL, Redis/Celery, y notificaciones por email.
 
 
 == Conclusiones
