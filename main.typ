@@ -51,6 +51,14 @@
 }
 
 #show heading.where(level: 3): set heading(outlined: false)
+#show heading.where(level: 3, outlined: true): it => {
+  set text(size: 14pt)
+  block(above: 2em, below: 1em)[
+    #counter(heading).display();
+    #h(0.5em)
+    #it.body
+  ]
+}
 
 #include "sections/01_introduccion.typ"
 #include "sections/02_Gestion.typ"
