@@ -934,37 +934,50 @@ Los problemas identificados fueron menores, principalmente relacionados con la g
 
 === Objetivos
 
-Este sprint final se desarrolló entre el 21 de abril y el 12 de mayo de 2026 con el objetivo de completar la redacción de la memoria del proyecto y preparar el sistema para su despliegue en producción. Los objetivos principales fueron:
+Este sprint final se desarrolló entre el 21 de abril y el 12 de mayo de 2026 con el objetivo de completar la redacción de la memoria del proyecto, realizar los ajustes finales sobre el sistema y preparar la aplicación para un futuro despliegue en producción. Los objetivos principales fueron:
 
-- Redactar la documentación del proyecto.
-- Realizar ajustes finales de optimización y pulido de la interfaz.
-- Preparar el sistema para su puesta en producción.
+- Finalizar la redacción de la memoria y documentación técnica.
+- Realizar ajustes finales de usabilidad, estabilidad y seguridad.
+- Preparar la aplicación para un despliegue en producción.
 
 === Detalles de implementación
 
 ==== Redacción de la memoria
 
-La memoria del proyecto se redactó en formato Typst, incluyendo diagramas y figuras para ilustrar conceptos complejos, como la arquitectura del sistema, flujos de procesos, y capturas de pantalla de la interfaz.
+Durante este sprint se completó la memoria técnica del proyecto. La memoria incluye diagramas de arquitectura, diagramas de secuencia, modelos conceptuales y capturas de pantalla de la interfaz desarrollada, permitiendo documentar tanto la arquitectura software como el flujo completo del sistema.
 
-Además, se elaboró un archivo `README.md` para el repositorio del proyecto, incluyendo instrucciones para el uso del sistema y su extensión a través de la adición de nuevos modelos de predicción.
+Adicionalmente, se elaboró la documentación técnica del repositorio mediante un archivo `README.md`, incluyendo instrucciones de instalación, configuración y ejecución del sistema, así como indicaciones para extender la arquitectura mediante la incorporación de nuevos modelos de predicción y parsers.
+
+También se revisó la organización interna del código fuente y la nomenclatura utilizada en distintos módulos con el objetivo de mejorar la mantenibilidad y legibilidad del proyecto.
 
 ==== Ajustes finales del sistema
 
-Se realizaron varios ajustes para mejorar la experiencia de usuario:
+Una vez integradas todas las funcionalidades principales, se realizaron distintos ajustes finales orientados a mejorar la experiencia de usuario, la estabilidad del sistema y la robustez de los flujos asíncronos implementados. Entre los principales destacan:
 
-- *Refinamiento de interfaz*: Se ajustaron algunos colores ()
+- *Refinamiento de interfaz*: se revisaron estilos, componentes visuales y distribución de elementos para mejorar la consistencia visual y la adaptación a distintos tamaños de pantalla.
 - *Mensajes de usuario*: Se mejoró la claridad y especificidad de mensajes de error y confirmación en las vistas.
 - *Configuración de timeouts*: Se ajustaron los timeouts en el polling de sincronización entre subsistemas para operaciones largas.
-- *Adición de nuevos middlewares de seguridad*: Se añadieron middlewares adicionales para mejorar la seguridad de la aplicación.
+- *Adición de nuevos middlewares de seguridad*: Se añadieron configuraciones y middlewares de seguridad proporcionados por Django para reforzar la protección frente a ataques comunes y mejorar la preparación del sistema para producción.
 - *Mensajes de notificaciones*: Se definieron mensajes de notificación más específicos y detallados para cada tipo de evento, mejorando la información proporcionada al usuario sobre el estado de sus procesos.
 
 ==== Preparación para producción
+Aunque el sistema no fue desplegado en un entorno de producción real durante el desarrollo del TFG, se realizó una preparación completa de la aplicación para facilitar un futuro despliegue seguro y reproducible.
 
-#todo("Tengo que ver que es lo que tengo que hacer exactamente, pq todavía no está hecho :D.")
+En primer lugar, se sustituyó el backend de correo de desarrollo por una integración basada en _SendGrid_, permitiendo el envío real de notificaciones por correo electrónico desde la aplicación.
 
+Para la gestión de configuración sensible se definió un archivo `.env` específico para producción, desacoplando del código fuente parámetros críticos como credenciales, claves secretas y configuración de servicios externos.
+
+Adicionalmente, se preparó una configuración específica de _Docker Compose_ orientada a producción, separando los distintos servicios de la aplicación y facilitando su despliegue reproducible mediante contenedores.
+
+Durante la preparación del despliegue se evaluó inicialmente el uso de _nginx_ como reverse proxy y servidor de archivos estáticos. Sin embargo, finalmente se optó por utilizar _Gunicorn_ junto con _WhiteNoise_ para simplificar la arquitectura del sistema y reducir la complejidad de despliegue.
+
+_Gunicorn_ actúa como servidor encargado de ejecutar la aplicación _Django_, mientras que _WhiteNoise_ permite servir los archivos estáticos desde la propia aplicación. Esta solución resulta especialmente adecuada para despliegues pequeños y medianos, mejorando la portabilidad y simplificando considerablemente el proceso de despliegue mediante contenedores Docker.
 
 === Resultados
-El proyecto se completó exitosamente dentro del plazo establecido. Se entergó un sistema completamente funcional y listo para ser desplegado en un entorno de producción con soporte para PostgreSQL, Redis/Celery, y notificaciones por email.
+Durante este sprint se completó la documentación técnica del proyecto y se realizaron los ajustes finales necesarios para estabilizar la aplicación y mejorar la experiencia de uso.
 
+Además, el sistema quedó preparado para un futuro despliegue en producción mediante contenedores _Docker_, incorporando soporte para _PostgreSQL_, _Redis_, _Celery_, notificaciones por correo electrónico y configuraciones de seguridad orientadas a entornos reales.
+
+Con ello, el proyecto finaliza con una plataforma funcional, modular y extensible capaz de ejecutar flujos completos de análisis genómico y predicción de resistencia a antibióticos desde una interfaz web integrada.
 
 == Conclusiones
