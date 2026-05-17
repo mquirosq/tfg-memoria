@@ -649,14 +649,14 @@ Para facilitar la integración de nuevos modelos, se definió una estructura en 
 #figure(
   ```
   ai_models/<model_name>/
-    pesos/
+    weights/
         <antibiotic>.pt
     model_classes.py
   ```,
   caption: "Estructura definida para nuevos modelos de predicción",
 )<cod:model_structure>
 
-Cada modelo se encapsula en su propia carpeta, incluyendo: su definición, su adaptador, sus pesos y la configuración asociada. Donde `model_classes.py` debe exponer la arquitectura del modelo y la clase adaptadora que implementa la interfaz de predicción, registrada mediante el decorador `@register_model("alias")`. Y, en la carpeta de pesos,deberá aparecer una lista de archivos de pesos en formato `.pt` nombrados por el antibiótico al que pertenecen.
+Cada modelo se encapsula en su propia carpeta, incluyendo: su definición, su adaptador, sus pesos y la configuración asociada. Donde `model_classes.py` debe exponer la arquitectura del modelo y la clase adaptadora que implementa la interfaz de predicción, registrada mediante el decorador `@register_model("alias")`. Y, en la carpeta `weights`, deberá aparecer una lista de archivos de pesos en formato `.pt` nombrados por el antibiótico al que pertenecen.
 
 ==== Integración en el flujo de procesamiento
 Finalmente, la nueva arquitectura se integró dentro del flujo principal del sistema web.
