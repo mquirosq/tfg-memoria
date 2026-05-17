@@ -71,4 +71,4 @@
 #include "sections/04_Analisis.typ"
 #include "sections/05_Diseño.typ"
 #include "sections/06_Implementacion.typ"
-#include "sections/XX_Conclusiones.typ"
+#include "sections/07_Conclusiones.typ"

@@ -987,4 +987,4 @@ A lo largo de los distintos sprints se han abordado diferentes aspectos del sist
 
 La validación realizada durante los sprints finales ha confirmado la estabilidad y funcionalidad del sistema, permitiendo detectar y corregir algunos problemas menores relacionados principalmente con la gestión de archivos temporales y la sincronización de notificaciones.
 
-En resumen, el proyecto ha culminado con éxito en la implementación de una plataforma funcional y preparada para su despliegue, ofreciendo una solución integral para el análisis genómico y la predicción de resistencia a antibióticos desde una interfaz web unificada.
+En resumen, el proyecto ha culminado con éxito la implementación de una plataforma funcional y preparada para su despliegue, ofreciendo una solución integral para el análisis genómico y la predicción de resistencia a antibióticos desde una interfaz web unificada.
