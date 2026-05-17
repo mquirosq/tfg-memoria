@@ -60,6 +60,11 @@
   ]
 }
 
+#show raw.where(block: false): it => {
+  highlight(it, fill: gray.lighten(80%), top-edge: 1em, bottom-edge: -0.3em, radius: 1mm, extent: 0.25mm)
+}
+
+
 #include "sections/01_introduccion.typ"
 #include "sections/02_Gestion.typ"
 #include "sections/03_Contexto.typ"

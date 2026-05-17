@@ -19,8 +19,12 @@
       let text-color = col.darken(40%)
       box(radius: 100%, inset: (y: 3pt, x: 6pt), fill: background-color, text(fill: text-color, raw(it.text)))
     }
+    #show raw.where(block: false): it => {
+      it.text
+    }
+
     #table(
-      columns: (auto, auto, 1fr),
+      columns: (auto, auto, auto),
       align: (center + horizon, center + horizon, left + horizon),
 
       [Endpoint], [Método], table.cell(align: center)[Descripción],

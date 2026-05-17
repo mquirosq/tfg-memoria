@@ -1,4 +1,5 @@
 #import "../utils/todo.typ": todo
+#import "@preview/dtree:0.1.1": dtree
 = Implementación
 <sec:implementación>
 
@@ -644,19 +645,24 @@ Se define la función `get_prediction()` que recibe como parámetro el nombre de
 
 ==== Organización modular de modelos
 
-Para facilitar la integración de nuevos modelos, se definió una estructura en el módulo `ai_models`. La estructura estándar es la mostrada en @cod:model_structure
+Para facilitar la integración de nuevos modelos, se definió una estructura en el módulo `ai_models`. La estructura estándar es la mostrada en @fig:model_structure.
 
 #figure(
-  ```
-  ai_models/<model_name>/
-    weights/
+  dtree(```
+  /
+  ai_models
+    <model_name>
+      weights
         <antibiotic>.pt
-    model_classes.py
-  ```,
-  caption: "Estructura definida para nuevos modelos de predicción",
-)<cod:model_structure>
+      model_classes.py
+  ```),
+  caption: "Estructura de archivos para los modelos de predicción",
+  kind: image,
+)<fig:model_structure>
 
-Cada modelo se encapsula en su propia carpeta, incluyendo: su definición, su adaptador, sus pesos y la configuración asociada. Donde `model_classes.py` debe exponer la arquitectura del modelo y la clase adaptadora que implementa la interfaz de predicción, registrada mediante el decorador `@register_model("alias")`. Y, en la carpeta `weights`, deberá aparecer una lista de archivos de pesos en formato `.pt` nombrados por el antibiótico al que pertenecen.
+#todo("Este diagrama se ve roto por que se centra cada línea al ponerlo en una figura, echar un ojo")
+
+Cada modelo se encapsula en su propia carpeta, incluyendo: su definición, su adaptador, sus pesos y la configuración asociada, donde `model_classes.py` debe exponer la arquitectura del modelo y la clase adaptadora que implementa la interfaz de predicción, registrada mediante el decorador `@register_model("alias")`. En la carpeta `weights`, deberá aparecer una lista de archivos de pesos en formato `.pt` nombrados por el antibiótico al que pertenecen.
 
 ==== Integración en el flujo de procesamiento
 Finalmente, la nueva arquitectura se integró dentro del flujo principal del sistema web.
@@ -710,7 +716,7 @@ Los templates se organizaron siguiendo una estructura modular, separando las dis
 
 También se trabajó en la definición de una identidad visual coherente para toda la aplicación, manteniendo una paleta de colores uniforme y adaptando las vistas a distintos tamaños de pantalla mediante diseño responsive.Esto permitió mejorar la experiencia de usuario y facilitar el uso de la aplicación desde diferentes dispositivos.
 
-La interfaz se desarrolló por completo en inglés debido al carácter internacional del ámbito del proyecto. Además, gran parte de la tterminología técnica utilizada en análisis genómico y modelos predictivos se emplea habitualmente en inglés, por lo que se consideró que mantener la interfaz en este idioma facilitaría su comprensión y uso por parte de investigadores y profesionales del ámbito bioinformático a nivel global.
+La interfaz se desarrolló por completo en inglés debido al carácter internacional del ámbito del proyecto. Además, gran parte de la terminología técnica utilizada en análisis genómico y modelos predictivos se emplea habitualmente en inglés, por lo que se consideró que mantener la interfaz en este idioma facilitaría su comprensión y uso por parte de investigadores y profesionales del ámbito bioinformático a nivel global.
 
 Adicionalmente, se diseñó una barra de navegación común que permite acceder desde cualquier vista a las principales funcionalidades del sistema: ensamblaje, anotación, seguimiento de procesos, predicción y notificaciones, así como un acceso directo a la página de inicio (@fig:navbar).
 
@@ -719,8 +725,6 @@ Adicionalmente, se diseñó una barra de navegación común que permite acceder 
   caption: "Barra de navegación del sistema web",
 )<fig:navbar>
 
-#todo("Update navbar photo when I get the svg logo (probably on the 16th)")
-
 ===== Formularios de ensamblaje y anotación
 Para el ensamblaje y la anotación se definieron vistas específicas orientadas a solicitar al usuario los archivos y parámetros necesarios para iniciar cada proceso.
 
@@ -728,12 +732,12 @@ Se definieron formularios _HTML5_ con validación manual a través de `request.P
 
 Se implementaron validaciones tanto sobre los archivos subidos como sobre la coherencia del flujo de procesamiento. Estas validaciones comprueban la existencia y el formato de los archivos, la compatibilidad entre tecnologías de secuenciación y ensamblaje, así como la validez y propiedad de los procesos previos utilizados como entrada.
 
-En la vista de ensamblaje (@fig:assembly_view), el usuario puede seleccionar entre ensamblaje para lecturas cortas (_Illumina_) con _SPAdes_, o lecturas largas (_ONT_) con _Flye_ o _Raven_. En función de la opción seleccionada se muestran dinámicamente los campos necesarios para cada ripo de ensamblaje. Adicionalmente, se incorporó una opción de anotación automática tras finalizar el ensamblaje, permitiendo encadenar ambas etapas dentro de un único flujo de trabajo.
+En la vista de ensamblaje (@fig:assembly_view), el usuario puede seleccionar entre ensamblaje para lecturas cortas (_Illumina_) con _SPAdes_, o lecturas largas (_ONT_) con _Flye_ o _Raven_. En función de la opción seleccionada se muestran dinámicamente los campos necesarios para cada tipo de ensamblaje. Adicionalmente, se incorporó una opción de anotación automática tras finalizar el ensamblaje, permitiendo encadenar ambas etapas dentro de un único flujo de trabajo.
 
 #figure(
   placement: auto,
   image("/memoria/figures/view_assembly.png", width: 100%),
-  caption: "Vista de ensamblaje en la pestaña ONT",
+  caption: "Vista de ensamblaje en la pestaña Illumina",
 )<fig:assembly_view>
 
 Por otro lado, la vista de anotación (@fig:annotation_view) permite al usuario seleccionar un archivo FASTA proveniente de un ensamblaje previo o subir un archivo FASTA externo. También se incorporó una opción para realizar la extracción profunda de características, incluyendo información adicional sobre las secuencias genómicas.
@@ -746,8 +750,6 @@ Por otro lado, la vista de anotación (@fig:annotation_view) permite al usuario 
 
 Además, se añadió una segunda pestaña a la vista de anotación orientada a únicamente a la generación de features a partir de archivos JSON generado por _Bakta_, permitiendo reutilizar anotaciones externas sin necesidad de repetir el pipeline completo de anotación.
 
-#todo("Rehacer capturas de pantalla de anotación y ensamblaje cuando esté cambiado lo de conversions")
-
 ===== Interfaz de predicción
 
 La interfaz de predicción (`prediction.html`), permite a los usuarios ejecutar modelos de predicción de resistencia a antibióticos sobre muestras previamente procesadas. El flujo de interacción implementado es:
@@ -758,9 +760,7 @@ La interfaz de predicción (`prediction.html`), permite a los usuarios ejecutar 
 4. Ejecución de la predicción.
 5. Visualización de resultados.
 
-Tanto la lista de modelos como la compatibilidad con antibióticos se generan dinámicamente a partir del sistema de registro de modelos implementado en el sprint anterior. Esto evita mantener configuraciones manuales duplicadas en frontend y garantiza que únicamente se muestren combinaciones válidas para el usuario.
-
-La vista inicial de predicción puede observarse en @fig:prediction_view_form.
+Tanto la lista de modelos como la compatibilidad con antibióticos se generan dinámicamente a partir del sistema de registro de modelos implementado en el sprint anterior. Esto evita mantener configuraciones manuales duplicadas en frontend y garantiza que únicamente se muestren combinaciones válidas para el usuario. La vista inicial de predicción puede observarse en @fig:prediction_view_form.
 
 #figure(
   placement: auto,
@@ -778,7 +778,7 @@ Los valores de probabilidad de resistencia se representan visualmente mediante c
   caption: "Visualización de resultados de predicción",
 )<fig:prediction_view_results>
 
-Adicionalmente, se implementó la posibilidad de exportar en formato CSV la matriz de completa de resultados para su análisis posterior o integración con herramientas externas. La exportación mantiene la misma estructura tabular mostrada en la interfaz.
+Adicionalmente, se implementó la posibilidad de exportar en formato CSV la matriz completa de resultados para su análisis posterior o integración con herramientas externas. La exportación mantiene la misma estructura tabular mostrada en la interfaz.
 
 ===== Seguimiento de procesos
 
@@ -797,7 +797,7 @@ Cada proceso muestra información relacionada con:
 - Fecha de última actualización.
 - Resultados generados.
 
-Se utilizaron badges y otros indicadores visuales como el color para reprentar estados como `pending`, `running`, `completed`o `failed`, permitiendo identificar rápidamente la situación de cada proceso.
+Se utilizaron badges y otros indicadores visuales como el color para reprentar estados como `pending`, `running`, `completed` o `failed`, permitiendo identificar rápidamente la situación de cada proceso.
 
 Adicionalmente, desde esta pantalla el usuario puede acceder a una vista detallada de cada proceso (@fig:tasks_view_details), donde se muestran las distintas etapas ejecutadas, los archivos generados y las opciones de descarga disponibles. También se incorporó la posibilidad de asignar nombres personalizados a los procesos para facilitar su identificación posterior.
 
@@ -829,7 +829,7 @@ Las notificaciones incluyen distintos tipos de eventos relacionados con:
 - Advertencias o recomendaciones.
 - Saturación del servidor o retrasos en la ejecución.
 
-Para simplificar la gestión de estas operaciones se impleentó un servicio centralizado (`notifications/services.py`) encargado tanto de persistit las notificaciones como de gestionar el envío opcional de correos electrónicos utilizando las utilidades integradas en _Django_. Se definieron distintas funciones según el tipo de notificación, un ejemplo simplificado de una función de generación de notificaciones de finalización correcta de un proceso se muestra en @cod:notify_user_conversion_complete.py.
+Para simplificar la gestión de estas operaciones se implementó un servicio centralizado (`notifications/services.py`) encargado tanto de persistir las notificaciones como de gestionar el envío opcional de correos electrónicos utilizando las utilidades integradas en _Django_. Se definieron distintas funciones según el tipo de notificación, un ejemplo simplificado de una función de generación de notificaciones de finalización correcta de un proceso se muestra en @cod:notify_user_conversion_complete.py.
 
 #figure(
   placement: auto,
@@ -981,3 +981,10 @@ Además, el sistema quedó preparado para un futuro despliegue en producción me
 Con ello, el proyecto finaliza con una plataforma funcional, modular y extensible capaz de ejecutar flujos completos de análisis genómico y predicción de resistencia a antibióticos desde una interfaz web integrada.
 
 == Conclusiones
+El desarrollo de este proyecto ha permitido diseñar e implementar una plataforma completa para el análisis genómico y la predicción de resistencia a antibióticos, integrando múltiples tecnologías y herramientas bioinformáticas dentro de una arquitectura modular y extensible.
+
+A lo largo de los distintos sprints se han abordado diferentes aspectos del sistema, desde la definición de la arquitectura y el diseño de la interfaz, hasta la implementación de modelos de predicción y la integración de un sistema de notificaciones. La combinación de patrones de diseño como _Adapter_, _Registry_ y _Strategy_ ha permitido desacoplar los distintos componentes del sistema, facilitando su mantenimiento y evolución futura.
+
+La validación realizada durante los sprints finales ha confirmado la estabilidad y funcionalidad del sistema, permitiendo detectar y corregir algunos problemas menores relacionados principalmente con la gestión de archivos temporales y la sincronización de notificaciones.
+
+En resumen, el proyecto ha culminado con éxito en la implementación de una plataforma funcional y preparada para su despliegue, ofreciendo una solución integral para el análisis genómico y la predicción de resistencia a antibióticos desde una interfaz web unificada.
