@@ -1,0 +1,14 @@
+---
+config:
+  theme: redux
+---
+stateDiagram
+  direction LR
+  [*] --> pending
+  failed --> [*]
+  completed --> [*]
+  pending --> running
+  pending --> failed
+  running --> failed
+  running --> completed
+  completed --> [*]

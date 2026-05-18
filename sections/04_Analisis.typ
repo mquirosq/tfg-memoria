@@ -714,8 +714,6 @@ De las necesidades de los usuarios y del análisis del problema y la solución p
   "El sistema deberá permitir la ejecución de tareas de análisis genómico de forma no bloqueante, de manera que el usuario pueda continuar interactuando con la interfaz durante su procesamiento",
 )
 
-#todo("A lo mejor hay que dar un número específico y hacer los requisitos no funcionales menos generales")
-
 #requisito_no_funcional(
   "Concurrencia",
   "El sistema deberá permitir la ejecución concurrente de múltiples procesos de análisis genómico sin que esto afecte negativamente al rendimiento o la estabilidad del sistema",

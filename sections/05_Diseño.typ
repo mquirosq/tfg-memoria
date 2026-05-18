@@ -98,11 +98,45 @@ Por otro lado, los módulos que componen el sistema bioinformático, mostrados e
 - *Módulo de gestión de resultados*: encargado de procesar los resultados generados y facilitar su recuperación por parte del sistema web.
 
 == Modelo de datos y clases <sec:modelo_datos>
-#todo(
-  "Quiero cambiar una cosa del modelo de datos así que no quiero trabajaer en esto todavía, me lo voy a saltar por ahora. Pero aquí se explicaría el modelo de datos, las clases principales, sus responsabilidades, etc. También se podrían incluir algunos diagramas de clases para ilustrar la estructura del sistema y la relación entre los distintos componentes.",
-)
-- Diagrama de clases
-- Diagrama de estado para los procesos!
+==== Modelo de clases
+El modelo de clases del sistema (@fig:clases) se diseñó siguiendo una estructura orientada a separar claramente los distintos dominios funcionales de la aplicación: gestión de procesos bioinformáticos, persistencia de archivos y genes anotados, y sistema de notificaciones.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/modelo_clases.svg", width: 100%),
+  caption: "Diagrama de clases del sistema web",
+)<fig:clases>
+
+El núcleo del sistema es la entidad `ConversionTask`, que representa los distintos procesos bioinformáticos ejecutados por los usuarios. Esta entidad almacena información relativa al estado del proceso, el tipo de tarea ejecuta, los archivos de entrada y salida asociados y la referencia al identificador generado por el subsistema bioinformático. Además, incorpora una relación recursiva mediante `previous_task`, utilizada para modelar dependencias entre procesos, como tareas de anotación generadas a partir de ensamblajes previos. Esta relación permite mantener la trazabilidad completa de los flujos de procesamiento y reconstruir el pipeline seguido para cada análisis.
+
+La persistencia de archivos genómicos se modela mediante la entidad `FileUpload`, encargada de representar los archivos subidos por los usuarios al sistema. Esta entidad abstrae los distintos tipos de archivos utilizados durante el flujo bioinformático (FASTA, JSON de anotación, etc.) y mantiene la relación con el usuario propietario. El sistema organizará automáticamente los archivos en distintas rutas según su tipo, facilitando su gestión y almacenamiento.
+
+Por otro lado, la entidad `Gene` representa genes identificados durante el proceso de anotación y procesados como features para modelos de predicción. En lugar de almacenar una única referencia, cada gen mantiene una colección de identificadores, permitiendo agrupar distintas nomenclaturas asociadas al mismo gen provenientes de distintas bases de datos biológicas.
+
+Se decidió separar los genes de los archivos, asociándolos mediante una relación many-to-many implementada a través de la entidad intermedia `FileGene`. Esta decisión evita la duplicación innecesaria de genes en la base de datos, ya que un mismo gen puede aparecer en múltiples archivos diferentes. Al mismo tiempo, `FileGene` permite almacenar información específica de cada ocurrencia concreta de un gen dentro de un archivo, incluyendo coordenadas genómicas (`start`, `stop`), secuencias nucleotídicas (`nt`), secuencias aminoacídicas (`aa`) y la herramienta experta asociada a la anotación. De este modo, se separa la información global del gen de los detalles concretos de su aparición en cada muestra.
+
+Finalmente, el sistema de notificaciones se diseñó de forma desacoplada, con la entidad `TaskNotification`. La entidad TaskNotification permite asociar múltiples notificaciones a un mismo proceso, registrando distintos eventos relevantes como inicio, finalización, errores o advertencias. Además, el modelo soporta distintos canales de comunicación (`in_app` y `email`). La configuración de preferencias de notificación de cada usuario se modela mediante la relación `UserNotificationSettings`.
+
+El modelo de clases definido tiene como objetivo establecer una estructura modular y extensible, praparada para dar soporte al pipeline bioinformático, modelos predictivos y distintos mecanismos de notificación si necesidad de rediseñar la arquitectura de persistencia del sistema.
+
+
+=== Diagrama de estado de los procesos
+El ciclo de vida de los procesos bioinformáticos gestionados por el sistema web se modeló según la @fig:estados, permitiendo representar de forma clara la evolución de cada tarea durante su ejecución.
+
+#figure(
+  placement: auto,
+  image("/memoria/figures/estados.svg", width: 100%),
+  caption: "Diagrama de estado de los procesos",
+)<fig:estados>
+
+Todos los procesos comienzan en el estado `pending`, indicando que la tarea ha sido registrada en el sistema pero todavía no se ha iniciado su ejecución. Este estado es un estado transitivo en el que se encontraran las atreas durante la fase inicila de creación y envío de tareas al subsistema bioinformático.
+
+Una vez se inicia el procesamiento, la tarea pasa al estado `running`. Finalmente, el proceso puede finalizar en uno de los dos siguientes estados terminales:
+
+- `completed`: indica que el proceso ha finalizado correctamente, con los resultados disponibles para su consulta o uso posterior.
+- `failed`: indica que el proceso ha finalizado con un error, lo que puede deberse a distintos motivos, como errores en la ejecución del pipeline bioinformático o problemas de comunicación entre subsistemas.
+
+Además, se permite la trandición de `pending`a `faied`para contemplar errores producidos antes del inicio del procesamiento, como problemas durante el envío inicial de la tarea.
 
 == Flujos principales del sistema
 Aunque el sistema permite la ejecución completa del flujo de análisis genómico, desde la carga de datos hasta la predicción de resistencia a antibióticos, los diagramas de secuencia han sido separados para facilitar la comprensión de cada etapa del proceso. A continuación, se presentan los diagramas de secuencia para cada una de las etapas principales del flujo de análisis genómico.

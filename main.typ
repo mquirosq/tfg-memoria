@@ -34,7 +34,6 @@
   ),
   bibliografia: bibliography("/memoria/bibliografia.bib"),
 )
-#outline(target: figure.where(kind: "todo"))
 
 #show ref: it => {
   let el = it.element

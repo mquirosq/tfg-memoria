@@ -1,0 +1,99 @@
+---
+config:
+  theme: default
+  layout: elk
+---
+classDiagram
+
+class User {
+  <<Django User>>
+}
+
+class UserNotificationSettings {
+  +Boolean email_notifications_enabled
+  +DateTime updated_at
+}
+
+class TaskNotification {
+  +EventType event_type
+  +Text message
+  +Boolean is_read
+  +DateTime created_at
+  +Channel channels
+}
+
+class ConversionTask {
+  +String external_job_id
+  +Status status
+  +String process_name
+  +String input_path
+  +String output_path
+  +TaskType task_type
+  +DateTime created_at
+  +DateTime updated_at
+}
+
+class FileUpload {
+  +File file
+  +DateTime uploaded_at
+}
+
+class Gene {
+  +Text identifiers
+  +identifiers_list()
+  +add_identifier()
+  +add_identifiers()
+}
+
+class FileGene {
+  +String expert
+  +Integer start
+  +Integer stop
+  +Text nt
+  +Text aa
+}
+
+class Status {
+    <<enumeration>>
+	pending
+	running
+	completed
+	failed
+}
+
+class TaskType {
+    <<enumeration>>
+	annotation
+	from_json
+	assembly_ont
+	assembly_illumina
+	assembly_ont_annotated
+	assembly_illumina_annotated
+}
+
+class EventType {
+    <<enumeration>>
+	started
+	completed
+	warning
+	failed
+}
+
+class Channel {
+    <<enumeration>>
+	in_app
+	email
+}
+
+User "1" -- "1" UserNotificationSettings : owns
+User "1" -- "*" TaskNotification : receives
+User "1" -- "*" ConversionTask : owns
+User "1" -- "*" FileUpload : uploads
+
+ConversionTask -- ConversionTask : previous_task
+
+TaskNotification "*" -- "0..1" ConversionTask : references
+
+
+FileGene "*" -- "1" FileUpload
+FileGene "*" -- "1" Gene

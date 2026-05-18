@@ -161,12 +161,19 @@ Se inicializó el sistema web utilizando _Django_, organizando la funcionalidad 
 Esta organización permite mantener una separación clara entre las distintas áreas del sistema, encapsulando la lógica específica de cada dominio dentro de su propia aplicación y reduciendo el acoplamiento entre componentes.
 
 ==== Configuración de persistencia y almacenamiento
-Aunque inicialmente se consideró el uso de _SQLite_ como sistema de persistencia en las primeras fases del desarrollo por su simplicidad, finalmente se optó por hacer uso de _PostgreSQL_ desde el inicio debido a que el acceso a la base de datos de distintos workers podía dar problemas de concurrencia. Así mismo, se optó por esta opción para evitar problemas de migración y compatibilidad que podrían surgir al cambiar de SQLite a PostgreSQL en fases posteriores.
+Aunque inicialmente se consideró el uso de _SQLite_ como sistema de persistencia en las primeras fases del desarrollo por su simplicidad, finalmente se optó por hacer uso de _PostgreSQL_ desde el inicio debido a que el acceso a la base de datos de distintos workers podía dar problemas de concurrencia. Así mismo, se optó por esta opción para evitar problemas de migración y compatibilidad que podrían surgir al cambiar de _SQLite_ a _PostgreSQL_ en fases posteriores.
 
+===== Modelo de datos
 Se definió el modelo de datos inicial utilizando los modelos de _Django_, incluyendo entidades relacionadas con usuarios, procesos, archivos y notificaciones y sus relaciones, especificadas en @sec:modelo_datos.
 
-#todo("Añadir cosas interesantes del modelo de datos tras el cambio")
+Relativo al modelo de datos, cabe destacar el uso de validación a nivel de entidad, mediante el método `clean()`, especialmente en `ConversionTask`. Estas validaciones permiten evitar estados inconsistentes independientemente de la capa desde la que se creen los objetos. Las restricciones implementadas se centraron principalmente en garantizar la coherencia entre tipos de tareas, validar correctamente las dependencias entre procesos y asegurar que las tareas relacionadas perteneciesen al mismo usuario.
 
+Además, se sobrescribió el método `save()` para forzar la ejecución automática de `full_clean()` antes de persistir las entidades, garantizando así que todas las validaciones se aplicasen de forma consistente.
+
+Finalmente, se seleccionaron distintas estrategias de borrado (`CASCADE`, `PROTECT` y `SET_NULL`) en función del dominio funcional de cada entidad, preservando la consistencia histórica de procesos y notificaciones sin comprometer la integridad referencial del sistema.
+
+
+===== Almacenamiento de archivos
 Por otro lado, debido al gran tamaño de los archivos relacionados con el pipeline genómico (FASTQ, FASTA y JSON) y a las diferencias en su ciclo de vida, se decidió diferenciar entre almacenamiento temporal y persistente (@fig:upload_structure), diferenciando:
 
 - *Archivos Temporales*: Los archivos FASTQ utilizados como entrada durante los procesos de ensamblaje se almacenan temporalmente y se eliminan automáticamente tras finalizar el procesamiento para reducir el consumo de espacio. Estos se encuentran almacenados en su propia carpeta temporal `uploads/temp/` durante el procesamiento.
@@ -243,10 +250,9 @@ Para la comunicación entre los contenedores, se definieron redes Docker persona
 
 Por otro lado, se definieron volúmenes Docker para persistir datos importantes, como los archivos de resultados y los datos de la base de datos, asegurando que estos datos no se pierdan al detener o reiniciar los contenedores.
 
-Finalmente, para realizar de forma sencilla el despliegue de ambos sistemas en un entorno de producción, se desarrolló un script de despliegue (`deploy.sh`) que automatiza la construcción de las imágenes Docker y el despliegue de los contenedores.
+Finalmente, para simplificar el despliegue de ambos subsistemas, se desarrolló un script de automatización (`deploy.py`) encargado de orquestar la construcción de imágenes Docker y la ejecución de los contenedores. Este script permite desplegar mediante un único comando tanto el subsistema bioinformático como el sistema web, automatizando además la creación de la red interna de Docker utilizada para la comunicación entre ellos.
 
-#todo("Mejorar párrafo final y meter code snippet del script de despliegue cuando esté en Python y no en PowerShell")
-
+Este enfoque facilita la reproducibilidad del entorno de ejecución y simplifica considerablemente tanto el despliegue local como una futura puesta en producción del sistema.
 
 ==== Ejecución asíncrona
 
