@@ -2,16 +2,17 @@
 #import "utils/todo.typ": todo
 
 #show: TFC.with(
-  titulo: par(
-    justify: false,
-    "COCOS: un framework para la democratización de modelos de predicción en el ámbito genómico",
-  ),
+  titulo: text(size: 18pt)[
+    #par(justify: false)[
+      COCOS: un framework para la democratización de modelos de predicción en el ámbito genómico
+    ]
+  ],
   alumno: "María Quirós Quiroga",
   titulacion: "Grado en Ingeniería Informática - Ingeniería del Software",
   director: [Daniel Ayala Hernández \ Fernando Luis Sola Espinosa],
   departamento: "Lenguajes y Sistemas Informáticos",
   convocatoria: "Convocatoria de junio, curso 2025/26",
-  dedicatoria: "Aquí la dedicatoria del trabajo",
+  dedicatoria: "A mí, por haber llegado hasta aquí y por todo lo que queda por venir.",
   agradecimientos: [
     Quiero agradecer a X por...
 
@@ -41,7 +42,7 @@
 
     However, there is still a significant gap between the development of these tools and their practical application, mainly due to the technical complexity of bioinformatics pipelines, the integration of heterogeneous tools, and the lack of accessible interfaces for non-technical users.
 
-    This Bachelor’s Thesis presents COCOS, an extensible framework designed to democratize access to antibiotic resistance prediction models and simplify both the execution of genomic analysis pipelines and the integration of new predictive models. COCOS enables the execution of genome assembly and annotation processes, the management of biological results, and the application of predictive models over extracted features, all through an intuitive interface and with support for the incorporation of new models through a modular architecture.
+    This Bachelor's Thesis presents COCOS, an extensible framework designed to democratize access to antibiotic resistance prediction models and simplify both the execution of genomic analysis pipelines and the integration of new predictive models. COCOS enables the execution of genome assembly and annotation processes, the management of biological results, and the application of predictive models over extracted features, all through an intuitive interface and with support for the incorporation of new models through a modular architecture.
 
     The proposed solution is composed of two decoupled subsystems: a web system responsible for user, process, and prediction management; and a bioinformatics subsystem responsible for executing specialized genomic analysis tools. In addition, the system incorporates asynchronous task execution and notification support. The platform was validated through both functional and automated testing of the implemented modules.
 
