@@ -4,7 +4,7 @@
 #show: TFC.with(
   titulo: text(size: 18pt)[
     #par(justify: false)[
-      COCOS: un framework para la democratización de modelos de predicción en el ámbito genómico
+      COCOS: un framework para la democratización de modelos de predicción de resistencia bacteriana
     ]
   ],
   alumno: "María Quirós Quiroga",
