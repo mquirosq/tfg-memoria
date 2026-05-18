@@ -2,7 +2,10 @@
 #import "utils/todo.typ": todo
 
 #show: TFC.with(
-  titulo: "Trabajo fin de grado",
+  titulo: par(
+    justify: false,
+    "COCOS: un framework para la democratización de modelos de predicción en el ámbito genómico",
+  ),
   alumno: "María Quirós Quiroga",
   titulacion: "Grado en Ingeniería Informática - Ingeniería del Software",
   director: [Daniel Ayala Hernández \ Fernando Luis Sola Espinosa],
@@ -15,22 +18,42 @@
     También quiero agradecer a Y por...
   ],
   resumen: [
-    Incluya aquí un resumen de los aspectos generales de su trabajo, en español
+    La resistencia a los antibióticos constituye uno de los principales desafíos actuales para la salud pública mundial, impulsando la búsqueda de nuevas estrategias que permitan acelerar y mejorar los procesos de diagnóstico y facilitar la toma de decisiones clínicas. En este contexto, la secuenciación genómica y los modelos de predicción basados en aprendizaje automático han emergido como herramientas prometedoras para inferir la resistencia antimicrobiana a partir de datos genéticos.
+
+    Sin embargo, existe una barrera entre el desarrollo de estas herramientas y su aplicación práctica, debido a la complejidad técnica de los pipelines bioinformáticos, la integración con herramientas heterogéneas y la falta de interfaces accesibles para usuarios no técnicos.
+
+    Este Trabajo de Fin de Grado presenta COCOS, un framework extensible diseñado para democratizar el acceso a modelos de predicción de resistencia a antibióticos y simplificar tanto la ejecución del pipeline de análisis genómico como la integración de nuevos modelos predictivos. COCOS permite ejecutar procesos de ensamblaje y anotación genómica, gestionar resultados y aplicar modelos predictivos sobre las características extraídas, todo ello a través de una interfaz intuitiva y con soporte para la incorporación de nuevos modelos mediante una arquitectura modular.
+
+    La solución propuesta se compone de dos subsistemas desacoplados: un sistema web encargado de la gestión de usuarios, procesos y predicciones; y un subsistema bioinformático responsable de la ejecución de herramientas especializadas para el análisis genómico. Además, se incorpora ejecución asíncrona y soporte para notificaciones. El sistema fue validado mediante pruebas funcionales y automatizadas sobre los distintos módulos implementados.
+
+    El resultado es una plataforma flexible y extensible que contribuye a reducir la complejidad técnica asociada al uso de modelos predictivos en bioinformática y facilita su integración dentro de flujos de análisis genómico completos, reduciendo la barrera existente entre investigación y aplicación práctica.
   ],
   palabras-clave: (
-    "palabra clave 1",
-    "palabra clave 2",
-    "...",
-    "palabra clave N",
+    "bioinformática",
+    "análisis genómico",
+    "resistencia antimicrobiana",
+    "aprendizaje automático",
+    "modelos predictivos",
+    "framework extensible",
   ),
   abstract: [
-    This section should contain an English version of the Spanish abstract.
+    Antibiotic resistance constitutes one of the major current challenges in global public health, driving the search for new strategies to accelerate and improve diagnostic processes and support clinical decision-making. In this context, genomic sequencing and machine learning-based predictive models have emerged as promising tools for inferring antimicrobial resistance from genetic data.
+
+    However, there is still a significant gap between the development of these tools and their practical application, mainly due to the technical complexity of bioinformatics pipelines, the integration of heterogeneous tools, and the lack of accessible interfaces for non-technical users.
+
+    This Bachelor’s Thesis presents COCOS, an extensible framework designed to democratize access to antibiotic resistance prediction models and simplify both the execution of genomic analysis pipelines and the integration of new predictive models. COCOS enables the execution of genome assembly and annotation processes, the management of biological results, and the application of predictive models over extracted features, all through an intuitive interface and with support for the incorporation of new models through a modular architecture.
+
+    The proposed solution is composed of two decoupled subsystems: a web system responsible for user, process, and prediction management; and a bioinformatics subsystem responsible for executing specialized genomic analysis tools. In addition, the system incorporates asynchronous task execution and notification support. The platform was validated through both functional and automated testing of the implemented modules.
+
+    The result is a flexible and extensible platform that helps reduce the technical complexity associated with the use of predictive models in bioinformatics and facilitates their integration into complete genomic analysis workflows, reducing the gap between research and practical application.
   ],
   keywords: (
-    "keyword 1",
-    "keyword 2",
-    "...",
-    "keyword N",
+    "bioinformatics",
+    "genomic analysis",
+    "antimicrobial resistance",
+    "machine learning",
+    "predictive models",
+    "extensible framework",
   ),
   bibliografia: bibliography("/memoria/bibliografia.bib"),
 )
