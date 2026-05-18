@@ -11,16 +11,20 @@ Para cada sprint se describen los objetivos planteados, las principales decision
 
 == Tecnologías y herramientas utilizadas
 
-#todo("Maybe añadir un diagrama a modo resumen de las tecnologías?")
+En esta subsección se describen las principales tecnologías y herramientas utilizadas en el desarrollo del sistema, explicando las razones detrás de su elección. La selección de las mismas se ha realizado teniendo en cuenta los requisitos definidos para el proyecto, especialmente aquellos relacionados con la mantenibilidad, extensibilidad, interoperabilidad y facilidad de despliegue. Se puede observar un diagrama simplificado de las tecnologías en la @fig:tecnologias.
 
-En esta subsección se describen las principales tecnologías y herramientas utilizadas en el desarrollo del sistema, explicando las razones detrás de su elección. La selección de las mismas se ha realizado teniendo en cuenta los requisitos definidos para el proyecto, especialmente aquellos relacionados con la mantenibilidad, extensibilidad, interoperabilidad y facilidad de despliegue.
+#figure(
+  placement: auto,
+  image("/memoria/figures/tecnologias.svg", width: 90%),
+  caption: "Tecnologías utilizadas",
+)<fig:tecnologias>
 
 === Frontend
-La interfaz web se ha desarrollado utilizando HTML, CSS y JavaScript, junto con Tailwind CSS y DaisyUI para el diseño visual de la aplicación.
+La interfaz web se ha desarrollado utilizando _HTML_, _CSS_ y _JavaScript_, junto con _Tailwind CSS_ y _DaisyUI_ para el diseño visual de la aplicación.
 
-Se ha optado por no utilizar frameworks frontend complejos como React o Angular, ya que la interfaz del sistema se centra principalmente en la gestión de formularios, la visualización de resultados y el seguimiento de procesos asíncronos, sin requerir una lógica de interacción especialmente compleja en el lado del cliente. El uso de este tipo de frameworks habría introducido una complejidad adicional tanto en el desarrollo como en el despliegue del sistema, sin aportar beneficios significativos para los objetivos del proyecto. En su lugar se ha priorizado una arquitectura frontend ligera y sencilla de mantener que permite iterar rápidamente sobre el diseño de la interfaz y adaptarla a las necesidades de los usuarios, sin la sobrecarga que implicaría un framework más pesado.
+Se ha optado por no utilizar frameworks frontend complejos como _React_ o _Angular_, ya que la interfaz del sistema se centra principalmente en la gestión de formularios, la visualización de resultados y el seguimiento de procesos asíncronos, sin requerir una lógica de interacción especialmente compleja en el lado del cliente. El uso de este tipo de frameworks habría introducido una complejidad adicional tanto en el desarrollo como en el despliegue del sistema, sin aportar sin aportar ventajas relevantes para los requisitos del sistema. En su lugar se ha priorizado una arquitectura frontend ligera y sencilla de mantener que permite iterar rápidamente sobre el diseño de la interfaz y adaptarla a las necesidades de los usuarios, sin la sobrecarga que implicaría un framework más pesado.
 
-Para el diseño visual se ha utilizado _DaisyUI_, basada en _Tailwind CSS_. Tailwind permite construir interfaces de forma flexible mediante clases, mientras que DaisyUI proporciona componentes reutilizables que permiten ofrecer una apariencia consistente. Esta decisión permite acelerar el desarrollo de la interfaz, evitando complejidad innecesaria  garantizando al mismo tiempo una apariencia consistente y profesional.
+Para el diseño visual se ha utilizado _DaisyUI_, basada en _Tailwind CSS_. Tailwind permite construir interfaces de forma flexible mediante utilidades CSS reutilizables, mientras que DaisyUI proporciona componentes reutilizables que permiten ofrecer una apariencia consistente. Esta decisión permite acelerar el desarrollo de la interfaz, evitando complejidad innecesaria  garantizando al mismo tiempo una apariencia consistente y profesional.
 
 === Backend web
 El backend del sistema web se ha desarrollado utilizando _Django_ como framework principal y _PostgreSQL_ como sistema de gestión de bases de datos.
@@ -36,9 +40,9 @@ El subsistema bioinformático se ha desarrollado también principalmente en Pyth
 
 Para la implementación de la API del sistema bioinformático se ha utilizado _FastAPI_. A diferencia del sistema web principal, este subsistema no requiere funcionalidades avanzadas de gestión de usuarios o renderizado de vistas, sino una interfaz ligera y eficiente orientada a la comunicación entre servicios. FastAPI permite implementar esta API de forma sencilla, con buena integración con Python.
 
-El sistema bioinformático integra herramientas especializadas para distintas etapas del pipeline genómico. Por un lado se hace uso de herramientas de ensamblaje como _SPAdes_  _Raven_ or _Flye_, permitiendo adaptar el procesamiento a distintos tipos de datos de secuenciación, incluyendo tecnologías Illumina y ONT.
+El sistema bioinformático integra herramientas especializadas para distintas etapas del pipeline genómico. Por un lado se hace uso de herramientas de ensamblaje como _SPAdes_ @SPAdes, _Raven_ @Raven o _Flye_ @Flye, permitiendo adaptar el procesamiento a distintos tipos de datos de secuenciación, incluyendo tecnologías Illumina y ONT.
 
-Por otro lado, para la anotación del genoma se utiliza _Bakta_, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. _Bakta_ ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
+Por otro lado, para la anotación del genoma se utiliza _Bakta_ @Bakta, una herramienta orientada a la anotación de secuencias de ADN especialmente diseñada para muestras de bacterias. _Bakta_ ofrece una anotación rápida y estandarizada, lo que facilita la generación de resultados consistentes y de alta calidad, además de ser compatible con el formato de salida JSON, lo que permite su integración directa con el sistema web para la generación de características y la ejecución de modelos predictivos.
 
 === Gestión de tareas asíncronas
 Para la gestión de las tareas asíncronas de ensamblaje y anotación se ha utilizado _Celery_ junto con _Redis_ como sistema de cola de mensajes.
@@ -50,14 +54,21 @@ Por otro lado, _Redis_ se emplea como intermediario para la gestión de colas gr
 Además, este enfoque simplifica la coordinación entre el sistema web y el sistema bioinformático, permitiendo gestionar el envío de tareas, la monitorización de su estado y la recuperación de resultados de forma desacoplada.
 
 === Despliegue y contenedorización
-Para el despliegue del sistema se ha optado por una arquitectura basada en contenedores utilizando _Docker_. Se ha optado por esta tecnología ya que se trata del sistema más extendido y conocido de contenedorización. Además, cuenta con muy bien soporte y documentación online, lo que facilita su uso tanto durante el desarrollo como en la fase de despliegue y producción.
+Para el despliegue del sistema se ha optado por una arquitectura basada en contenedores utilizando _Docker_. Se ha optado por esta tecnología ya que se trata del sistema más extendido y conocido de contenedorización. Además, cuenta con amplio soporte y documentación online, lo que facilita su uso tanto durante el desarrollo como en la fase de despliegue y producción.
 
-Para la orquestación de los contenedores se ha decidido usar _Docker Compose_, lo que permite definir y gestionar la infraestructura del sistema de forma sencilla a través de archivos de configuración. Esto simplifica tanto el despliegue como la puesta en producción del sistema.
+Para la orquestación de los contenedores se ha decidido usar _Docker Compose_, lo que permite definir y gestionar la infraestructura del sistema de forma sencilla a través de archivos de configuración. Esto facilita la reproducibilidad del entorno y simplifica tanto el desarrollo local como futuros despliegues.
 
 === Pruebas y validación
-Para las pruebas unitarias se ha utilizado _unittest_, el framework de testing estándar de _Python_ integrado en _Django_. Se ha elegido esta tecnología debido a su integración nativa con el framework, que facilita la creación de tests para modelos, vistas, servicios y componentes del sistema. Además, _unittest_ aísla los tests creando automáticamente una base de datos de prueba y haciendo rollback tras cada ejecución
+Para las pruebas unitarias se ha utilizado _unittest_, el framework de testing estándar de _Python_ integrado en _Django_. Se ha elegido esta tecnología debido a su integración nativa con el framework, que facilita la creación de tests para modelos, vistas, servicios y componentes del sistema. Además, la integración con el sistema de testing de _Django_ permite ejecutar las pruebas sobre una base de datos temporal aislada, garantizando la independencia entre casos de prueba.
 
 Adicionalmente, se ha hecho uso de la biblioteca _unittest.mock_, que permite simular comportamientos y dependencias durante las pruebas, facilitando la validación de componentes de forma aislada.
+
+=== Puesta en producción
+Para la puesta en producción del sistema se ha utilizado _Gunicorn_ como servidor WSGI para la ejecución de la aplicación _Django_. _Gunicorn_ ofrece un rendimiento sólido, soporte para múltiples workers y una integración sencilla con aplicaciones Python, siendo una de las soluciones más utilizadas para el despliegue de aplicaciones web basadas en _Django_.
+
+Por otro lado, para la gestión de archivos estáticos se ha utilizado _WhiteNoise_,que premite servir dichos archivos directamente desde la propia aplicación sin necesidad de configurar un servidor web adicional como _nginx_. Este enfoque simplifica la arquitectura de despliegue y facilita la portabilidad de la aplicación dentro de entornos basados en contenedores _Docker_.
+
+La combinación de _Gunicorn_ y _WhiteNoise_ proporciona una solución ligera y sencilla de mantener, especialmente adecuada para despliegues pequeños y medianos como el contemplado en este proyecto.
 
 
 == Sprint 1 - Estudio previo y definición del sistema
@@ -156,15 +167,38 @@ Se definió el modelo de datos inicial utilizando los modelos de _Django_, inclu
 
 #todo("Añadir cosas interesantes del modelo de datos tras el cambio")
 
-Por otro lado, debido al gran tamaño de los archivos relacionados con el pipeline genómico (FASTQ, FASTA y JSON) y a las diferencias en su ciclo de vida, se decidió diferenciar entre almacenamiento temporal y persistente, diferenciando:
+Por otro lado, debido al gran tamaño de los archivos relacionados con el pipeline genómico (FASTQ, FASTA y JSON) y a las diferencias en su ciclo de vida, se decidió diferenciar entre almacenamiento temporal y persistente (@fig:upload_structure), diferenciando:
 
 - *Archivos Temporales*: Los archivos FASTQ utilizados como entrada durante los procesos de ensamblaje se almacenan temporalmente y se eliminan automáticamente tras finalizar el procesamiento para reducir el consumo de espacio. Estos se encuentran almacenados en su propia carpeta temporal `uploads/temp/` durante el procesamiento.
 
 - *Archivos Persistentes*: Archivos FASTA o JSON generados en los procesos de ensamblaje o anotación. Se almacenan en `uploads/persistent/user_{user_id}/{file_type}/`, según el usuario y el tipo de archivo, facilitando búsquedas y gestión.
 
-#todo(
-  "Meter una captura ejemplo de la estructura de carpetas de almacenamiento de archivos, diferenciando entre temporales y persistentes",
-)
+#figure(
+  [
+    #show raw.where(block: false): it => {
+      it.text
+    }
+    #block[
+      #set align(left)
+      #dtree(```
+      /
+      📁 | uploads
+       📁 | persistent
+        📁 | user_<user_id>
+         📁 | fasta
+          📄 | <sample>.fasta
+         📁 | json
+          📄 | <sample>.json
+       📁 | temp
+        📁 | user_<user_id>
+         📁 | fastq
+          📄 | <sample>.fastq
+      ```)
+    ]
+  ],
+  caption: "Estructura de archivos subidos",
+  kind: image,
+)<fig:upload_structure>
 
 Esta separación permitió optimizar el uso de almacenamiento y simplificar la gestión de resultados a largo plazo.
 
@@ -427,7 +461,7 @@ Se definió la clase base `BaseParser` que establece la interfaz común para tod
   caption: "Clase base para los parsers",
 )<cod:base_parser.py>
 
-para facilitar la extensibilidad del sistema, se implementó un mecanismo de registro automático basado en el patrón _Registry_ (@cod:parser_registry.py). Este mecanismo permite registrar automáticamente nuevos parsers mediante decoradores, evitando configuraciones manuales.
+Para facilitar la extensibilidad del sistema, se implementó un mecanismo de registro automático basado en el patrón _Registry_ (@cod:parser_registry.py). Este mecanismo permite registrar automáticamente nuevos parsers mediante decoradores, evitando configuraciones manuales.
 
 #figure(
   placement: auto,
@@ -648,19 +682,25 @@ Se define la función `get_prediction()` que recibe como parámetro el nombre de
 Para facilitar la integración de nuevos modelos, se definió una estructura en el módulo `ai_models`. La estructura estándar es la mostrada en @fig:model_structure.
 
 #figure(
-  dtree(```
-  /
-  ai_models
-    <model_name>
-      weights
-        <antibiotic>.pt
-      model_classes.py
-  ```),
+  [
+    #show raw.where(block: false): it => {
+      it.text
+    }
+    #block[
+      #set align(left)
+      #dtree(```
+      /
+      📁 | ai_models
+       📁 | <model_name>
+        📁 | weights
+         📄 | <antibiotic>.pt
+        📄 | model_classes.py
+      ```)
+    ]
+  ],
   caption: "Estructura de archivos para los modelos de predicción",
   kind: image,
 )<fig:model_structure>
-
-#todo("Este diagrama se ve roto por que se centra cada línea al ponerlo en una figura, echar un ojo")
 
 Cada modelo se encapsula en su propia carpeta, incluyendo: su definición, su adaptador, sus pesos y la configuración asociada, donde `model_classes.py` debe exponer la arquitectura del modelo y la clase adaptadora que implementa la interfaz de predicción, registrada mediante el decorador `@register_model("alias")`. En la carpeta `weights`, deberá aparecer una lista de archivos de pesos en formato `.pt` nombrados por el antibiótico al que pertenecen.
 
@@ -680,23 +720,93 @@ El método `get_prediction_matrix(models, antibiotics, file_upload)` recibe una 
 === Resultados
 Durante este sprint se consolidó la arquitectura modular del sistema de predicción, definiendo una infraestructura extensible para la integración de nuevos modelos de predicción. La combinación de patrones _Adapter_, _Registry_ y _Strategy_ permitió desacoplar completamente la lógica de selección, carga y ejecución de modelos, facilitando su reutilización y evolución futura.
 
-Además, se validó la integración completa de los modelos `base_bakta_50` y `base_bakta_90`, estableciendo un flujo de predicción completamente funcional y preparado para futuras ampliaciones del sistema.
+Además, se validó la integración completa de los modelos `base_bakta_50` y `base_bakta_90`, estableciendo un flujo de predicción (@fig:prediction_flow) completamente funcional y preparado para futuras ampliaciones del sistema.
 
-#todo(
-  "A lo mejor añadir un diagrama que explique un poco el flujo?
 
-Modelo concreto
-↓
-@register_model
-↓
-Model Registry
-↓
-get_prediction()
-↓
-ModelInterface
-↓
-Predicción final",
-)
+#figure(caption: "Flujo simplificado de predicción", kind: image, [
+  #import "@preview/tiptoe:0.4.0": *
+  #import "@preview/codly:1.3.0": *
+  #set block(breakable: false)
+  // Cambiar height por auto si no se quiere alto fijo
+  #let bloque = block.with(
+    stroke: rgb("#891536"),
+    fill: gray.lighten(90%),
+    radius: 5pt,
+    inset: 2mm,
+    height: 2.3cm,
+    width: 100%,
+  )
+  #let flecha = block(height: 1cm, [#line(
+    tip: triangle.with(length: 5mm, width: 1.0cm),
+    stroke: 0.7cm + rgb("#f6e3a8"),
+  )])
+  #set text(8pt)
+  #show list: set text(8.0pt)
+  #set list(indent: 0mm, body-indent: 1mm)
+  #codly-disable()
+  #grid(
+    columns: (1fr, auto, 1fr, auto, 1fr),
+    gutter: 2mm,
+    align: (x, y) => { if (calc.rem(x, 2) == 0 and calc.rem(y, 2) == 0) { left } else { center + horizon } },
+    bloque[
+      ```python
+      class ModelInterface:
+        def features(self):
+            pass
+        def load(self):
+            pass
+        ...
+      ```
+    ],
+    flecha,
+    // Si el bloque tiene altura automática, poner dentro de align(horizon, bloque[...]) para que esté centrado
+    bloque[
+      ```python
+            @register_model("base_model")
+      class BaseAdapter(ModelInterface):
+        def features(self):
+          return features
+        ...
+      ```
+
+    ],
+    flecha,
+    bloque[
+      ```python
+      def register_model(name):
+       def _decorator(cls):
+        MODEL_REGISTRY[key] = cls
+        MODEL_ANTIBIOTICS[key] = _get_antibiotics()
+       return cls
+      ```
+    ],
+    grid.cell(x: 4, y: 1, rotate(90deg, flecha)),
+    grid.cell(x: 4, y: 2, bloque[
+      ```python
+      def get_prediction(...):
+       ...
+       adapter = model_adapter()
+       adapter.load()
+      return adapter.predict()
+      ```
+    ]),
+    grid.cell(x: 3, y: 2, rotate(180deg, flecha)),
+    grid.cell(x: 2, y: 2, bloque[
+      ```python
+      def get_predict_matrix():
+       for antibio in antibios:
+         for model in models:
+          get_prediction(model, antibiotic)
+       return data
+      ```
+    ]),
+    grid.cell(x: 1, y: 2, rotate(180deg, flecha)),
+    grid.cell(x: 0, y: 2, bloque[
+      #image("../figures/flujo_prediction.png", width: 100%)
+    ]),
+  )
+  #codly-enable()
+])<fig:prediction_flow>
 
 == Sprint 8 - Interfaz de usuario y notificaciones
 === Objetivos
@@ -820,8 +930,6 @@ Desde la interfaz, las notificaciones se muestran mediante un icono de campana i
   caption: "Vista de historial de notificaciones",
 )<fig:notification_history>
 
-#todo("A lo mejor cambiar la captura si cambio el contenido de las notis (que hay que cambiarlo probablemente)")
-
 Las notificaciones incluyen distintos tipos de eventos relacionados con:
 - Inicio de procesos.
 - Finalización correcta.
@@ -836,8 +944,6 @@ Para simplificar la gestión de estas operaciones se implementó un servicio cen
   raw(read("/memoria/code/notify_user_conversion_complete.py"), block: true, lang: "python"),
   caption: "Ejemplo de código de notify_user_conversion_complete()",
 )<cod:notify_user_conversion_complete.py>
-
-#todo("Cambiar el snippet cuando tenga los mensajes de notificaiones definidos")
 
 Adicionalmente, se incorporó soporte para notificaciones por correo electrónico. Para ello, el usuario puede configurar su dirección de correo y otorgar consentimiento desde la pantalla de configuración de perfil (@fig:notification_settings).
 

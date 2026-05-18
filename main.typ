@@ -5,9 +5,9 @@
   titulo: "Trabajo fin de grado",
   alumno: "María Quirós Quiroga",
   titulacion: "Grado en Ingeniería Informática - Ingeniería del Software",
-  director: [Director 1 \ Director 2],
+  director: [Daniel Ayala Hernández \ Fernando Luis Sola Espinosa],
   departamento: "Lenguajes y Sistemas Informáticos",
-  convocatoria: "Convocatoria de junio/julio/diciembre, curso 20XX/YY",
+  convocatoria: "Convocatoria de junio, curso 2025/26",
   dedicatoria: "Aquí la dedicatoria del trabajo",
   agradecimientos: [
     Quiero agradecer a X por...

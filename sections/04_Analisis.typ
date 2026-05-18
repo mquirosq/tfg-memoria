@@ -25,32 +25,30 @@ Estas herramientas se utilizan habitualmente en entornos Linux mediante línea d
 
 Aunque estas herramientas son ampliamente utilizadas en la comunidad científica, su uso requiere conocimientos técnicos tanto para su instalación y configuración como para su ejecución. Además, la gestión manual de los datos intermedios y la necesiadad de asegurar la compatibilidad entre las herramientas utilizadas incrementan el riesgo de errores y llevan a frustración, dificultando su adopción generalizada.
 
-//```shell
-//bakta nosequé sdasd
-//```
+Con el objetivo de reducir esta barrera de entrada, han surgido plataformas que  ofrecen interfaces gráficas más accesibles para la ejecución de estos flujos de trabajo. Entre ellas destacan _Galaxy_ @Galaxy y _Geneious_ @Geneious.
 
-#todo("Incluir un ejemplo de comando para cada etapa, o una captura de pantalla de la terminal con el proceso")
+_Galaxy_ (@Galaxy) una plataforma de código abierto basada en un entorno web que permite ejecutar herramientas de análisis bioinformático, gestionar datos y construir flujos de trabajo reproducibles. Su principal ventaja es la centralización de herramientas heterogéneas bajo una única interfaz, ofreciendo gran variedad de herramientas con usos distintos para cada fase. Sin embargo, el usuario debe seleccionar manualmente cada herramienta, su orden de ejecución y configurar sus parámetros, lo que puede resultar complejo para usuarios sin experiencia técnica. Además, la amplia variedad de herramientas disponibles dificulta la selección de las más adecuadas para cada uso y la búsqueda de herramientas específicas puede resultar complicada.
 
-Con el objetivo de reducir esta barrera de entrada, han surgido plataformas que  ofrecen interfaces gráficas más accesibles para la ejecución de estos flujos de trabajo. Entre ellas destacan _Galaxy_ y _Geneious_.
+#figure(
+  placement: auto,
+  image("/memoria/figures/galaxy.png", width: 100%),
+  caption: "Ejemplo de interfaz de Galaxy",
+)<fig:galaxy>
 
-_Galaxy_ es una plataforma de código abierto basada en un entorno web que permite ejecutar herramientas de análisis bioinformático, gestionar datos y construir flujos de trabajo reproducibles. Su principal ventaja es la centralización de herramientas heterogéneas bajo una única interfaz, ofreciendo gran variedad de herramientas con usos distintos para cada fase. Sin embargo, el usuario debe seleccionar manualmente cada herramienta, su orden de ejecución y configurar sus parámetros, lo que puede resultar complejo para usuarios sin experiencia técnica. Además, la amplia variedad de herramientas disponibles dificulta la selección de las más adecuadas para cada uso y la búsqueda de herramientas específicas puede resultar complicada.
+Por otro lado, _Geneious_ (@fig:geneious) es una plataforma comercial de pago con interfaz gráfica que integra diversas herramientas de análisis de secuencias en un entorno unificado. Su principal ventaja es la simplificación el flujo de trabajo, eliminando la necesidad de gestionar herramientas independientes y sus datos intermedios. Esto reduce la curva de aprendizaje, no obstante, implica limitaciones en términos de flexibilidad y personalización, ya que los usuarios no pueden elegir libremente las herramientas a utilizar ni configurar sus parámetros de forma detallada. Adicionalmente, su enfoque más orientado al diseño molecular y análisis de secuencias limita su aplicabilidad en análisis genómico completo, lo que puede ser una barrera para usuarios con necesidades más específicas o avanzadas.
 
-Por otro lado, Geneious es una plataforma comercial de pago con interfaz gráfica que integra diversas herramientas de análisis de secuencias en un entorno unificado. Su principal ventaja es la simplificación el flujo de trabajo, eliminando la necesidad de gestionar herramientas independientes y sus datos intermedios. Esto reduce la curva de aprendizaje, no obstante, implica limitaciones en términos de flexibilidad y personalización, ya que los usuarios no pueden elegir libremente las herramientas a utilizar ni configurar sus parámetros de forma detallada. Adicionalmente, su enfoque más orientado al diseño molecular y análisis de secuencias limita su aplicabilidad en análisis genómico completo, lo que puede ser una barrera para usuarios con necesidades más específicas o avanzadas.
+#figure(
+  placement: auto,
+  image("/memoria/figures/geneious.png", width: 100%),
+  caption: "Ejemplo de interfaz de Geneious",
+)<fig:geneious>
 
 En conclusión, las soluciones actuales proporcionan distintos niveles de abstracción sobre el flujo del análisis genómico. Mientras que plataformas como Galaxy ofrecen una amplia variedad de herramientas con gran flexibilidad, su complejidad técnica puede dificultar su adopción por parte de usuarios sin experiencia. Por otro lado, soluciones como Geneious simplifican el proceso pero a costa de limitar la personalización y la aplicabilidad en análisis genómico completo. Estas limitaciones resaltan que la brecha entre las herramientas de análisis genómico y los usuarios finales, especialmente en contextos clínicos, sigue siendo un desafío importante a abordar.
 
-#todo("Añadir capturas")
-
 === Predicción de resistencia a antibióticos
-Existen diversos enfoques computacionales para la predicción de resistencia a antibióticos a partir de datos genómicos, que incluyen tanto modelos basados en aprendizaje automático, como métodos basados en alineamiento contra bases de datos de genes de resistencia o modelos basados en las características de una familia de bacterias concreta. Entre los primeros se encuentran herramientas como _DeepARG_, basadas en redes neuronales, mientras que otras herramientas como _ResFinder_ se apoyan en estrategias de búqueda por homología frente a bases de datos curadas de datos de resistencia.
+Existen diversos enfoques computacionales para la predicción de resistencia a antibióticos a partir de datos genómicos, que incluyen tanto modelos basados en aprendizaje automático, como métodos basados en alineamiento contra bases de datos de genes de resistencia o modelos basados en las características de una familia de bacterias concreta. Entre los primeros se encuentran herramientas como _DeepARG_ @arango2018deeparg, basadas en redes neuronales profundas para la identificación de genes de resistencia, mientras que otras herramientas como _ResFinder_ @bortolaia2020resfinder se apoyan en estrategias de búsqueda por homología frente a bases de datos curadas de genes de resistencia.
 
-#todo(
-  "Incluir un ejemplo de modelo de ML para la predicción de resistencia a antibióticos para una familia/bacteria concreta",
-)
-
-#todo(
-  "Añadir citas a algunos papers con ejemplos de modelos de ML para la predicción de resistencia a antibióticos, y breve descripción de los mismos (A lo mejor en el estado actual)",
-)
+Además, existen modelos diseñados específicamente para determinadas especies bacterianas o contextos clínicos concretos. Por ejemplo, diferentes trabajos han propuesto modelos de predicción para _Mycobacterium tuberculosis_ basados en aprendizaje automático y secuenciación del genoma completo @yang2018machine, así como modelos orientados a la predicción de resistencia en patógenos como _Escherichia coli_ o _Staphylococcus aureus_ @drouin2019predictive.
 
 Estos enfoques han demostrado ser efectivos para inferir la resistencia a antibióticos a partir de representaciones derivadas del análisis genómico, como la presencia o ausencia de genes específicos o funciones biológicas obtenidas tras la anotación de la secuencia. En este sentido, podemos considerarlas como parte del análisis final dentro del flujo de análisis genómico, que utiliza los resultados generados en las etapas anteriores para producir predicciones.
 
@@ -70,18 +68,18 @@ Como se ha expuesto, el enfoque actual tanto del flujo de análisis genómico co
 
 En primer lugar, en el caso del análisis genómico, se identifican las siguientes limitaciones principales:
 
-/ *DES-001* - *Fragmentación de herramientas*: Actualmente, el flujo de análisis genómico está compuesto por múltiples herramientas independientes que deben ejecutarse de forma secuencial, sin una integración unificada. Esta fragmentación obliga a gestionar manualmente la transferencia de datos entre etapas y dificulta la automatización del proceso.
+/ *LIM-001* - *Fragmentación de herramientas*: Actualmente, el flujo de análisis genómico está compuesto por múltiples herramientas independientes que deben ejecutarse de forma secuencial, sin una integración unificada. Esta fragmentación obliga a gestionar manualmente la transferencia de datos entre etapas y dificulta la automatización del proceso.
 
-/ *DES-002* - *Complejidad técnica y barrera de entrada*: La mayoría de herramientas se ejecutan en entornos Linux mediante línea de comandos, lo que requiere conocimientos técnicos en sistemas operativos, gestión de dependencias y configuración. Esto supone una barrera de entrada para usuarios no especializados, como los profesionales sanitarios, limitando su adopción.
-/ *DES-003* - *Dependencia de configuración manual y baja automatización*: La construcción de pipelines de análisis genómico requiere la configuración manual de cada herramienta, la gestión de los datos intermedios y la verificación de compatibilidad entre ellas. Aunque existen plataformas que ofrecen interfaces gráficas, estas no eliminan completamente la complejidad ni la necesidad de tomar decisiones técnicas por parte del usuario.
+/ *LIM-002* - *Complejidad técnica y barrera de entrada*: La mayoría de herramientas se ejecutan en entornos Linux mediante línea de comandos, lo que requiere conocimientos técnicos en sistemas operativos, gestión de dependencias y configuración. Esto supone una barrera de entrada para usuarios no especializados, como los profesionales sanitarios, limitando su adopción.
+/ *LIM-003* - *Dependencia de configuración manual y baja automatización*: La construcción de pipelines de análisis genómico requiere la configuración manual de cada herramienta, la gestión de los datos intermedios y la verificación de compatibilidad entre ellas. Aunque existen plataformas que ofrecen interfaces gráficas, estas no eliminan completamente la complejidad ni la necesidad de tomar decisiones técnicas por parte del usuario.
 
 En segundo lugar, en el caso de los modelos de predicción de resistencia a antibióticos, se identifican las siguientes limitaciones principales:
 
-/ *DES-004* - *Falta de integración con flujo de análisis genómico*: Los modelos de predicción de resistencia a antibióticos suelen desarrollarse como herramientas independientes, especialmente para su uso en entornos de investigación, sin una integración directa con los flujos de análisis genómico estándar. Esto obliga a realizar pasos adicionales de preprocesamiento y adaptación de datos.
+/ *LIM-004* - *Falta de integración con flujo de análisis genómico*: Los modelos de predicción de resistencia a antibióticos suelen desarrollarse como herramientas independientes, especialmente para su uso en entornos de investigación, sin una integración directa con los flujos de análisis genómico estándar. Esto obliga a realizar pasos adicionales de preprocesamiento y adaptación de datos.
 
-/ *DES-005* - *Complejidad  de configuración y ejecución*: Muchos modelos requieren la instalación de entornos específicos, la gestión de dependencias, la descargas de bases de datos adicionales y la configuración de parámetros. Esto incrementa la complejidad operativa, especialmente para usuarios no especializados.
-/ *DES-006* - *Requisitos de preprocesamiento y transformación de datos*: La ejecución de estos modelos requiere la transformación de datos genómicos a representaciones específicas, como matrices de presencia/ausencia de genes. Este proceso no está automatizado para la mayoría de flujos estándar, lo que implica el desarrollo de scripts personalizados desde los resultados de etapas previas.
-/ *DES-007* - *Limitaciones de usabilidad e interfaces de usuario*: La mayoría de modelos no disponen de interfaces gráficas accesibles ni de una documentación orientada a usuarios sin experiencia técnica. Esto limita su uso a perfiles con conocimientos de bioinformática o aprendizaje automático, dificultando su adopción en entornos clínicos o por parte de profesionales sanitarios.
+/ *LIM-005* - *Complejidad  de configuración y ejecución*: Muchos modelos requieren la instalación de entornos específicos, la gestión de dependencias, la descargas de bases de datos adicionales y la configuración de parámetros. Esto incrementa la complejidad operativa, especialmente para usuarios no especializados.
+/ *LIM-006* - *Requisitos de preprocesamiento y transformación de datos*: La ejecución de estos modelos requiere la transformación de datos genómicos a representaciones específicas, como matrices de presencia/ausencia de genes. Este proceso no está automatizado para la mayoría de flujos estándar, lo que implica el desarrollo de scripts personalizados desde los resultados de etapas previas.
+/ *LIM-007* - *Limitaciones de usabilidad e interfaces de usuario*: La mayoría de modelos no disponen de interfaces gráficas accesibles ni de una documentación orientada a usuarios sin experiencia técnica. Esto limita su uso a perfiles con conocimientos de bioinformática o aprendizaje automático, dificultando su adopción en entornos clínicos o por parte de profesionales sanitarios.
 
 En conjunto, estas limitaciones reflejan una brecha entre la complejidad técnia bioinformática y la necesidad de los usuarios finales, donde la accesibilidad y la integración de herramientas y modelos son aspectos clave a abordar para facilitar su adopción y uso efectivo.
 
@@ -193,6 +191,7 @@ Con estos principios, se busca dar soporte a los perfiles definidos en la secci�
 El sistema implementa un flujo de procesamiento de datos genómicos en el que cada etapa transforma la información de entrada, generando resultados que pueden ser utilizados en etapas posteriores. Este flujo parte de los datos de secuenciación en formato FASTQ y finaliza con la generación de predicciones de resistencia a antibióticos. Se sigue un flujo modular y flexible, que permite la ejecución completa del pipeline o la ejecución de sus distintas etapas de forma independiente, según las necesidades del usuario. El flujo general se muestra en la @fig:flujo_general.
 
 #figure(
+  placement: auto,
   block(breakable: false)[#image("/memoria/figures/flujo_general.svg", height: 90%)
     #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: green.lighten(40%)) = secuenciación #h(1cm)
     #box(baseline: 0.25em, radius: 0.2em, width: 1em, height: 1em, fill: yellow.lighten(70%)) = ensamblaje #h(1cm)
@@ -225,9 +224,6 @@ El alcance del sistema incluye la integración de herramientas en un flujo unifi
 Por el contrario, quedan fuera del alcance aspectos como el desarrollo de nuevas herramientas de ensamblaje o anotación, la mejora de herramientas ya existentes o la investigación de nuevos modelos de predicción.
 
 En conjunto, el sistema se orienta a reducir la barrera técnica existente en el proceso de análisis genómico y el uso de modelos de predicción de resistencia a antibióticos, proporcionando una interfaz unificada que abstrae dicha complejidad.
-
-#todo("Mencionar algo del desarrollo del servicio de conversiones??")
-
 
 == Catálogo de requisitos
 Se presenta a continuación un catálogo de requisitos que se deriva del análisis realizado en las secciones anteriores, estructurado en casos de uso, requisitos de información, requisitos funcionales y requisitos no funcionales, que servirán como base para el diseño detallado e implementación del sistema.
@@ -593,6 +589,7 @@ En esta sección se describen los requisitos de información del sistema, deriva
 A partir de los requisitos de información definidos, se deriva el Diagrama de Entidad-Relación (E-R), @fig:diagrama_er, recogiendo las principales entidades del sistema y sus relaciones.
 
 #figure(
+  placement: auto,
   image("/memoria/figures/er_analisis.svg", width: 90%),
   caption: "Diagrama Entidad-Relación",
 )<fig:diagrama_er>

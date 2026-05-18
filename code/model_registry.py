@@ -24,8 +24,8 @@ def register_model(name: str = None):
         _validate_adapter_init(cls)
         key = (name or cls.__name__).lower()
         base_dir = Path(__file__).resolve().parents[1]
-        pesos_dir = base_dir / 'ai_models' / key / 'pesos'
+        weights_dir = base_dir / 'ai_models' / key / 'weights'
         MODEL_REGISTRY[key] = cls
-        MODEL_ANTIBIOTICS[key] = _compute_model_supported_antibiotics(pesos_dir)
+        MODEL_ANTIBIOTICS[key] = _compute_model_supported_antibiotics(weights_dir)
         return cls
     return _decorator
