@@ -12,13 +12,13 @@
 
     [2], [02/12-16/12 2025], [Diseño de arquitectura del sistema y definición del framework],
 
-    [3], [16/12-13/01 2026], [Desarrollo de la infrastructura base (autenticación, base de datos, Docker, etc.)],
+    [3], [16/12-13/01 2026], [Desarrollo de la infraestructura base (autenticación, base de datos, Docker, etc.)],
 
     [4], [13/01-27/01 2026], [Desarrollo del servicio de conversión de datos genómicos],
 
     [5], [27/01-10/02 2026], [Procesamiento y parseo de datos anotados y almacenamiento en base de datos],
 
-    [6], [10/02-03/03 2026], [Desarrollo del módulo de predicción de resistencia mediante ML],
+    [6], [10/02-03/03 2026], [Desarrollo del módulo de predicción de resistencia mediante modelos de predicción],
 
     [7], [03/03-17/03 2026], [Diseño e implementación de arquitectura modular para modelos de predicción],
 

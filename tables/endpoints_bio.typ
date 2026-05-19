@@ -31,15 +31,17 @@
 
       [`/assembly/illumina`],
       [POST],
-      [Iniciar ensamblaje de secuencias Illumina con archivos FASTQ R1 y R2 con SPAdes.],
+      [Iniciar ensamblaje de secuencias _Illumina_ con archivos FASTQ R1 y R2 con _SPAdes_.],
 
-      [`/assembly/ont`], [POST], [Iniciar ensamblaje de secuencias ONT con Raven o Flye a partir de un archivo FASTQ.],
+      [`/assembly/ont`],
+      [POST],
+      [Iniciar ensamblaje de secuencias _ONT_ con _Raven_ o _Flye_ a partir de un archivo FASTQ.],
 
-      [`/annotation/bakta/upload`], [POST], [Ejecutar anotación Bakta directamente desde un archivo FASTA subido.],
+      [`/annotation/bakta/upload`], [POST], [Ejecutar anotación _Bakta_ directamente desde un archivo FASTA subido.],
 
       [`/annotation/bakta/existing/{job_id}`],
       [POST],
-      [Ejecutar anotación Bakta sobre un ensamblaje completado previamente.],
+      [Ejecutar anotación _Bakta_ sobre un ensamblaje completado previamente.],
 
       [`/jobs/{job_id}`], [GET], [Consultar estado actual de un proceso específico indicado por {job_id}.],
 

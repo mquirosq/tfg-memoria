@@ -47,7 +47,7 @@ Dependiendo de la tecnología de secuenciación utilizada, se emplean distintas 
 - Para lecturas cortas (como las generadas por Illumina), se emplean herramientas como _SPAdes_, optimizadas para manejar múltiples lecturas de alta precisión.
 - Para lecturas largas (como las de ONT), se utilizan herramientas como _Raven_ o _Flye_, diseñadas para manejar secuencias más largas con mayores tasas de error.
 
-Los resultados de este proceso se almacenan en formato FASTA, que contiene los secuencias ensambladas del genoma.
+Los resultados de este proceso se almacenan en formato FASTA, que contiene las secuencias ensambladas del genoma.
 
 #figure(
   image("/memoria/figures/assembly.svg", width: 100%),

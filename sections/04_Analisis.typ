@@ -19,11 +19,11 @@ Este proceso consta de tres etapas principales: ensamblaje del genoma, anotació
 
 En la práctica, los usuarios parten de archivos de lecturas en formato FASTQ, aplican herramientas de ensamblaje para generar contigs en formato FASTA y, posteriormente, utilizan herramientas de anotación para identificar genes y asignar funciones biológicas. Cada fase opera sobre formatos de datos específicos, lo que requiere una gestión de los datos intermedios y la correcta aplicación de cada herramienta en el orden adecuado.
 
-Estas herramientas se utilizan habitualmente en entornos Linux mediante línea de comandos, lo que proporciona flexibilidad pero introduce una barrera para usuarios sin experiencia en informática, como es el caso en muchos contextos clínicos. Algunos ejemplos de herramientas comunmente utilizadas son:
+Estas herramientas se utilizan habitualmente en entornos Linux mediante línea de comandos, lo que proporciona flexibilidad pero introduce una barrera para usuarios sin experiencia en informática, como es el caso en muchos contextos clínicos. Algunos ejemplos de herramientas comúnmente utilizadas son:
 - Para el ensamblaje: _SPAdes_, _Velvet_, _Raven_ o _Flye_.
 - Para la anotación: _Bakta_, _Prokka_ o _RAST_.
 
-Aunque estas herramientas son ampliamente utilizadas en la comunidad científica, su uso requiere conocimientos técnicos tanto para su instalación y configuración como para su ejecución. Además, la gestión manual de los datos intermedios y la necesiadad de asegurar la compatibilidad entre las herramientas utilizadas incrementan el riesgo de errores y llevan a frustración, dificultando su adopción generalizada.
+Aunque estas herramientas son ampliamente utilizadas en la comunidad científica, su uso requiere conocimientos técnicos tanto para su instalación y configuración como para su ejecución. Además, la gestión manual de los datos intermedios y la necesidad de asegurar la compatibilidad entre las herramientas utilizadas incrementan el riesgo de errores y llevan a frustración, dificultando su adopción generalizada.
 
 Con el objetivo de reducir esta barrera de entrada, han surgido plataformas que  ofrecen interfaces gráficas más accesibles para la ejecución de estos flujos de trabajo. Entre ellas destacan _Galaxy_ @Galaxy y _Geneious_ @Geneious.
 
@@ -52,14 +52,14 @@ Además, existen modelos diseñados específicamente para determinadas especies 
 
 Estos enfoques han demostrado ser efectivos para inferir la resistencia a antibióticos a partir de representaciones derivadas del análisis genómico, como la presencia o ausencia de genes específicos o funciones biológicas obtenidas tras la anotación de la secuencia. En este sentido, podemos considerarlas como parte del análisis final dentro del flujo de análisis genómico, que utiliza los resultados generados en las etapas anteriores para producir predicciones.
 
-Sin embargo, a pesar de su potencial utilidad, en la práctica su uso es limitado. Una de las principales causas es su falta de integración con los flujos de trabajo estándar de análisis genómico, así como la falta ausencia de interfaces unificadas y accesibles para usuarios sin experiencia técnica.
+Sin embargo, a pesar de su potencial utilidad, en la práctica su uso es limitado. Una de las principales causas es su falta de integración con los flujos de trabajo estándar de análisis genómico, así como la ausencia de interfaces unificadas y accesibles para usuarios sin experiencia técnica.
 
 La ejecución de estos modelos suele requerir pasos adicionales de preprocesamiento y transformación de los datos de entrada, que no son parte de los pipelines estándar.
 Además, la preparación de los datos de entrada suele implicar conversión entre distintos formatos, así como la selección de características relevantes, lo que frecuentemente requiere un esfuerzo manual significativo o el desarrollo de scripts personalizados. A esto se suma la complejidad asociada a la instalación y configuración de los modelos, incluyendo la gestión de dependencias, la configuración de entornos de ejecución y la comprensión de los parámetros de entrada.
 
 Como resultado, estos enfoques se utilizan principalmente en entornos de investigación, especialmente en equipos con experiencia en bioinformática o aprendizaje automático. En cambio, su adopción en entornos generales es todavía limitada. Este escenario resalta la necesidad de soluciones que permitan una integración más directa y fluida de modelos predictivos en el flujo de análisis genómico, reduciendo la fricción entre el procesamiento de datos y su análisis y explotación.
 
-En este contexto, diferentes estudios @SADEGHI2024109370 señalan que, a pesar del creciente interés en sistemas de inteligencia artificial aplicados a la salud, muchos modelos permaneces en la fase de prototipo y no llegan a integrarse en entornos reales. La brecha entre el desarrollo de modelos y su despliegue sigue siendo uno de los principales retos en este ámbito.
+En este contexto, diferentes estudios @SADEGHI2024109370 señalan que, a pesar del creciente interés en sistemas de inteligencia artificial aplicados a la salud, muchos modelos permanecen en la fase de prototipo y no llegan a integrarse en entornos reales. La brecha entre el desarrollo de modelos y su despliegue sigue siendo uno de los principales retos en este ámbito.
 
 La disponibilidad de un framework como el propuesto en este trabajo puede contribuir a reducir esta brecha, al proporcionar un entorno que simplifica el despliegue, la integración y el uso de modelos predictivos dentro de flujos de análisis genómico completos, favoreciendo así tanto su adopción como la experimentación, validación y mejora de los mismos.
 
@@ -81,7 +81,7 @@ En segundo lugar, en el caso de los modelos de predicción de resistencia a anti
 / *LIM-006* - *Requisitos de preprocesamiento y transformación de datos*: La ejecución de estos modelos requiere la transformación de datos genómicos a representaciones específicas, como matrices de presencia/ausencia de genes. Este proceso no está automatizado para la mayoría de flujos estándar, lo que implica el desarrollo de scripts personalizados desde los resultados de etapas previas.
 / *LIM-007* - *Limitaciones de usabilidad e interfaces de usuario*: La mayoría de modelos no disponen de interfaces gráficas accesibles ni de una documentación orientada a usuarios sin experiencia técnica. Esto limita su uso a perfiles con conocimientos de bioinformática o aprendizaje automático, dificultando su adopción en entornos clínicos o por parte de profesionales sanitarios.
 
-En conjunto, estas limitaciones reflejan una brecha entre la complejidad técnia bioinformática y la necesidad de los usuarios finales, donde la accesibilidad y la integración de herramientas y modelos son aspectos clave a abordar para facilitar su adopción y uso efectivo.
+En conjunto, estas limitaciones reflejan una brecha entre la complejidad técnica bioinformática y la necesidad de los usuarios finales, donde la accesibilidad y la integración de herramientas y modelos son aspectos clave a abordar para facilitar su adopción y uso efectivo.
 
 == Usuarios y necesidades
 
@@ -90,7 +90,7 @@ Los principales usuarios a los que está destinado este proyecto son:
 
 / *Investigadores y profesionales de la salud*: Usuarios finales de la aplicación, realizan análisis genómicos para obtener información biológica a partir de datos de secuenciación, así como para predecir la resistencia a antibióticos. Su objetivo es obtener resultados de forma eficiente y accesible, sin necesidad de conocimientos técnicos avanzados en bioinformática o aprendizaje automático.
 
-/ *Desarrolladores / Investigadores de modelos predictivos*: Usuarios especializados en el desarrollo de modelos predictivos para la resistencia a antibióticos. Su interés principal es poder integrar sus modelos en el sistema de forma sencilla, utilizándola como una plataforma o marco de trabajo que facilite su validación y aplicación en entornos reales. Para ello, requieren un mecanismo que permita incorporar nuevos modelos sin necesidad de modificar significativamente la infrastructura del sistema, favoreciendo su utilización y adopción.
+/ *Desarrolladores / Investigadores de modelos predictivos*: Usuarios especializados en el desarrollo de modelos predictivos para la resistencia a antibióticos. Su interés principal es poder integrar sus modelos en el sistema de forma sencilla, utilizándolo como una plataforma o marco de trabajo que facilite su validación y aplicación en entornos reales. Para ello, requieren un mecanismo que permita incorporar nuevos modelos sin necesidad de modificar significativamente la infraestructura del sistema, favoreciendo su utilización y adopción.
 
 === Requisitos generales
 A partir de las limitaciones del enfoque actual y las necesidades de los distintos perfiles de usuario, se extraen los siguientes requisitos generales del sistema:
@@ -177,13 +177,13 @@ A continuación, se exponen las historias de usuario derivadas de los requisitos
 
 === Enfoque del sistema
 
-Dado el análisis de necesidades realizado, se propone el desarrollo de una plataforma orientada a la integración del flujo de análisis genómico y la predicción de resistencia a antibióticos, como una solución única incorporandolo todo en un único proceso. Se busca un enfoque dual: por un lado, una *interfaz gráfica accesible* e intuitiva que permite ir desde la secuenciación a la predicción de forma sencilla; y por otro, un *framework extensible* que facilita la incorporación de nuevos modelos y componentes por parte de los desarrolladores.
+Dado el análisis de necesidades realizado, se propone el desarrollo de una plataforma orientada a la integración del flujo de análisis genómico y la predicción de resistencia a antibióticos, como una solución única incorporándolo todo en un único proceso. Se busca un enfoque dual: por un lado, una *interfaz gráfica accesible* e intuitiva que permite ir desde la secuenciación a la predicción de forma sencilla; y por otro, un *framework extensible* que facilita la incorporación de nuevos modelos y componentes por parte de los desarrolladores.
 
 Se identifican tres principios clave:
 
 + *Abstracción del flujo de análisis genómico*: El sistema incluye la ejecución de todas las etapas del proceso, desde la secuenciación hasta la obtención de los resultados de la predicción, proporcionando una experiencia de uso unificada que elimina la necesidad de gestionar herramientas independientes.
-+ *Accesibilidad mediante interfaz gráfica intuitiva*: Se ofrece una interfaz gráfica orientada a usuarios sin experiencia en bioinformática, especialmente profesionales sanitarios o personal investigador, que permite ejecutar el flujo compleyo de resistencia sin poseer conocimientos técnicos.
-+ *Extensibilidad mediante un enfoque de framework*: El sistema está diseñado como una plataforma extensible que permite a desarrollador e investigadores integrar uevos modelos predictivos de forma sencilla, favoreciendo su uso en entornos reales.
++ *Accesibilidad mediante interfaz gráfica intuitiva*: Se ofrece una interfaz gráfica orientada a usuarios sin experiencia en bioinformática, especialmente profesionales sanitarios o personal investigador, que permite ejecutar el flujo completo de resistencia sin poseer conocimientos técnicos.
++ *Extensibilidad mediante un enfoque de framework*: El sistema está diseñado como una plataforma extensible que permite a desarrolladores e investigadores integrar nuevos modelos predictivos de forma sencilla, favoreciendo su uso en entornos reales.
 
 Con estos principios, se busca dar soporte a los perfiles definidos en la sección de análisis de usuarios, proporcionando una solución para las necesidades de ambos.
 
@@ -219,7 +219,7 @@ El sistema propuesto se centra en la integración y orquestación del flujo de a
 
 En este sentido, el sistema no pretende reemplazar las herramientas existentes ni desarrollar nuevos modelos de predicción, sino facilitar su uso mediante una plataforma unificada que mejore su usabilidad, accesibilidad e integración.
 
-El alcance del sistema incluye la integración de herramientas en un flujo unificado, la automatización de las etapas del flujo de análisis genómico, la gestión de datos intermedios, la integración de modelos predictivos y la presentación de resultados de forma clara e interpretable para el usuario. Adicionalmente, se incluye la implemenatción de un mecanismo que permita la incorporación de nuevos modelos y procesamiento de datos desde el anotado de forma sencilla.
+El alcance del sistema incluye la integración de herramientas en un flujo unificado, la automatización de las etapas del flujo de análisis genómico, la gestión de datos intermedios, la integración de modelos predictivos y la presentación de resultados de forma clara e interpretable para el usuario. Adicionalmente, se incluye la implementación de un mecanismo que permita la incorporación de nuevos modelos y procesamiento de datos desde el anotado de forma sencilla.
 
 Por el contrario, quedan fuera del alcance aspectos como el desarrollo de nuevas herramientas de ensamblaje o anotación, la mejora de herramientas ya existentes o la investigación de nuevos modelos de predicción.
 
@@ -234,13 +234,13 @@ En esta sección se presentan los casos de uso derivados de las historias de usu
 ==== Actores
 Los actores principales que interactúan en los casos de uso son:
 
-/ *ACT-001 - Usuario investigador o profesional de la salud*: utilia el sistema para realizar análisis genómicos y ejecutar modelos de predicción de resistencia a antibióticos, con el objetivo de obtener información biológica a partir de datos de secuenciación y apoyar la interpretación de muestras genómicas.
+/ *ACT-001 - Usuario investigador o profesional de la salud*: Utiliza el sistema para realizar análisis genómicos y ejecutar modelos de predicción de resistencia a antibióticos, con el objetivo de obtener información biológica a partir de datos de secuenciación y apoyar la interpretación de muestras genómicas.
 
 / *ACT-002* - *Sistema de análisis genómico y predicción de resistencia a antibióticos*: Sistema propuesto que integra el flujo completo de análisis genómico y modelos predictivos, proporcionando una interfaz accesible para el procesamiento de datos biológicos.
 
 === Diagramas y definición de casos de uso
 
-Todos los casos de uso del ssitema requieren que el usuario(ACT-001), investigador o profesional de la salud, esté autenticado en el sistema mediante una cuenta de usuario válida.
+Todos los casos de uso del sistema requieren que el usuario (ACT-001), investigador o profesional de la salud, esté autenticado en el sistema mediante una cuenta de usuario válida.
 
 Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los datos del usuario, implementando mecanismos de control de propiedad, garantizando que únicamente se puedan consultar o modificar entidades pertenecientes al usuario autenticado, como procesos de análisis genómico, resultados o notificaciones asociadas a su cuenta.
 
@@ -323,7 +323,7 @@ Asimismo, el sistema (ACT-002) debe garantizar la seguridad y privacidad de los 
 #caso_de_uso(
   "Generar features para predicción",
   "El usuario (ACT-001) dispone de resultados de anotación válidos",
-  "Permite cargar resultados de anotación externos y generar feaures compatibles con los modelos de predicción",
+  "Permite cargar resultados de anotación externos y generar features compatibles con los modelos de predicción",
 
   (
     "El usuario (ACT-001) entra en la sección Anotación del sistema",
@@ -666,7 +666,7 @@ De los casos de uso y los requisitos de información se derivan los siguientes r
 
 #requisito_funcional(
   "Integración de modelos predictivos",
-  "El sistema deberá permitie la integración de modelos de predicción que utilicen las características generadas",
+  "El sistema deberá permitir la integración de modelos de predicción que utilicen las características generadas",
 )
 
 #requisito_funcional(
@@ -740,7 +740,7 @@ De las necesidades de los usuarios y del análisis del problema y la solución p
 
 #requisito_no_funcional(
   "Arquitectura desacoplada",
-  "El sistema debera estar estructurado en componentes desacoplados que separen responsabilidades",
+  "El sistema deberá estar estructurado en componentes desacoplados que separen responsabilidades",
 )
 
 #requisito_no_funcional(
@@ -751,7 +751,7 @@ De las necesidades de los usuarios y del análisis del problema y la solución p
 ==== Seguridad
 #requisito_no_funcional(
   "Integridad de datos",
-  "El sistema deberá garantizar la integridad de los datos mediante validacionas en las entidades y restricciones",
+  "El sistema deberá garantizar la integridad de los datos mediante validaciones en las entidades y restricciones",
 )
 
 #requisito_no_funcional(

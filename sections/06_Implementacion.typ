@@ -29,7 +29,7 @@ Para el diseño visual se ha utilizado _DaisyUI_, basada en _Tailwind CSS_. Tail
 === Backend web
 El backend del sistema web se ha desarrollado utilizando _Django_ como framework principal y _PostgreSQL_ como sistema de gestión de bases de datos.
 
-Debido a la integración con modelos de predicción, se ha decidido utilizar _Python_ como lenguaje principal del proyecto, ya que se trata del lenguaje predominante tanto en el ámbito de la ciencia de datos y el aprendizaje automático. Esto facilita la integración con modelos prodictivos y herramientas externas en el mismo ecosistema tecnológico.
+Debido a la integración con modelos de predicción, se ha decidido utilizar _Python_ como lenguaje principal del proyecto, ya que se trata del lenguaje predominante tanto en el ámbito de la ciencia de datos y el aprendizaje automático. Esto facilita la integración con modelos predictivos y herramientas externas en el mismo ecosistema tecnológico.
 
 Dentro de los frameworks de desarrollo web disponibles para Python, se ha optado por _Django_ debido a su amplia gama de funcionalidades integradas, como sus sistema de gestión de usuarios y autenticación, el ORM para la persistencia de datos y el panel de administración. Estas características permiten acelerar el desarrollo de funcionalidades comunes y permiten centrarse en la lógica específica del proyecto. Además, gran parte del sistema consiste en la gestión de entidades persistentes relacionadas entre sí como procesos, archivos o notificaciones, lo que se adapta bien al modelo relacional y el ORM de Django.
 
@@ -49,7 +49,7 @@ Para la gestión de las tareas asíncronas de ensamblaje y anotación se ha util
 
 _Celery_ permite definir tareas desacopladas que son ejecutadas por workers independientes del servidor web principal. Esto permite delegar la ejecución de procesos de larga duración sin bloquear la interacción del usuario con la aplicación y facilita la ejecución concurrente de múltiples tareas.
 
-Por otro lado, _Redis_ se emplea como intermediario para la gestión de colas gracias a su sencilla intergación con _Celery_ y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
+Por otro lado, _Redis_ se emplea como intermediario para la gestión de colas gracias a su sencilla integración con _Celery_ y el hecho de que es un sistema de almacenamiento en memoria que ofrece un alto rendimiento en operaciones de lectura y escritura.
 
 Además, este enfoque simplifica la coordinación entre el sistema web y el sistema bioinformático, permitiendo gestionar el envío de tareas, la monitorización de su estado y la recuperación de resultados de forma desacoplada.
 
@@ -66,7 +66,7 @@ Adicionalmente, se ha hecho uso de la biblioteca _unittest.mock_, que permite si
 === Puesta en producción
 Para la puesta en producción del sistema se ha utilizado _Gunicorn_ como servidor WSGI para la ejecución de la aplicación _Django_. _Gunicorn_ ofrece un rendimiento sólido, soporte para múltiples workers y una integración sencilla con aplicaciones Python, siendo una de las soluciones más utilizadas para el despliegue de aplicaciones web basadas en _Django_.
 
-Por otro lado, para la gestión de archivos estáticos se ha utilizado _WhiteNoise_,que premite servir dichos archivos directamente desde la propia aplicación sin necesidad de configurar un servidor web adicional como _nginx_. Este enfoque simplifica la arquitectura de despliegue y facilita la portabilidad de la aplicación dentro de entornos basados en contenedores _Docker_.
+Por otro lado, para la gestión de archivos estáticos se ha utilizado _WhiteNoise_,que permite servir dichos archivos directamente desde la propia aplicación sin necesidad de configurar un servidor web adicional como _nginx_. Este enfoque simplifica la arquitectura de despliegue y facilita la portabilidad de la aplicación dentro de entornos basados en contenedores _Docker_.
 
 La combinación de _Gunicorn_ y _WhiteNoise_ proporciona una solución ligera y sencilla de mantener, especialmente adecuada para despliegues pequeños y medianos como el contemplado en este proyecto.
 
@@ -136,7 +136,7 @@ Adicionalmente, se diseñó el modelo inicial de datos, definiendo entidades rel
 === Resultados
 Este sprint fue fundamental para establecer una arquitectura sólida y escalable que permitiera abordar las necesidades específicas del proyecto, especialmente en relación con la ejecución de tareas bioinformáticas. La separación en subsistemas permitió diseñar un sistema más modular y mantenible, facilitando el desarrollo progresivo de funcionalidades en los siguientes sprints.
 
-== Sprint 3 - Desarrollo de la infrastructura base
+== Sprint 3 - Desarrollo de la infraestructura base
 === Objetivos
 Este sprint se desarrolló entre el 16 de diciembre de 2025 y el 13 de enero de 2026, con el objetivo principal de implementar la infraestructura base del sistema, incluyendo la configuración de la base de datos, la implementación de mecanismos de autenticación y autorización, y la creación de contenedores Docker para facilitar el desarrollo y despliegue del sistema. Los objetivos específicos de este sprint fueron:
 
@@ -258,7 +258,7 @@ Este enfoque facilita la reproducibilidad del entorno de ejecución y simplifica
 
 Para coordinar la ejecución de tareas de larga duración se configuró _Celery_ junto con _Redis_. Los workers definidos en cada subsistema permiten ejecutar procesos de forma asíncrona y desacoplada del flujo principal de la aplicación.
 
-En el sistema web los workers monitorizarán el envío de tareas al sistema bioinformático, la monitorización de su estado, la rescuperación de resultados y la ejecución de predicciones.
+En el sistema web los workers monitorizarán el envío de tareas al sistema bioinformático, la monitorización de su estado, la recuperación de resultados y la ejecución de predicciones.
 
 Por otro lado, en el sistema bioinformático, los workers se encargan de ejecutar las herramientas de ensamblaje y anotación, además de tareas auxiliares de mantenimiento y limpieza.
 
@@ -266,7 +266,7 @@ La separación entre los workers del sistema web y del sistema bioinformático p
 
 ==== Implementación de autenticación y control de acceso
 
-Aunque la gestión de usuarios no es un punto clave del sistema, se consideró necesario para asociar procesos y reultados a usuarios concretos y permitir un seguimiento individualizado de su progreso. Para ello se decidió utilizar el sistema de autenticación integrado de _Django_, aprovechando sus mecanismos de gestión de usuarios, sesiones y permisos.
+Aunque la gestión de usuarios no es un punto clave del sistema, se consideró necesario para asociar procesos y resultados a usuarios concretos y permitir un seguimiento individualizado de su progreso. Para ello se decidió utilizar el sistema de autenticación integrado de _Django_, aprovechando sus mecanismos de gestión de usuarios, sesiones y permisos.
 
 Se implementaron funcionalidades de:
 - *Registro*: Creación de nuevas cuentas de usuario.
@@ -295,7 +295,7 @@ Este sprint se desarrolló entre el 13 y el 27 de enero de 2026 y tuvo como obje
 
 El sistema bioinformático se desarrolló como un servicio independiente usando _FastAPI_ y _Celery_. Este subsistema actúa como responsable de la ejecución de herramientas bioinformáticas externas, desacoplando las tareas de análisis genómico del backend principal del sistema web.
 
-La separación de ambos subsistemas permitió aislar las dependencias específicas de las herramientas bioinformáticas, los elevados requisitos computacionales y los largos tiempos de ejecución asociados a los procesos de ensamblaje y anotación. Además, este enfoque facilita la escalabilidad del sistema y recude el impacto de posibles errores producidos durante la ejecución de herramientas externas.
+La separación de ambos subsistemas permitió aislar las dependencias específicas de las herramientas bioinformáticas, los elevados requisitos computacionales y los largos tiempos de ejecución asociados a los procesos de ensamblaje y anotación. Además, este enfoque facilita la escalabilidad del sistema y reduce el impacto de posibles errores producidos durante la ejecución de herramientas externas.
 
 Internamente, el sistema bioinformático se estructura en tres componentes principales:
 
@@ -306,7 +306,7 @@ Internamente, el sistema bioinformático se estructura en tres componentes princ
 Las herramientas bioinformáticas se integraron mediante la ejecución de procesos externos desde Python utilizando el módulo `subprocess`. Este enfoque permite encapsular la lógica de invocación de cada herramienta y controlar parámetros de ejecución, directorios de salida y gestión de errores de forma homogénea.
 
 ===== Integración de herramientas de ensamblaje
-El sistema se disñó para soportar distintos tipos de tecnologías de secuenciación, integrando diferentes herramientas de ensamblaje según el tipo de lecturas utilizadas. Para secuenciación de lecturas cortas (_Illumina_) se integró _SPAdes_, mientras que para secuenciación de lecturas largas (_ONT_) se integraron _Flye_ y _Raven_. En todos los casos, la integración sigue una estructura similar:
+El sistema se diseñó para soportar distintos tipos de tecnologías de secuenciación, integrando diferentes herramientas de ensamblaje según el tipo de lecturas utilizadas. Para secuenciación de lecturas cortas (_Illumina_) se integró _SPAdes_, mientras que para secuenciación de lecturas largas (_ONT_) se integraron _Flye_ y _Raven_. En todos los casos, la integración sigue una estructura similar:
 
 1. Asegurar que la herramienta se encuentra instalada.
 
@@ -367,8 +367,7 @@ Cada proceso de ensamblaje o anotación se identifica mediante un UUID único qu
 
 ==== Integración con el sistema web
 
-La integración del sistema web con el sistema bioinformático se
-implementó mediante una capa de servicios encargada de encapsular las llamadas HTTP. La comunicación con el sistema bioinformático se encapsuló en una capa de servicios implementada en el archivo `bio_api_client.py`, encargada de abstraer las llamadas HTTP y unificar la interacción con la API externa, siguiendo un patrón fachada. Se puede ver un ejemplo en @cod:bioapiclient.
+La integración del sistema web con el sistema bioinformático se implementó mediante una capa de servicios encargada de encapsular las llamadas HTTP. La comunicación con el sistema bioinformático se encapsuló en una capa de servicios implementada en el archivo `bio_api_client.py`, encargada de abstraer las llamadas HTTP y unificar la interacción con la API externa, siguiendo un patrón fachada. Se puede ver un ejemplo en @cod:bioapiclient.
 
 #figure(
   placement: auto,
@@ -376,7 +375,7 @@ implementó mediante una capa de servicios encargada de encapsular las llamadas 
   caption: "Ejemplo del código de la capa de servicios encargada de la comunicación con el sistema bioinformático",
 )<cod:bioapiclient>
 
-Las tareas asíncronas del sistema web, definidas en `tasks.py`, utilizan este cliente para inciar procesos de ensamblaje o anotación en el subsistema bioinformático, consultar el estado de los procesos y recuperar resultados.
+Las tareas asíncronas del sistema web, definidas en `tasks.py`, utilizan este cliente para iniciar procesos de ensamblaje o anotación en el subsistema bioinformático, consultar el estado de los procesos y recuperar resultados.
 
 La ejecución de procesos se realiza mediante tareas _Celery_, permitiendo que el usuario continúe interactuando con la aplicación mientras los procesos bioinformáticos se ejecutan en segundo plano.
 
@@ -384,7 +383,7 @@ La ejecución de procesos se realiza mediante tareas _Celery_, permitiendo que e
 
 Uno de los principales retos de la integración es la sincronización del estado de procesos de larga duración entre ambos subsistemas. Debido a que las tareas de ensamblaje y anotación pueden prolongarse varios minutos o incluso horas, no es adecuado mantener conexiones HTTP persistentes entre ambos sistemas. Para abordar este problema se implementó un mecanismo de monitorización basado en polling periódico desde los workers del sistema web.
 
-Una vez dada la orden de iniciar una tarea bioinformática, se almacena el identificador del proceso remoto en la base datos del sistema web. A partir de ese momento, un worker consulta periódicamente el estado del proceso mediante llamadas HTTP a la API bioinformática. Un ejemplo simplificado del mecanismo de polling implementado se muestra en @cod:polling.py.
+Una vez dada la orden de iniciar una tarea bioinformática, se almacena el identificador del proceso remoto en la base de datos del sistema web. A partir de ese momento, un worker consulta periódicamente el estado del proceso mediante llamadas HTTP a la API bioinformática. Un ejemplo simplificado del mecanismo de polling implementado se muestra en @cod:polling.py.
 
 #figure(
   placement: auto,
@@ -478,7 +477,7 @@ Para facilitar la extensibilidad del sistema, se implementó un mecanismo de reg
   caption: "Registro de parsers",
 )<cod:parser_registry.py>
 
-Cada parser se registra utilizando un identificador único que posteriormente permite su resolución dinámica dentro del flujo de generación de features. Un ejemplo simplificado de implementación de parser se muestra en @cod:parser_decorator.py.
+Cada parser se registra utilizando un identificador único que posteriormente permite su resolución dinámica dentro del flujo de generación de features. Un ejemplo simplificado de implementación de un parser se muestra en @cod:parser_decorator.py.
 
 #figure(
   placement: auto,
@@ -514,8 +513,8 @@ Este sprint se desarrolló entre el 10 de febrero y el 3 de marzo de 2026 y tuvo
 
 - Integrar modelos de machine learning dentro del sistema web.
 - Diseñar una primera interfaz para la ejecución de predicciones.
-- Implementar utilidades para la transformación de las acracterístcas almacenadas en base de datos al formato requerido por los modelos.
-- Validar el flujo completo desde anotación hasta obtención de predicciones.
+- Implementar utilidades para la transformación de las características almacenadas en base de datos al formato requerido por los modelos.
+- Validar el flujo completo desde la anotación hasta la obtención de predicciones.
 
 
 === Detalles de implementación
@@ -555,7 +554,7 @@ Se implementó el método `load()` (@cod:bakta_50_load.py), encargado de cargar 
   caption: "Definición del método de carga para el modelo base_bakta_50",
 )<cod:bakta_50_load.py>
 
-La carga hace utilizando archivos `.pt` de `PyTorch`, almacenados organizadamente por modelo y antibiótico. Durante este proceso también se inicializan las features utilizadas durante la predicción.
+La carga se hace utilizando archivos `.pt` de `PyTorch`, almacenados organizadamente por modelo y antibiótico. Durante este proceso también se inicializan las features utilizadas durante la predicción.
 
 ===== Ejecución de predicciones
 
@@ -567,7 +566,7 @@ Finalmente, se definió un método `predict()` (@cod:bakta_50_predict.py) encarg
   caption: "Definición del método de predicción para el modelo base_bakta_50",
 )<cod:bakta_50_predict.py>
 
-Durante la predicción se generan automáticamente los vectores binarios de presencia y ausencia requeridos por el modelo, utilizando las utilidades de transformación desarrolladas en este sprint. El resultado devuelto consiste en un valor númerico que representa la probabilidad de resistencia frente a un antibiótico concreto.
+Durante la predicción se generan automáticamente los vectores binarios de presencia y ausencia requeridos por el modelo, utilizando las utilidades de transformación desarrolladas en este sprint. El resultado devuelto consiste en un valor numérico que representa la probabilidad de resistencia frente a un antibiótico concreto.
 
 ==== Utilidades de transformación de features
 
@@ -585,7 +584,7 @@ Muchos de los modelos estudiados utilizan vectores binarios indicando la presenc
   caption: "Generación de vectores binarios de presencia y ausencia",
 )<cod:model_utils_presence.py>
 
-La función recibe la lista de genes esperados por el modelo y una muestra almacenada en el sistema (FileUpload), devolviendo un vector binario normalizado donde cada posición representa la presencia (1) o ausencia (0) del gen correspondiente. Esto permite desacoplar la lógica de cosulta de base de datos del código específico de cada modelo.
+La función recibe la lista de genes esperados por el modelo y una muestra almacenada en el sistema (FileUpload), devolviendo un vector binario normalizado donde cada posición representa la presencia (1) o ausencia (0) del gen correspondiente. Esto permite desacoplar la lógica de consulta de base de datos del código específico de cada modelo.
 
 ===== Lectura de configuraciones serializadas
 
@@ -606,10 +605,10 @@ Finalmente, se implementó get_model_weights_path(antibiotic, model_name) (@cod:
   caption: "Función de carga de archivos de pesos para modelos de torch",
 )<cod:model_utils_weights.py>
 
-Esta utilidad evita rutas codificadas manualmente dentro de cada implementación y facilita la organización modeluar de los modelos y sus pesos asociados.
+Esta utilidad evita rutas codificadas manualmente dentro de cada implementación y facilita la organización modular de los modelos y sus pesos asociados.
 
 === Resultados
-Durante este sprint se implementóla primera versión funcional del módulo de predicción de resistencia a antibióticos. Se integraron modelos reales de machine learning, se desarrollaron utilidades para transformar automáticamente las características generadas por el pipeline bioinformático y se validó el flujo completo desde la anotación hasta la obtención de predicciones.
+Durante este sprint se implementó la primera versión funcional del módulo de predicción de resistencia a antibióticos. Se integraron modelos reales de machine learning, se desarrollaron utilidades para transformar automáticamente las características generadas por el pipeline bioinformático y se validó el flujo completo desde la anotación hasta la obtención de predicciones.
 
 Además, este sprint permitió confirmar necesidades arquitectónicas relacionadas con extensibilidad y mantenibilidad que motivaron el desarrollo posterior de una arquitectura modular específica para modelos de predicción, como se consideró inicialmente en la fase de diseño del sistema.
 
@@ -721,7 +720,7 @@ Además de la predicción individual, se implementó `get_prediction_matrix()` (
   caption: "Función de predicción para múltiples antibióticos",
 )<cod:model_matrix.py>
 
-El método `get_prediction_matrix(models, antibiotics, file_upload)` recibe una lista de modelos, una lista de antibióticos y un archivo de subida asociado a un proceso de anotación, y devuelve una matriz de predicciones con la probabilidad de resistencia a cada antibiótico para cada modelo. La función itera sobre cada combinación de modelo y antibiótico, llamando a la función `get_prediction` para obtener la predicción correspondiente y almacenándola en una estructura de diccionario anidado que se devuelve al finalizar el proceso. Preparando los resultados para su visuaización según el mockup planteado durante el diseño del sistema en la @fig:mock_prediccion.
+El método `get_prediction_matrix(models, antibiotics, file_upload)` recibe una lista de modelos, una lista de antibióticos y un archivo de subida asociado a un proceso de anotación, y devuelve una matriz de predicciones con la probabilidad de resistencia a cada antibiótico para cada modelo. La función itera sobre cada combinación de modelo y antibiótico, llamando a la función `get_prediction` para obtener la predicción correspondiente y almacenándola en una estructura de diccionario anidado que se devuelve al finalizar el proceso. Preparando los resultados para su visualización según el mockup planteado durante el diseño del sistema en la @fig:mock_prediccion.
 
 === Resultados
 Durante este sprint se consolidó la arquitectura modular del sistema de predicción, definiendo una infraestructura extensible para la integración de nuevos modelos de predicción. La combinación de patrones _Adapter_, _Registry_ y _Strategy_ permitió desacoplar completamente la lógica de selección, carga y ejecución de modelos, facilitando su reutilización y evolución futura.
@@ -826,13 +825,13 @@ Este sprint se desarrolló entre el 17 de marzo y el 14 de abril de 2026 y tuvo 
 === Detalles de implementación
 
 ==== Desarrollo de la interfaz web
-A partir del diseño definido en la fase de arquitectura del sistema, se implementó una estructura de templates basada en _Django Templates_, organizada en torno a una plantilla base común (`base.html`). Esta plantilla incluye la estructura general de la aplicación, la barra de navegación, el footer, los estilos compartidos y la integración del sistema de mensajes de Django. El resto de plantillas herdan de esta plantilla base, permitiendo reutilizar componentes comunes y mantener una apariencia homogénea en toda la aplicación.
+A partir del diseño definido en la fase de arquitectura del sistema, se implementó una estructura de templates basada en _Django Templates_, organizada en torno a una plantilla base común (`base.html`). Esta plantilla incluye la estructura general de la aplicación, la barra de navegación, el footer, los estilos compartidos y la integración del sistema de mensajes de Django. El resto de plantillas heredan de esta plantilla base, permitiendo reutilizar componentes comunes y mantener una apariencia homogénea en toda la aplicación.
 
 Los templates se organizaron siguiendo una estructura modular, separando las distintas áreas funcionales del sistema en directorios específicos (`templates/conversion/`, `templates/prediction/` y `templates/notifications/`). Esta organización permite mantener una separación clara entre las distintas funcionalidades del sistema.
 
 También se trabajó en la definición de una identidad visual coherente para toda la aplicación, manteniendo una paleta de colores uniforme y adaptando las vistas a distintos tamaños de pantalla mediante diseño responsive.Esto permitió mejorar la experiencia de usuario y facilitar el uso de la aplicación desde diferentes dispositivos.
 
-La interfaz se desarrolló por completo en inglés debido al carácter internacional del ámbito del proyecto. Además, gran parte de la terminología técnica utilizada en análisis genómico y modelos predictivos se emplea habitualmente en inglés, por lo que se consideró que mantener la interfaz en este idioma facilitaría su comprensión y uso por parte de investigadores y profesionales del ámbito bioinformático a nivel global.
+La interfaz se desarrolló por completo en inglés debido al carácter internacional del ámbito del proyecto. Además, gran parte de la terminología técnica utilizada en análisis genómico y modelos predictivos se emplea habitualmente en inglés, por lo que se consideró que mantener la interfaz en este idioma facilita su comprensión y uso por parte de investigadores y profesionales del ámbito bioinformático a nivel global.
 
 Adicionalmente, se diseñó una barra de navegación común que permite acceder desde cualquier vista a las principales funcionalidades del sistema: ensamblaje, anotación, seguimiento de procesos, predicción y notificaciones, así como un acceso directo a la página de inicio (@fig:navbar).
 
@@ -913,7 +912,7 @@ Cada proceso muestra información relacionada con:
 - Fecha de última actualización.
 - Resultados generados.
 
-Se utilizaron badges y otros indicadores visuales como el color para reprentar estados como `pending`, `running`, `completed` o `failed`, permitiendo identificar rápidamente la situación de cada proceso.
+Se utilizaron badges y otros indicadores visuales como el color para representar estados como `pending`, `running`, `completed` o `failed`, permitiendo identificar rápidamente la situación de cada proceso.
 
 Adicionalmente, desde esta pantalla el usuario puede acceder a una vista detallada de cada proceso (@fig:tasks_view_details), donde se muestran las distintas etapas ejecutadas, los archivos generados y las opciones de descarga disponibles. También se incorporó la posibilidad de asignar nombres personalizados a los procesos para facilitar su identificación posterior.
 
@@ -924,11 +923,11 @@ Adicionalmente, desde esta pantalla el usuario puede acceder a una vista detalla
 )<fig:tasks_view_details>
 
 ==== Sistema de notificaciones
-Finalmente, se implementó el un sistema completo de notificaciones, dentro del módulo `notifications`, permitiendo informar al usuario sobre el estado y evolución de sus procesos bioinformáticos.
+Finalmente, se implementó un sistema completo de notificaciones, dentro del módulo `notifications`, permitiendo informar al usuario sobre el estado y evolución de sus procesos bioinformáticos.
 
 Las notificaciones se generan automáticamente desde los workers y procesos de monitorización asociados al flujo asíncrono del sistema. Cada notificación se persiste en la base de datos y queda asociada al usuario correspondiente.
 
-Desde la interfaz, las notificaciones se muestran mediante un icono de campana integrado en la barra de navegación, acompañado de un contador de notificaciones sin leer. Al acceder a la vista de historial (@fig:notification_history), el usuario puede consultar todas sus notificaciones organizadas cronológicamente y filtrarlas según su estado. adicionalmente, las notificaciones presentan distintos estilos visuales según su contenido para su fácil identificación y rápida comprensión.
+Desde la interfaz, las notificaciones se muestran mediante un icono de campana integrado en la barra de navegación, acompañado de un contador de notificaciones sin leer. Al acceder a la vista de historial (@fig:notification_history), el usuario puede consultar todas sus notificaciones organizadas cronológicamente y filtrarlas según su estado. Adicionalmente, las notificaciones presentan distintos estilos visuales según su contenido para su fácil identificación y rápida comprensión.
 
 #figure(
   placement: auto,
@@ -959,7 +958,7 @@ Adicionalmente, se incorporó soporte para notificaciones por correo electrónic
   caption: "Vista de configuración de notificaciones",
 )<fig:notification_settings>
 
-La integración entre el sistema de notificaciones y el flujo de los procesos genómicos, se implementó directamente dentro de als tareas de _Celery_. Son los propios workers los encargados de actualizar el estado de las tareas y generar las notificaciones correspondientes, garantizando que la información mostrada al usuario permanezca sincronizada con el estado real de ejecución.
+La integración entre el sistema de notificaciones y el flujo de los procesos genómicos, se implementó directamente dentro de las tareas de _Celery_. Son los propios workers los encargados de actualizar el estado de las tareas y generar las notificaciones correspondientes, garantizando que la información mostrada al usuario permanezca sincronizada con el estado real de ejecución.
 
 === Resultados
 Durante este sprint se implementó la interfaz de usuario completa del sistema, integrando todas las funcionalidades desarrolladas en fases anteriores dentro de una aplicación web coherente y funcional. Asimismo, se desarrolló un sistema de seguimiento y notificaciones que permite monitorizar el estado de los procesos bioinformáticos de forma centralizada y transparente para el usuario.
@@ -1027,7 +1026,7 @@ Una vez más, para facilitar estas pruebas se utilizaron llamadas simuladas (moc
 
 ==== Corrección de errores y ajustes finales
 
-Durante las pruebas se identificaron y corrigieron varios problemas. Entre los principales ajustos realizados destacan:
+Durante las pruebas se identificaron y corrigieron varios problemas. Entre los principales ajustes realizados destacan:
 
 - *Gestión de archivos temporales*: Se detectó que en algunos flujos los archivos FASTQ temporales no se eliminaban correctamente. Se revisó la lógica de limpieza en los workers de _Celery_ y se implementaron mecanismos adicionales para asegurar su eliminación incluso en casos de error.
 
@@ -1067,7 +1066,7 @@ También se revisó la organización interna del código fuente y la nomenclatur
 Una vez integradas todas las funcionalidades principales, se realizaron distintos ajustes finales orientados a mejorar la experiencia de usuario, la estabilidad del sistema y la robustez de los flujos asíncronos implementados. Entre los principales destacan:
 
 - *Refinamiento de interfaz*: se revisaron estilos, componentes visuales y distribución de elementos para mejorar la consistencia visual y la adaptación a distintos tamaños de pantalla.
-- *Mensajes de usuario*: Se mejoró la claridad y especificidad de mensajes de error y confirmación en las vistas.
+- *Mensajes de usuario*: Se mejoró la claridad y especificidad de los mensajes de error y confirmación en las vistas.
 - *Configuración de timeouts*: Se ajustaron los timeouts en el polling de sincronización entre subsistemas para operaciones largas.
 - *Adición de nuevos middlewares de seguridad*: Se añadieron configuraciones y middlewares de seguridad proporcionados por Django para reforzar la protección frente a ataques comunes y mejorar la preparación del sistema para producción.
 - *Mensajes de notificaciones*: Se definieron mensajes de notificación más específicos y detallados para cada tipo de evento, mejorando la información proporcionada al usuario sobre el estado de sus procesos.
