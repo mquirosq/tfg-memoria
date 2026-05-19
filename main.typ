@@ -14,9 +14,13 @@
   convocatoria: "Convocatoria de junio, curso 2025/26",
   dedicatoria: "A mí, por haber llegado hasta aquí y por todo lo que queda por venir.",
   agradecimientos: [
-    Quiero agradecer a X por...
+    Quiero agradecer a mi familia por estar ahí siempre y apoyarme en cada paso de este camino, por su paciencia y por escucharme incluso cuando probablemente no entendían demasiado de lo que estaba hablando. Y especialmente a mi hermano, por aportar su creatividad diseñando el logo del proyecto.
 
-    También quiero agradecer a Y por...
+    A mis amigos, por acompañarme durante esta etapa, por entender mis momentos de estrés y bloqueo, y por recordarme la importancia de descansar y desconectar de vez en cuando. Gracias por estar presentes tanto en los días buenos como en los complicados, y por hacer este camino mucho más llevadero de lo que habría sido sin vosotros.
+
+    También quiero agradecer a mis tutores, Dani y Fernando, por estar siempre dispuestos a ayudar y empujarme a dar lo mejor de mí, y al grupo DEAL por hacerme sentir parte del equipo desde el primer momento y por el ambiente de aprendizaje y apoyo durante estos años. Especialmente, por haberme brindado la oportunidad de trabajar en un proyecto de investigación real y aprender de profesionales de ámbitos tan distintos como la ingeniería del software y la microbiología.
+
+    Este trabajo representa el final de una etapa, pero también el comienzo de todo lo que está por venir.
   ],
   resumen: [
     La resistencia a los antibióticos constituye uno de los principales desafíos actuales para la salud pública mundial, impulsando la búsqueda de nuevas estrategias que permitan acelerar y mejorar los procesos de diagnóstico y facilitar la toma de decisiones clínicas. En este contexto, la secuenciación genómica y los modelos de predicción basados en aprendizaje automático han emergido como herramientas prometedoras para inferir la resistencia antimicrobiana a partir de datos genéticos.
